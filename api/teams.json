@@ -1,0 +1,237 @@
+{
+  "updatedAt": "2026-09-11",
+  "data": {
+    "teams": [
+      {
+        "id": "n1",
+        "name": "Nationale 1",
+        "shortName": "N1",
+        "level": "national",
+        "discipline": "hockey",
+        "audience": "adultes",
+        "schedule": "Mar / Jeu 21h15–22h45",
+        "price": "245 €",
+        "description": "Équipe fanion masculine du club, engagée en championnat de Nationale 1.",
+        "externalResultsUrl": "https://rolskanet.fr/sportif/synthese/rencontres/LH",
+        "coaches": [
+          "Romain"
+        ]
+      },
+      {
+        "id": "n2",
+        "name": "Nationale 2 (regroupement)",
+        "shortName": "N2",
+        "level": "national",
+        "discipline": "hockey",
+        "audience": "adultes",
+        "schedule": "Lun 21h30–22h45 / Jeu 20h–21h15",
+        "price": "245 €",
+        "description": "Équipe senior engagée en Nationale 2, en regroupement.",
+        "externalResultsUrl": "https://rolskanet.fr/sportif/synthese/rencontres/LH",
+        "coaches": [
+          "Loïc Dury"
+        ]
+      },
+      {
+        "id": "n3",
+        "name": "Nationale 3",
+        "shortName": "N3",
+        "level": "national",
+        "discipline": "hockey",
+        "audience": "adultes",
+        "schedule": "Mar 20h–21h15 / Ven 20h15–21h30",
+        "price": "245 €",
+        "description": "Équipe senior engagée en championnat de Nationale 3.",
+        "externalResultsUrl": "https://rolskanet.fr/sportif/synthese/rencontres/LH",
+        "coaches": [
+          "Jason"
+        ]
+      },
+      {
+        "id": "n4",
+        "name": "Nationale 4 — PréNat",
+        "shortName": "N4",
+        "level": "national",
+        "discipline": "hockey",
+        "audience": "adultes",
+        "schedule": "Mer / Ven 21h30–22h45",
+        "price": "245 €",
+        "description": "Équipe senior engagée en Nationale 4 (PréNationale).",
+        "externalResultsUrl": "https://rolskanet.fr/sportif/synthese/rencontres/LH",
+        "coaches": [
+          "Benjamin"
+        ]
+      },
+      {
+        "id": "feminines",
+        "name": "Nationale 1 Féminine",
+        "shortName": "N1 F",
+        "level": "feminin",
+        "discipline": "hockey",
+        "audience": "feminines",
+        "schedule": "Mar 20h–21h15 / Mer 20h15–21h30",
+        "price": "Inclus",
+        "description": "Section féminine du club, engagée en Nationale 1. Les créneaux du planning hebdomadaire la mentionnent également en « Hockey Filles ».",
+        "externalResultsUrl": "https://rolskanet.fr/sportif/synthese/rencontres/LH",
+        "coaches": [
+          "Léna Rault"
+        ]
+      },
+      {
+        "id": "u11",
+        "name": "École de hockey / U9-U11",
+        "shortName": "École / U9-U11",
+        "level": "ecole",
+        "discipline": "hockey",
+        "audience": "enfants",
+        "birthYears": "Débutants dès 2019 · U11 : 2016–2017",
+        "schedule": "Mer 14h–15h15 / Jeu 17h30–18h45",
+        "price": "235 €",
+        "description": "Apprentissage des bases techniques et du comportement collectif. Esprit club avant tout.",
+        "coaches": [
+          "Benjamin"
+        ]
+      },
+      {
+        "id": "u13",
+        "name": "U13",
+        "shortName": "U13",
+        "level": "jeunes",
+        "discipline": "hockey",
+        "audience": "enfants",
+        "birthYears": "2014–2015",
+        "schedule": "Lun 17h45–19h / Mer 15h15–16h30",
+        "price": "235 €",
+        "description": "Cohésion, jeu collectif, attitude positive sur et hors terrain.",
+        "coaches": [
+          "Benjamin"
+        ]
+      },
+      {
+        "id": "u15",
+        "name": "U15",
+        "shortName": "U15",
+        "level": "jeunes",
+        "discipline": "hockey",
+        "audience": "enfants",
+        "birthYears": "2012–2013",
+        "schedule": "Mer 16h30–17h45 / Ven 17h45–19h",
+        "price": "235 €",
+        "description": "Cohésion, jeu collectif, attitude positive sur et hors terrain.",
+        "coaches": [
+          "Benjamin"
+        ]
+      },
+      {
+        "id": "u17",
+        "name": "U17",
+        "shortName": "U17",
+        "level": "jeunes",
+        "discipline": "hockey",
+        "audience": "enfants",
+        "birthYears": "2010–2011",
+        "schedule": "Mer 17h45–19h / Ven 19h–20h15",
+        "price": "235 €",
+        "description": "Cohésion, jeu collectif, attitude positive sur et hors terrain.",
+        "coaches": [
+          "Jason"
+        ]
+      },
+      {
+        "id": "u20",
+        "name": "U20",
+        "shortName": "U20",
+        "level": "jeunes",
+        "discipline": "hockey",
+        "audience": "jeunes",
+        "birthYears": "2007 à 2009",
+        "schedule": "Mercredi 19h–20h15",
+        "price": "235 €",
+        "description": "Perfectionnement technique, systèmes de jeu élaborés.",
+        "coaches": [
+          "Jason"
+        ]
+      },
+      {
+        "id": "gardiens",
+        "name": "Gardiens / shooteurs",
+        "shortName": "Gardiens",
+        "level": "gardiens",
+        "discipline": "hockey",
+        "audience": "tous",
+        "schedule": "Mardi 18h45–20h",
+        "price": "Inclus",
+        "description": "Séance spécifique de maniement dédiée aux gardiens et aux shooteurs, jeunes et compétition — incluse pour les licenciés compétition."
+      },
+      {
+        "id": "loisir",
+        "name": "Adultes loisir",
+        "shortName": "Loisir",
+        "level": "loisir",
+        "discipline": "hockey",
+        "audience": "adultes",
+        "schedule": "Dim 17h45–19h (initiation) / 19h–20h30 (confirmés)",
+        "price": "210 €",
+        "description": "Hockey loisir adultes et U20. Créneau initiation puis créneau confirmés le dimanche soir — savoir patiner est requis pour l'initiation.",
+        "coaches": [
+          "Tonio"
+        ]
+      }
+    ],
+    "coaches": [
+      {
+        "id": "benjamin",
+        "name": "Benjamin",
+        "role": "U9/U11, U13, U15, PréNat (N4) et créneaux Aérockey."
+      },
+      {
+        "id": "jason",
+        "name": "Jason",
+        "role": "U17, U20 et Nationale 3."
+      },
+      {
+        "id": "romain",
+        "name": "Romain",
+        "role": "Nationale 1."
+      },
+      {
+        "id": "tonio",
+        "name": "Tonio",
+        "role": "Adultes loisir."
+      },
+      {
+        "id": "coach-n2",
+        "name": "Loïc Dury",
+        "role": "Nationale 2."
+      },
+      {
+        "id": "coach-feminines",
+        "name": "Léna Rault",
+        "role": "Nationale 1 Féminine."
+      },
+      {
+        "id": "coach-gardiens",
+        "name": "Julien Leclerc",
+        "role": "Coach des gardiens."
+      }
+    ],
+    "philosophy": [
+      {
+        "title": "U9–U11",
+        "text": "Bases techniques et comportement collectif. Esprit club."
+      },
+      {
+        "title": "U13–U17",
+        "text": "Cohésion, jeu collectif, attitude positive sur et hors terrain."
+      },
+      {
+        "title": "U20",
+        "text": "Perfectionnement technique, systèmes de jeu élaborés."
+      },
+      {
+        "title": "Seniors",
+        "text": "Quatre équipes en championnats nationaux + section féminine N1."
+      }
+    ]
+  }
+}

@@ -1,0 +1,78 @@
+{
+  "updatedAt": "2026-08-25",
+  "data": {
+    "season": "2026–2027",
+    "intro": "Les inscriptions pour la rentrée 2026–2027 sont ouvertes ! Jusqu'à 3 cours d'essai possibles avant de vous engager.",
+    "rule": "L'inscription n'est validée qu'avec un dossier complet accompagné du paiement (dossiers papier uniquement).",
+    "openDoors": [
+      {
+        "label": "Date à confirmer",
+        "detail": "Forum des associations, place de la République"
+      },
+      {
+        "label": "Date à confirmer",
+        "detail": "Portes ouvertes + disco roller de rentrée, Espace Roller"
+      },
+      {
+        "label": "Reprise des cours",
+        "detail": "Septembre 2026, date à confirmer"
+      }
+    ],
+    "howToRegister": [
+      "Envoyer le dossier à : Association Roller Bug, 29 rue William Chaumet, 33160 Saint-Médard-en-Jalles (Stade Robert Monseau)",
+      "Ou déposer dans la boîte aux lettres du club (à toute heure)",
+      "Ou lors des portes ouvertes / forum des associations",
+      "Pas de cours pendant les vacances scolaires (loisirs et jeunes compétiteurs)",
+      "10 % de réduction à partir de la 3ᵉ inscription famille",
+      "PASS SPORT (aide de l'État) accepté",
+      "Dispositif ACCES + pour les familles de St-Médard",
+      "Matériel de hockey disponible à la boutique du club"
+    ],
+    "fees": [
+      {
+        "label": "Roller hockey — école & jeunes",
+        "price": "235 € / saison"
+      },
+      {
+        "label": "Roller hockey — compétition seniors",
+        "price": "245 € / saison"
+      },
+      {
+        "label": "Hockey adultes loisir",
+        "price": "210 € / saison"
+      },
+      {
+        "label": "École de patinage",
+        "price": "Inclus / adhésion"
+      },
+      {
+        "label": "Activité supplémentaire",
+        "price": "90 € / an",
+        "note": "Les cours compétition restent toujours des cours principaux."
+      },
+      {
+        "label": "Freestyle, skate, street, rando",
+        "price": "Nous contacter"
+      }
+    ],
+    "documents": [
+      {
+        "id": "dossier-adultes",
+        "title": "Dossier d'inscription — adultes",
+        "description": "Formulaire officiel à imprimer, compléter et déposer au club.",
+        "url": "dossier-inscriptions/dossier-inscription-adultes.pdf",
+        "type": "pdf",
+        "file": "dossier-inscription-adultes.pdf"
+      },
+      {
+        "id": "dossier-enfants",
+        "title": "Dossier d'inscription — enfants",
+        "description": "Formulaire officiel à imprimer, compléter et déposer au club.",
+        "url": "dossier-inscriptions/dossier-inscription-enfants.pdf",
+        "type": "pdf",
+        "file": "dossier-inscription-enfants.pdf"
+      }
+    ],
+    "onlineRegistrationUrl": null
+  }
+}

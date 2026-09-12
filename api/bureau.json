@@ -1,0 +1,35 @@
+{
+  "updatedAt": "2026-09-11",
+  "data": [
+    {
+      "id": "getten-neaud-christel",
+      "name": "Christel Getten-Neaud",
+      "role": "Présidente."
+    },
+    {
+      "id": "dumont-christophe",
+      "name": "Christophe Dumont",
+      "role": "Trésorier."
+    },
+    {
+      "id": "houlbert-stephanie",
+      "name": "Stéphanie Houlbert",
+      "role": "Secrétaire."
+    },
+    {
+      "id": "vantours-corinne",
+      "name": "Corinne Vantours",
+      "role": "Trésorière adjointe."
+    },
+    {
+      "id": "nguyen-truong",
+      "name": "Truong Nguyen",
+      "role": "Responsable boutique — Responsable sportif."
+    },
+    {
+      "id": "taisant-daran-matthieu",
+      "name": "Matthieu Taisant-Daran",
+      "role": "Responsable événementiel et bénévolat."
+    }
+  ]
+}

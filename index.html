@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Roller Bug — Roller Hockey, Freestyle, Patinage — Saint-Médard-en-Jalles</title>
+<meta name="description" content="Club de roller de Saint-Médard-en-Jalles. Hockey, freestyle, patinage loisir et compétition. ~400 licenciés depuis 1997. Stade Robert Monseau.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<script>
+  /* Deux niveaux, posés avant le premier rendu :
+       .js          -> JavaScript actif : les fondus d'apparition peuvent jouer.
+       .motion-full -> le visiteur accepte le mouvement : on ajoute déplacements,
+                       parallaxe, inclinaison des cartes, balayages en boucle.
+     Sans JS, aucune des deux : la page s'affiche entière, rien n'est masqué. */
+  (function(){
+    var root = document.documentElement;
+    root.classList.add('js');
+    if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+      root.classList.add('motion-full');
+    }
+  })();
+</script>
+</head>
+<body>
+
+<!-- Écran d'accueil. Masqué par défaut : n'apparaît que si les animations
+     sont autorisées (voir la classe .js posée dans le <head>). -->
+<div class="intro" id="intro" aria-hidden="true">
+  <div class="intro-inner">
+    <img class="intro-logo" src="images/logo.webp" alt="">
+    <div class="intro-bar"><span></span></div>
+  </div>
+</div>
+
+<!-- Rideau de transition entre sections -->
+<div class="page-wipe" id="pageWipe" aria-hidden="true">
+  <img class="page-wipe-logo" src="images/logo.webp" alt="">
+</div>
+
+<canvas id="stars"></canvas>
+<img class="logo-bg" src="images/logo.webp" alt="">
+
+<div class="content">
+
+  <header>
+    <!-- href="" pointe sur la page courante : même sans JavaScript, le clic
+         recharge. Le nom du fichier n'est pas écrit en dur, donc renommer
+         la page (index.html sur l'hébergement) ne casse rien. -->
+    <a class="brand" href="" id="brandHome" title="Recharger la page">
+      <img src="images/logo.webp" alt="">
+      ROLLERBUG
+    </a>
+    <nav id="mainNav">
+      <ul>
+        <li><a href="#actualites">Actus</a></li>
+        <li><a href="#evenements">Événements</a></li>
+        <li><a href="#club">Le club</a></li>
+        <li><a href="#disciplines">Disciplines</a></li>
+        <li><a href="#calendrier">Planning</a></li>
+        <li><a href="#hockey">Hockey</a></li>
+        <li><a href="#bureau">Bureau</a></li>
+        <li><a href="#inscriptions">Inscriptions</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <button class="account-btn" id="accountBtn" aria-label="Se connecter" title="Mon compte"
+            aria-haspopup="dialog"></button>
+    <button class="nav-toggle" id="navToggle" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="mainNav">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <!-- Barre de suivi verticale — progression de lecture + accès rapide aux sections -->
+  <div class="progress-rail">
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="progress-dots">
+      <button class="progress-dot" data-target="actualites" aria-label="Actualités"></button>
+      <button class="progress-dot" data-target="evenements" aria-label="Événements"></button>
+      <button class="progress-dot" data-target="club" aria-label="Le Club"></button>
+      <button class="progress-dot" data-target="disciplines" aria-label="Disciplines"></button>
+      <button class="progress-dot" data-target="calendrier" aria-label="Planning"></button>
+      <button class="progress-dot" data-target="hockey" aria-label="Hockey"></button>
+      <button class="progress-dot" data-target="inscriptions" aria-label="Inscriptions"></button>
+      <button class="progress-dot" data-target="bureau" aria-label="Le Bureau"></button>
+      <button class="progress-dot" data-target="contact" aria-label="Contact"></button>
+    </div>
+  </div>
+
+  <section class="hero">
+    <div class="eyebrow">Saint-Médard-en-Jalles — Stade Robert Monseau</div>
+    <img class="hero-logo" src="images/logo.webp" alt="Logo Roller Bug">
+    <h1 class="title">ROLLER BUG</h1>
+    <p class="tagline">Depuis 1997, le Roller Bug rassemble passionné·e·s de <strong>roller hockey, freestyle et patinage</strong> à Saint-Médard-en-Jalles. Un club familial de près de <strong>400 licenciés</strong>, du baby roller (3 ans) aux équipes nationales.</p>
+    <div class="cta-row">
+      <a href="#inscriptions" class="btn btn-primary">S'inscrire 2026–2027</a>
+      <a href="#club" class="btn btn-ghost">Découvrir le club</a>
+    </div>
+    <div class="hero-stats glass" id="heroStats">
+      <div class="hstat"><div class="num" data-count="400" data-prefix="~">~400</div><div class="label">Licenciés</div></div>
+      <div class="hstat"><div class="num" data-count="1997" data-from="1980">1997</div><div class="label">Fondation du club</div></div>
+      <div class="hstat"><div class="num" data-count="7">7</div><div class="label">Disciplines</div></div>
+      <div class="hstat"><div class="num" data-count="8">8</div><div class="label">Équipes compétition hockey</div></div>
+    </div>
+    <div class="scroll-cue"><span>DÉFILER</span><div class="line"></div></div>
+  </section>
+
+  <div class="ticker-wrap">
+    <div class="ticker">
+      <span class="gold">★ ROLLER HOCKEY</span><span>SAINT-MÉDARD-EN-JALLES</span><span class="gold">★ ROLLER BUG</span><span>PASSION &amp; VITESSE</span><span class="gold">★ ESPRIT D'ÉQUIPE</span><span>FREESTYLE &amp; COMPÉTITION</span><span class="gold">★ ~400 LICENCIÉS</span>
+      <span class="gold">★ ROLLER HOCKEY</span><span>SAINT-MÉDARD-EN-JALLES</span><span class="gold">★ ROLLER BUG</span><span>PASSION &amp; VITESSE</span><span class="gold">★ ESPRIT D'ÉQUIPE</span><span>FREESTYLE &amp; COMPÉTITION</span><span class="gold">★ ~400 LICENCIÉS</span>
+    </div>
+  </div>
+
+  <section id="actualites">
+    <div class="section-tag">Suivez-nous</div>
+    <h2 class="section-title">Actualités & Instagram.</h2>
+    <p class="section-lead">Les derniers événements du club, tirés directement de notre compte <strong>@rollerbug_stmedard</strong> — portes ouvertes, matchs, stages, disco-rollers.</p>
+
+    <!-- Bandeau d'actualités — rendez-vous récurrents du club.
+         Les dates sont à mettre à jour à chaque saison. -->
+    <div class="news-band" id="newsBand">
+      <a class="news-item" href="#inscriptions">
+        <div class="news-date">Ven. 05 sept.</div>
+        <div class="news-title">Forum des associations</div>
+        <div class="news-place">Place de la République · 17h30–21h30</div>
+      </a>
+      <a class="news-item" href="#inscriptions">
+        <div class="news-date">Sam. 06 sept.</div>
+        <div class="news-title">Portes ouvertes</div>
+        <div class="news-place">Espace Roller · 10h–17h</div>
+      </a>
+      <a class="news-item" href="#club">
+        <div class="news-date">Toute la saison</div>
+        <div class="news-title">Disco roller</div>
+        <div class="news-place">Espace Roller · soirées club</div>
+      </a>
+      <a class="news-item" href="https://rolskanet.fr/sportif/synthese/rencontres/LH" target="_blank" rel="noopener">
+        <div class="news-date">Voir le calendrier</div>
+        <div class="news-title">Match à domicile</div>
+        <div class="news-place">Stade Robert Monseau · N1 à N4</div>
+      </a>
+      <a class="news-item" href="#club">
+        <div class="news-date">Date à confirmer</div>
+        <div class="news-title">Fête du sport</div>
+        <div class="news-place">Saint-Médard-en-Jalles</div>
+      </a>
+    </div>
+
+    <!-- Flux Instagram automatique — Elfsight (connecté à @rollerbug_stmedard) -->
+    <div class="insta-embed glass" id="instagram-embed">
+      <script src="https://elfsightcdn.com/platform.js" async></script>
+      <div class="elfsight-app-a2776653-e12e-4fab-a8c2-1f52c875e0aa" data-elfsight-app-lazy></div>
+    </div>
+
+    <div class="cta-row" style="margin-top:32px; justify-content:flex-start;">
+      <a href="https://www.instagram.com/rollerbug_stmedard/" target="_blank" rel="noopener" class="btn btn-primary">Voir sur Instagram</a>
+    </div>
+  </section>
+
+  <!-- Événements & animations — disco rollers, stages de vacances, rendez-vous du club.
+       Source : api/events.json (le bloc ci-dessous n'est qu'un repli statique). -->
+  <section id="evenements">
+    <div class="section-tag">Hors des créneaux</div>
+    <h2 class="section-title">Événements &amp; stages.</h2>
+    <p class="section-lead">Le club ne s'arrête pas aux entraînements : soirées disco roller toute l'année et stages encadrés à chaque vacances scolaires. Les dates sont annoncées sur nos réseaux et à l'accueil de l'Espace Roller.</p>
+    <div class="disc-grid" id="eventsGrid">
+      <div class="disc-card glass">
+        <div class="disc-ico">🪩</div>
+        <h3>Disco roller</h3>
+        <p>Soirées musique et lumières sur patins, ouvertes à tous — licenciés, familles et curieux. Encadrées par les bénévoles du club. Les dates de chaque soirée sont annoncées sur Instagram et Facebook.</p>
+        <div class="disc-tarif">Plusieurs soirées par saison</div>
+      </div>
+      <div class="disc-card glass">
+        <div class="disc-ico">🎒</div>
+        <h3>Stages vacances</h3>
+        <p>Stages encadrés pendant les vacances scolaires : patinage, hockey et freestyle, sur plusieurs jours. Ouverts aux licenciés comme aux non-licenciés. Programme, tarifs et inscriptions annoncés avant chaque période.</p>
+        <div class="disc-tarif">À chaque vacances scolaires</div>
+      </div>
+      <div class="disc-card glass">
+        <div class="disc-ico">📋</div>
+        <h3>Forum des associations</h3>
+        <p>Stand du club : renseignements et dépôt des dossiers d'inscription 2026–2027.</p>
+        <div class="disc-tarif">Date à confirmer</div>
+      </div>
+      <div class="disc-card glass">
+        <div class="disc-ico">🚪</div>
+        <h3>Portes ouvertes + disco roller de rentrée</h3>
+        <p>Essai des disciplines, rencontre des moniteurs, dépôt des dossiers — la journée se termine par le disco roller de rentrée.</p>
+        <div class="disc-tarif">Date à confirmer</div>
+      </div>
+      <div class="disc-card glass">
+        <div class="disc-ico">🎉</div>
+        <h3>Fête du sport</h3>
+        <p>Le club participe chaque année à la fête du sport de la ville, avec démonstrations et initiations.</p>
+        <div class="disc-tarif">Date à confirmer</div>
+      </div>
+      <div class="disc-card glass">
+        <div class="disc-ico">🗓️</div>
+        <h3>Reprise des cours</h3>
+        <p>Reprise de tous les créneaux de la saison 2026–2027.</p>
+        <div class="disc-tarif">Septembre 2026, date à confirmer</div>
+      </div>
+    </div>
+    <div class="cta-row" style="margin-top:32px; justify-content:flex-start;">
+      <a href="https://www.instagram.com/rollerbug_stmedard/" target="_blank" rel="noopener" class="btn btn-primary">Voir les dates sur Instagram</a>
+      <a href="#contact" class="btn btn-ghost">Se renseigner</a>
+    </div>
+  </section>
+
+  <section id="club">
+    <div class="section-tag">Le club</div>
+    <h2 class="section-title">Notre histoire.</h2>
+    <div class="about-grid">
+      <div class="about-text" id="clubHistory">
+        <p><strong>Roller Bug</strong> est basé à Saint-Médard-en-Jalles, au cœur du stade Robert Monseau. Après la fermeture de la patinoire en mai 1992, la ville utilisa la salle comme espace de stockage jusqu'en mars 1997. C'est durant cette année qu'un petit groupe de passionnés créa le club.</p>
+        <p>La première affiliation à la Fédération de roller eut lieu pour la saison 1997–1998. Le premier président, à l'origine de la création, fut <strong>Patrick Phan</strong>.</p>
+        <p>Depuis ces débuts, le club a beaucoup grandi : de <strong>97 licenciés</strong> lors de la première année, nous atteignons aujourd'hui environ <strong>400 licenciés</strong>. En 2012, la salle fut entièrement rénovée pour accueillir une piste de 20 × 40 m avec un sol en sport court.</p>
+        <p>Environ <strong>150 enfants</strong> passent chaque année par nos écoles de patinage, tout comme une trentaine d'adultes. La section <strong>Baby Roller</strong> accueille dès l'âge de trois ans une vingtaine de petits patineurs.</p>
+      </div>
+      <div class="stat-grid" id="clubStats">
+        <div class="stat glass"><div class="num" data-count="400" data-prefix="~">~400</div><div class="label">Licenciés</div></div>
+        <div class="stat glass"><div class="num" data-count="1997" data-from="1980">1997</div><div class="label">Année de fondation</div></div>
+        <div class="stat glass"><div class="num" data-count="150" data-suffix="+">150+</div><div class="label">Enfants / école patinage</div></div>
+        <div class="stat glass"><div class="num">20×40m</div><div class="label">Piste (sport court)</div></div>
+      </div>
+    </div>
+
+    <div class="infra-row">
+      <div class="infra-card glass">
+        <h3>L'espace roller</h3>
+        <ul id="infraFacilities">
+          <li>Piste 20 × 40 m — sol sport court (dalles 30 × 30 cm)</li>
+          <li>4 vestiaires pour les pratiquants + douches</li>
+          <li>1 vestiaire arbitre / moniteurs</li>
+          <li>1 infirmerie</li>
+          <li>1 boutique (matériel hockey en vente)</li>
+          <li>1 buvette</li>
+          <li>3 locaux de rangement de matériel</li>
+        </ul>
+      </div>
+      <div class="infra-card glass">
+        <h3>Activités toute l'année</h3>
+        <ul id="infraActivities">
+          <li>Randonnées roller adultes</li>
+          <li>Disco-rollers</li>
+          <li>Stages enfants (5–10 ans) en vacances scolaires</li>
+          <li>Carnaval de St-Médard avec char roller</li>
+          <li>Forum des associations et fête du sport</li>
+          <li>Initiations écoles maternelles & centres de loisirs</li>
+          <li>Cap 33 chaque été · In Line Freestyle · Street</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="disciplines">
+    <div class="section-tag">Nos activités</div>
+    <h2 class="section-title">7 disciplines, tous les âges.</h2>
+    <p class="section-lead">Du baby roller à la compétition nationale, Roller Bug propose une offre complète pour tous les âges et tous les niveaux.</p>
+    <div class="disc-grid" id="discGrid">
+      <div class="disc-card glass">
+        <div class="disc-ico">🛼</div>
+        <h3>École de Patinage</h3>
+        <p>Baby Roller dès 3 ans, cours enfants et adultes. Apprentissage du patinage en ligne et des bases techniques. Environ 150 enfants par an.</p>
+        <div class="disc-tarif">Inclus / adhésion</div>
+      </div>
+      <div class="disc-card glass">
+        <div class="disc-ico">🏒</div>
+        <h3>Roller Hockey</h3>
+        <p>De l'école de hockey U11 aux équipes Nationale 1 seniors. 6 équipes compétitives, section féminine et gardiens.</p>
+        <div class="disc-tarif">235 € / saison</div>
+      </div>
+      <div class="disc-card glass">
+        <div class="disc-ico">🛹</div>
+        <h3>Roller Freestyle</h3>
+        <p>Slalom, figures et compétitions. Toutes catégories, de la section loisir à la compétition. Coachs diplômés.</p>
+        <div class="disc-tarif">Nous contacter</div>
+      </div>
+      <div class="disc-card glass">
+        <div class="disc-ico">🤸</div>
+        <h3>Skate Loisir</h3>
+        <p>Cours de skateboard en loisir. Initiation et progression dans une ambiance décontractée.</p>
+        <div class="disc-tarif">Nous contacter</div>
+      </div>
+      <div class="disc-card glass">
+        <div class="disc-ico">🌀</div>
+        <h3>In Line Freestyle</h3>
+        <p>Slalom et figures en roller en ligne. Technique, style et compétitions dédiées à cette discipline.</p>
+        <div class="disc-tarif">Nous contacter</div>
+      </div>
+      <div class="disc-card glass">
+        <div class="disc-ico">🧱</div>
+        <h3>Street</h3>
+        <p>Pratique du roller street : rampes, modules et figures en environnement urbain. Ambiance libre.</p>
+        <div class="disc-tarif">Nous contacter</div>
+      </div>
+      <div class="disc-card glass">
+        <div class="disc-ico">🧭</div>
+        <h3>Rando</h3>
+        <p>Randonnées roller adultes en extérieur. Sorties en groupe sur routes et pistes, à un rythme accessible. Ouvert aux patineurs autonomes.</p>
+        <div class="disc-tarif">Nous contacter</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Planning hebdomadaire.
+       Source : dossiers d'inscription officiels (page « Horaires et tarifs »
+       des PDF adultes et enfants). En cas de changement de créneau, c'est ici
+       ET dans la section #hockey qu'il faut répercuter. -->
+  <section id="calendrier">
+    <div class="section-tag">Planning hebdomadaire</div>
+    <h2 class="section-title">Horaires des entraînements.</h2>
+    <p class="section-lead">Tous les créneaux de la semaine, discipline par discipline. Utilisez les filtres pour n'afficher que ce qui vous concerne.</p>
+
+    <div class="cal-filters" role="group" aria-label="Filtrer par discipline">
+      <button class="cal-filter active" data-disc="all" aria-pressed="true">Toutes</button>
+      <button class="cal-filter" data-disc="patinage" aria-pressed="false">École de patinage</button>
+      <button class="cal-filter" data-disc="baby" aria-pressed="false">Baby roller</button>
+      <button class="cal-filter" data-disc="freestyle" aria-pressed="false">Roller freestyle</button>
+      <button class="cal-filter" data-disc="hockey" aria-pressed="false">Roller hockey</button>
+    </div>
+
+    <div class="cal-week" id="calWeek">
+      <div class="cal-day">
+        <h3 class="cal-day-name">Lundi</h3>
+        <div class="cal-slot" data-disc="hockey">
+          <div class="cal-time">12h20 – 13h20</div>
+          <div class="cal-cat">CE Hockey compétition — Aérockey</div>
+          <div class="cal-meta">Créneau scolaire</div>
+        </div>
+        <div class="cal-slot" data-disc="hockey">
+          <div class="cal-time">17h45 – 19h00</div>
+          <div class="cal-cat">Hockey U13</div>
+          <div class="cal-meta">Enfants · 2014–2015</div>
+        </div>
+        <div class="cal-slot" data-disc="freestyle">
+          <div class="cal-time">19h00 – 20h15</div>
+          <div class="cal-cat">Roller freestyle</div>
+          <div class="cal-meta">Enfants &amp; adultes</div>
+        </div>
+        <div class="cal-slot" data-disc="patinage">
+          <div class="cal-time">20h15 – 21h30</div>
+          <div class="cal-cat">École de patinage — niveaux 1-2-3</div>
+          <div class="cal-meta">Enfants &amp; adultes · tous niveaux</div>
+        </div>
+        <div class="cal-slot" data-disc="hockey">
+          <div class="cal-time">21h30 – 22h45</div>
+          <div class="cal-cat">Hockey Nationale 2</div>
+          <div class="cal-meta">Adultes · compétition</div>
+        </div>
+      </div>
+
+      <div class="cal-day">
+        <h3 class="cal-day-name">Mardi</h3>
+        <div class="cal-slot" data-disc="patinage">
+          <div class="cal-time">12h20 – 13h20</div>
+          <div class="cal-cat">CE École de patinage — Aérockey</div>
+          <div class="cal-meta">Créneau scolaire</div>
+        </div>
+        <div class="cal-slot" data-disc="baby">
+          <div class="cal-time">17h45 – 18h45</div>
+          <div class="cal-cat">Baby roller</div>
+          <div class="cal-meta">Enfants · 3–5 ans</div>
+        </div>
+        <div class="cal-slot" data-disc="hockey">
+          <div class="cal-time">18h45 – 20h00</div>
+          <div class="cal-cat">Spécifique gardiens / shooteurs</div>
+          <div class="cal-meta">Maniement · jeunes &amp; compétition</div>
+        </div>
+        <div class="cal-slot" data-disc="hockey">
+          <div class="cal-time">20h00 – 21h15</div>
+          <div class="cal-cat">Hockey Nationale 3 + Filles</div>
+          <div class="cal-meta">Adultes · compétition</div>
+        </div>
+        <div class="cal-slot" data-disc="hockey">
+          <div class="cal-time">21h15 – 22h45</div>
+          <div class="cal-cat">Hockey Nationale 1</div>
+          <div class="cal-meta">Adultes · compétition</div>
+        </div>
+      </div>
+
+      <div class="cal-day">
+        <h3 class="cal-day-name">Mercredi</h3>
+        <div class="cal-slot" data-disc="patinage">
+          <div class="cal-time">09h15 – 10h30</div>
+          <div class="cal-cat">École de patinage — débutants</div>
+          <div class="cal-meta">Enfants</div>
+        </div>
+        <div class="cal-slot" data-disc="patinage">
+          <div class="cal-time">10h30 – 12h00</div>
+          <div class="cal-cat">École de patinage — intermédiaires</div>
+          <div class="cal-meta">Enfants</div>
+        </div>
+        <div class="cal-slot" data-disc="hockey">
+          <div class="cal-time">12h20 – 13h20</div>
+          <div class="cal-cat">CE Hockey loisirs — Aérockey</div>
+          <div class="cal-meta">Créneau scolaire</div>
+        </div>
+        <div class="cal-slot" data-disc="hockey">
+          <div class="cal-time">14h00 – 15h15</div>
+          <div class="cal-cat">Hockey U9/U11</div>
+          <div class="cal-meta">Enfants · 2016–2017</div>
+        </div>
+        <div class="cal-slot" data-disc="hockey">
+          <div class="cal-time">15h15 – 16h30</div>
+          <div class="cal-cat">Hockey U13</div>
+          <div class="cal-meta">Enfants · 2014–2015</div>
+        </div>
+        <div class="cal-slot" data-disc="hockey">
+          <div class="cal-time">16h30 – 17h45</div>
+          <div class="cal-cat">Hockey U15</div>
+          <div class="cal-meta">Enfants · 2012–2013</div>
+        </div>
+        <div class="cal-slot" data-disc="hockey">
+          <div class="cal-time">17h45 – 19h00</div>
+          <div class="cal-cat">Hockey U17</div>
+          <div class="cal-meta">Jeunes · 2010–2011</div>
+        </div>
+        <div class="cal-slot" data-disc="hockey">
+          <div class="cal-time">19h00 – 20h15</div>
+          <div class="cal-cat">Hockey U20</div>
+          <div class="cal-meta">Jeunes · 2007 à 2009</div>
+        </div>
+        <div class="cal-slot" data-disc="hockey">
+          <div class="cal-time">20h15 – 21h30</div>
+          <div class="cal-cat">Hockey Filles</div>
+          <div class="cal-meta">Adultes · compétition féminine</div>
+        </div>
+        <div class="cal-slot" data-disc="hockey">
+          <div class="cal-time">21h30 – 22h45</div>
+          <div class="cal-cat">Hockey PréNat (N4)</div>
+          <div class="cal-meta">Adultes · compétition</div>
+        </div>
+      </div>
+
+      <div class="cal-day">
+        <h3 class="cal-day-name">Jeudi</h3>
+        <div class="cal-slot" data-disc="hockey">
+          <div class="cal-time">12h20 – 13h20</div>
+          <div class="cal-cat">CE Hockey compétition — Aérockey</div>
+          <div class="cal-meta">Créneau scolaire</div>
+        </div>
+        <div class="cal-slot" data-disc="hockey">
+          <div class="cal-time">17h30 – 18h45</div>
+          <div class="cal-cat">Hockey U9/U11</div>
+          <div class="cal-meta">Enfants · 2016–2017</div>
+        </div>
+        <div class="cal-slot" data-disc="freestyle">
+          <div class="cal-time">18h45 – 20h00</div>
+          <div class="cal-cat">Roller freestyle</div>
+          <div class="cal-meta">Enfants &amp; adultes</div>
+        </div>
+        <div class="cal-slot" data-disc="hockey">
+          <div class="cal-time">20h00 – 21h15</div>
+          <div class="cal-cat">Hockey Nationale 2</div>
+          <div class="cal-meta">Adultes · compétition</div>
+        </div>
+        <div class="cal-slot" data-disc="hockey">
+          <div class="cal-time">21h15 – 22h45</div>
+          <div class="cal-cat">Hockey Nationale 1</div>
+          <div class="cal-meta">Adultes · compétition</div>
+        </div>
+      </div>
+
+      <div class="cal-day">
+        <h3 class="cal-day-name">Vendredi</h3>
+        <div class="cal-slot" data-disc="hockey">
+          <div class="cal-time">12h20 – 13h20</div>
+          <div class="cal-cat">CE Hockey loisirs — Aérockey</div>
+          <div class="cal-meta">Créneau scolaire</div>
+        </div>
+        <div class="cal-slot" data-disc="hockey">
+          <div class="cal-time">17h45 – 19h00</div>
+          <div class="cal-cat">Hockey U15</div>
+          <div class="cal-meta">Enfants · 2012–2013</div>
+        </div>
+        <div class="cal-slot" data-disc="hockey">
+          <div class="cal-time">19h00 – 20h15</div>
+          <div class="cal-cat">Hockey U17</div>
+          <div class="cal-meta">Jeunes · 2010–2011</div>
+        </div>
+        <div class="cal-slot" data-disc="hockey">
+          <div class="cal-time">20h15 – 21h30</div>
+          <div class="cal-cat">Hockey Nationale 3</div>
+          <div class="cal-meta">Adultes · compétition</div>
+        </div>
+        <div class="cal-slot" data-disc="hockey">
+          <div class="cal-time">21h30 – 22h45</div>
+          <div class="cal-cat">Hockey PréNat (N4)</div>
+          <div class="cal-meta">Adultes · compétition</div>
+        </div>
+      </div>
+
+      <div class="cal-day">
+        <h3 class="cal-day-name">Samedi</h3>
+        <div class="cal-slot" data-disc="patinage">
+          <div class="cal-time">09h15 – 10h30</div>
+          <div class="cal-cat">École de patinage — débutants</div>
+          <div class="cal-meta">Enfants</div>
+        </div>
+        <div class="cal-slot" data-disc="patinage">
+          <div class="cal-time">10h30 – 11h45</div>
+          <div class="cal-cat">École de patinage — intermédiaires</div>
+          <div class="cal-meta">Enfants</div>
+        </div>
+        <div class="cal-slot" data-disc="freestyle">
+          <div class="cal-time">11h45 – 13h00</div>
+          <div class="cal-cat">École de freestyle</div>
+          <div class="cal-meta">Enfants &amp; adultes</div>
+        </div>
+        <div class="cal-slot" data-disc="roller-sport">
+          <div class="cal-time">13h00 – 15h15</div>
+          <div class="cal-cat">Roller sport</div>
+          <div class="cal-meta">Pratique libre encadrée</div>
+        </div>
+      </div>
+
+      <div class="cal-day">
+        <h3 class="cal-day-name">Dimanche</h3>
+        <div class="cal-slot" data-disc="hockey">
+          <div class="cal-time">17h45 – 19h00</div>
+          <div class="cal-cat">Hockey loisir — initiation</div>
+          <div class="cal-meta">Adultes &amp; U20 · savoir patiner requis</div>
+        </div>
+        <div class="cal-slot" data-disc="hockey">
+          <div class="cal-time">19h00 – 20h30</div>
+          <div class="cal-cat">Hockey loisir — confirmés</div>
+          <div class="cal-meta">Adultes &amp; U20</div>
+        </div>
+      </div>
+    </div>
+
+    <p class="cal-note" id="calNote">Pas de cours pendant les vacances scolaires ni les jours fériés, sauf le premier samedi des vacances d'automne, d'hiver et de printemps. Une activité supplémentaire est possible pour 90 € l'année — les cours compétition restent toujours des cours principaux.</p>
+  </section>
+
+  <section id="hockey">
+    <div class="section-tag">Section hockey</div>
+    <h2 class="section-title">Roller Hockey.</h2>
+    <p class="section-lead">De l'école de hockey à la Nationale 1, la section hockey forme et engage des équipes à tous les niveaux. Cours supplémentaires disponibles à 90 €.</p>
+
+    <div class="hockey-grid">
+      <div id="teamList">
+        <div class="team-block-title">Loisirs adultes</div>
+        <div class="team-row"><div class="tn">Adultes loisir<span class="tc">Tonio</span></div><div class="ts">Dim 17h45–19h (initiation) / 19h–20h30 (confirmés)</div><div class="tp">210 €</div></div>
+
+        <div class="team-block-title">École de hockey (jeunes)</div>
+        <div class="team-row"><div class="tn">École de hockey / U9-U11<span class="tc">Benjamin</span></div><div class="ts">Mer 14h–15h15 / Jeu 17h30–18h45</div><div class="tp">235 €</div></div>
+        <div class="team-row"><div class="tn">U13<span class="tc">Benjamin</span></div><div class="ts">Lun 17h45–19h / Mer 15h15–16h30</div><div class="tp">235 €</div></div>
+        <div class="team-row"><div class="tn">U15<span class="tc">Benjamin</span></div><div class="ts">Mer 16h30–17h45 / Ven 17h45–19h</div><div class="tp">235 €</div></div>
+        <div class="team-row"><div class="tn">U17<span class="tc">Jason</span></div><div class="ts">Mer 17h45–19h / Ven 19h–20h15</div><div class="tp">235 €</div></div>
+        <div class="team-row"><div class="tn">U20<span class="tc">Jason</span></div><div class="ts">Mercredi 19h–20h15</div><div class="tp">235 €</div></div>
+        <div class="team-row"><div class="tn">Gardiens / shooteurs</div><div class="ts">Mardi 18h45–20h</div><div class="tp muted">Inclus</div></div>
+
+        <div class="team-block-title">Compétition seniors</div>
+        <div class="team-row"><div class="tn">Nationale 1<span class="tc">Romain</span></div><div class="ts">Mar / Jeu 21h15–22h45</div><div class="tp">245 €</div></div>
+        <div class="team-row"><div class="tn">Nationale 2 (regroupement)<span class="tc">Loïc Dury</span></div><div class="ts">Lun 21h30–22h45 / Jeu 20h–21h15</div><div class="tp">245 €</div></div>
+        <div class="team-row"><div class="tn">Nationale 3<span class="tc">Jason</span></div><div class="ts">Mar 20h–21h15 / Ven 20h15–21h30</div><div class="tp">245 €</div></div>
+        <div class="team-row"><div class="tn">Nationale 4 — PréNat<span class="tc">Benjamin</span></div><div class="ts">Mer / Ven 21h30–22h45</div><div class="tp">245 €</div></div>
+        <div class="team-row"><div class="tn">Nationale 1 Féminine<span class="tc">Léna Rault</span></div><div class="ts">Mar 20h–21h15 / Mer 20h15–21h30</div><div class="tp muted">Inclus</div></div>
+      </div>
+
+      <div>
+        <div class="section-tag" style="margin-bottom:20px;">Encadrement hockey</div>
+        <div class="coaches-grid" id="coachesGrid">
+          <div class="coach glass"><div class="coach-name">Benjamin</div><div class="coach-role">U9/U11, U13, U15, PréNat (N4) et créneaux Aérockey.</div></div>
+          <div class="coach glass"><div class="coach-name">Jason</div><div class="coach-role">U17, U20 et Nationale 3.</div></div>
+          <div class="coach glass"><div class="coach-name">Romain</div><div class="coach-role">Nationale 1.</div></div>
+          <div class="coach glass"><div class="coach-name">Tonio</div><div class="coach-role">Adultes loisir.</div></div>
+          <div class="coach glass"><div class="coach-name">Loïc Dury</div><div class="coach-role">Nationale 2.</div></div>
+          <div class="coach glass"><div class="coach-name">Léna Rault</div><div class="coach-role">Nationale 1 Féminine.</div></div>
+          <div class="coach glass"><div class="coach-name">Julien Leclerc</div><div class="coach-role">Coach des gardiens.</div></div>
+        </div>
+
+        <div class="infra-card" style="margin-top:32px;">
+          <h3>Philosophie de formation</h3>
+          <ul id="philosophyList">
+            <li><strong>U9–U11</strong> — Bases techniques et comportement collectif. Esprit club.</li>
+            <li><strong>U13–U17</strong> — Cohésion, jeu collectif, attitude positive sur et hors terrain.</li>
+            <li><strong>U20</strong> — Perfectionnement technique, systèmes de jeu élaborés.</li>
+            <li><strong>Seniors</strong> — Quatre équipes en championnats nationaux + section féminine N1.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="cta-row" style="margin-top:56px; justify-content:flex-start;">
+      <a href="https://rolskanet.fr/sportif/synthese/classements/LH" target="_blank" rel="noopener" class="btn btn-ghost">Voir les résultats</a>
+      <a href="https://rolskanet.fr/sportif/synthese/rencontres/LH" target="_blank" rel="noopener" class="btn btn-ghost">Voir le calendrier</a>
+      <a href="https://rolskanet.fr/sportif/statistiques/LH#/" target="_blank" rel="noopener" class="btn btn-ghost">Voir les statistiques</a>
+    </div>
+  </section>
+
+  <section id="inscriptions">
+    <div class="section-tag">Rejoindre le club</div>
+    <h2 class="section-title">Inscriptions 2026–2027.</h2>
+    <p class="section-lead">Les inscriptions pour la rentrée 2026–2027 sont ouvertes ! Jusqu'à 3 cours d'essai possibles avant de vous engager.</p>
+
+    <div class="insc-grid">
+      <div class="insc-card glass">
+        <div class="pill">Rentrée 2026</div>
+        <h3>Portes ouvertes</h3>
+        <p>Deux rendez-vous pour rencontrer le club, essayer les disciplines et déposer votre dossier d'inscription.</p>
+        <!-- Dates à renseigner pour la saison 2026-2027.
+             Les dates de la saison précédente étaient :
+               Ven. 05 sept. — Forum des associations, place de la République, 17h30-21h30
+               Sam. 06 sept. — Portes ouvertes + disco roller de rentrée, Espace Roller, 10h-17h
+               Reprise des cours : lundi 08 septembre 2025
+             Elles ne sont PAS reconductibles telles quelles : en 2026 le 5 septembre
+             tombe un samedi et le 8 septembre un mardi. -->
+        <div class="dates-box" id="datesBox">
+          <p><strong>Date à confirmer</strong> — Forum des associations, place de la République</p>
+          <p><strong>Date à confirmer</strong> — Portes ouvertes + disco roller de rentrée, Espace Roller</p>
+          <p style="margin-top:10px"><strong>Reprise des cours :</strong> septembre 2026, date à confirmer</p>
+        </div>
+        <a href="#contact" class="btn btn-primary" style="margin-top:24px;">Nous contacter pour un essai</a>
+
+        <!-- HelloAsso — à activer une fois le compte association créé.
+             Récupérer l'URL publique de la campagne d'adhésion sur helloasso.com
+             (format : https://www.helloasso.com/associations/<slug-du-club>/adhesions/<slug-campagne>)
+             puis décommenter le bouton ci-dessous :
+
+        <a href="URL_HELLOASSO_A_REMPLIR" target="_blank" rel="noopener"
+           class="btn btn-ghost" style="margin-top:12px;">Adhérer en ligne (HelloAsso)</a>
+        -->
+
+      </div>
+      <div class="insc-card glass">
+        <div class="pill">Infos pratiques</div>
+        <h3>Comment s'inscrire</h3>
+        <p>L'inscription n'est validée qu'avec un dossier <strong>complet</strong> accompagné du paiement (dossiers papier uniquement).</p>
+        <ul class="ul" id="howToList">
+          <li>Envoyer le dossier à : Association Roller Bug, 29 rue William Chaumet, 33160 Saint-Médard-en-Jalles (Stade Robert Monseau)</li>
+          <li>Ou déposer dans la boîte aux lettres du club (à toute heure)</li>
+          <li>Ou lors des portes ouvertes / forum des associations</li>
+          <li>Pas de cours pendant les vacances scolaires (loisirs et jeunes compétiteurs)</li>
+          <li>10 % de réduction à partir de la 3ᵉ inscription famille</li>
+          <li>PASS SPORT (aide de l'État) accepté</li>
+          <li>Dispositif ACCES + pour les familles de St-Médard</li>
+          <li>Matériel de hockey disponible à la boutique du club</li>
+        </ul>
+
+        <!-- Dossiers d'inscription. Les fichiers n'ont pas l'année dans leur nom :
+             pour changer de saison, il suffit de remplacer les PDF dans
+             dossier-inscriptions/ en gardant les mêmes noms — aucun HTML à toucher. -->
+        <p class="doc-intro">Télécharger le dossier d'inscription :</p>
+        <div class="doc-links" id="docLinks">
+          <a href="dossier-inscriptions/dossier-inscription-adultes.pdf"
+             target="_blank" rel="noopener" class="btn btn-ghost">Dossier adultes (PDF)</a>
+          <a href="dossier-inscriptions/dossier-inscription-enfants.pdf"
+             target="_blank" rel="noopener" class="btn btn-ghost">Dossier enfants (PDF)</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="bureau">
+    <div class="section-tag">Organisation</div>
+    <h2 class="section-title">Le bureau.</h2>
+    <p class="section-lead">L'association est gérée par des bénévoles passionnés qui assurent le bon fonctionnement du club au quotidien.</p>
+    <div class="bureau-grid" id="bureauGrid">
+      <div class="bureau-card glass"><img class="bureau-photo" src="images/bureau/getten-neaud-christel.webp" alt="Christel Getten-Neaud" loading="lazy" width="400" height="400"><div class="bureau-name">Christel Getten-Neaud</div><div class="bureau-role">Présidente.</div></div>
+      <div class="bureau-card glass"><img class="bureau-photo" src="images/bureau/dumont-christophe.webp" alt="Christophe Dumont" loading="lazy" width="400" height="400"><div class="bureau-name">Christophe Dumont</div><div class="bureau-role">Trésorier.</div></div>
+      <div class="bureau-card glass"><img class="bureau-photo" src="images/bureau/houlbert-stephanie.webp" alt="Stéphanie Houlbert" loading="lazy" width="400" height="400"><div class="bureau-name">Stéphanie Houlbert</div><div class="bureau-role">Secrétaire.</div></div>
+      <div class="bureau-card glass"><img class="bureau-photo" src="images/bureau/vantours-corinne.webp" alt="Corinne Vantours" loading="lazy" width="400" height="400"><div class="bureau-name">Corinne Vantours</div><div class="bureau-role">Trésorière adjointe.</div></div>
+      <div class="bureau-card glass"><img class="bureau-photo" src="images/bureau/nguyen-truong.webp" alt="Truong Nguyen" loading="lazy" width="400" height="400"><div class="bureau-name">Truong Nguyen</div><div class="bureau-role">Responsable boutique — Responsable sportif.</div></div>
+      
+      <div class="bureau-card glass"><img class="bureau-photo" src="images/bureau/taisant-daran-matthieu.webp" alt="Matthieu Taisant-Daran" loading="lazy" width="400" height="400"><div class="bureau-name">Matthieu Taisant-Daran</div><div class="bureau-role">Responsable événementiel et bénévolat.</div></div>
+    </div>
+
+    <div class="section-tag bureau-sous-titre">Communication</div>
+    <p class="section-lead">Elles font vivre les réseaux du club, relaient les résultats et annoncent les événements.</p>
+    <div class="bureau-grid comm-grid" id="commGrid">
+      <div class="bureau-card glass"><div class="bureau-photo bureau-photo--vide" aria-hidden="true">EG</div><div class="bureau-name">Elisa Guiraud</div><div class="bureau-role">Responsable communication.</div></div>
+      <div class="bureau-card glass"><div class="bureau-photo bureau-photo--vide" aria-hidden="true">CB</div><div class="bureau-name">Charlotte Billaud</div><div class="bureau-role">Responsable communication.</div></div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="section-tag">Nous trouver</div>
+    <h2 class="section-title">Contact & accès.</h2>
+    <div class="contact-grid">
+      <div class="contact-info" id="contactInfo">
+        <div class="ci"><h4>Adresse</h4><p>Association Roller Bug<br>29 rue William Chaumet<br>33160 Saint-Médard-en-Jalles<br>(Stade Robert Monseau)</p></div>
+        <div class="ci"><h4>Email général</h4><a href="mailto:rollerbugcontact@gmail.com">rollerbugcontact@gmail.com</a></div>
+        <div class="ci"><h4>Téléphone</h4><a href="tel:0556957277">05.56.95.72.77</a></div>
+        <div class="ci"><h4>Contact Freestyle & Scolaire</h4><p>Davy Raison</p><a href="mailto:dr.rollerbug@gmail.com">dr.rollerbug@gmail.com</a><br><a href="tel:0612846419">06.12.84.64.19</a></div>
+        <div class="ci">
+          <h4>Réseaux sociaux</h4>
+          <div class="social-row">
+            <a href="https://fr-fr.facebook.com/RollerbugSaintMedard/" target="_blank" rel="noopener" class="soc-btn">Facebook</a>
+            <a href="https://www.instagram.com/rollerbug_stmedard/" target="_blank" rel="noopener" class="soc-btn">Instagram</a>
+            <a href="https://www.youtube.com/@rollerbugsaintmedardenjall8520" target="_blank" rel="noopener" class="soc-btn">YouTube</a>
+          </div>
+        </div>
+      </div>
+      <form class="signup-form glass" id="contactForm"
+            data-endpoint="https://formsubmit.co/ajax/rollerbugcontact@gmail.com"
+            data-mailto="rollerbugcontact@gmail.com">
+        <div class="form-row">
+          <div class="fg"><label for="prenom">Prénom</label><input type="text" id="prenom" placeholder="Jean" required></div>
+          <div class="fg"><label for="nom">Nom</label><input type="text" id="nom" placeholder="Dupont" required></div>
+        </div>
+        <div class="fg"><label for="email">Email</label><input type="email" id="email" placeholder="jean.dupont@email.fr" required></div>
+        <div class="fg"><label for="phone">Téléphone</label><input type="tel" id="phone" placeholder="06 00 00 00 00"></div>
+        <div class="fg">
+          <label for="sujet">Sujet</label>
+          <select id="sujet">
+            <option value="">Sélectionner…</option>
+            <option>Inscription / Essai gratuit</option>
+            <option>Renseignements Roller Hockey</option>
+            <option>Renseignements Roller Freestyle</option>
+            <option>Renseignements École de Patinage</option>
+            <option>Partenariat / Sponsoring</option>
+            <option>Autre</option>
+          </select>
+        </div>
+        <div class="fg"><label for="message">Message</label><textarea id="message" placeholder="Votre message…" required></textarea></div>
+        <button type="submit" class="btn btn-primary" style="width:100%;">Envoyer le message</button>
+        <p class="form-status" id="contactStatus" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+
+  <section id="mentions-legales">
+    <div class="section-tag">Informations</div>
+    <h2 class="section-title">Mentions légales.</h2>
+
+    <div class="legal-grid">
+      <div class="legal-block">
+        <h3>Propriétaire, concepteur du site<br>et rédacteur de la publication</h3>
+        <p><strong>ROLLERBUG</strong></p>
+        <p><a href="mailto:rollerbugcontact@gmail.com">rollerbugcontact@gmail.com</a></p>
+        <p><a href="tel:0556957277">05.56.95.72.77</a></p>
+      </div>
+
+      <div class="legal-block">
+        <h3>Crédit images</h3>
+        <p>Photos : <strong>RAISON Davy</strong></p>
+      </div>
+
+      <div class="legal-block">
+        <h3>Hébergement</h3>
+        <p><strong>OVH</strong></p>
+        <p>SAS au capital de 10 069 020 €</p>
+        <p>RCS Lille Métropole 424 761 419 00045</p>
+        <p>Code APE 2620Z</p>
+        <p>N° TVA : FR 22 424 761 419</p>
+        <p>Siège social : 2 rue Kellermann<br>59100 Roubaix – France</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="brand">ROLLER BUG</div>
+    <p class="footer-copy">© 2026 Roller Bug — Saint-Médard-en-Jalles — Tous droits réservés</p>
+    <div class="socials">
+      <a href="https://www.instagram.com/rollerbug_stmedard/" target="_blank" rel="noopener">INSTAGRAM</a>
+      <a href="https://fr-fr.facebook.com/RollerbugSaintMedard/" target="_blank" rel="noopener">FACEBOOK</a>
+      <a href="#contact">CONTACT</a>
+      <a href="#mentions-legales">MENTIONS LÉGALES</a>
+    </div>
+  </footer>
+
+</div>
+
+<!-- L'ordre compte : intro.js publie rollerbugReady et page-transition.js
+     publie rollerbugGoTo ; les deux suivants s'appuient dessus. -->
+<!-- Comptes : même base que l'application (voir js/auth.js) -->
+<dialog id="compteDlg" class="compte-dlg" aria-label="Mon compte">
+  <button class="compte-fermer" id="compteFermer" aria-label="Fermer">&times;</button>
+  <div class="compte-entete">
+    <img src="images/logo.webp" alt="" width="40" height="40">
+    <div>
+      <strong>Mon compte Roller Bug</strong>
+      <span>Le même que dans l'application</span>
+    </div>
+  </div>
+  <div class="compte-onglets" id="compteOnglets" role="tablist">
+    <button type="button" data-vue="connexion" role="tab" class="on">Connexion</button>
+    <button type="button" data-vue="inscription" role="tab">Créer un compte</button>
+  </div>
+  <div id="compteCorps"></div>
+  <p class="compte-msg" id="compteMsg" role="status" aria-live="polite"></p>
+</dialog>
+
+<script src="js/intro.js"></script>
+<script src="js/page-transition.js"></script>
+
+<!-- Données partagées avec l'application mobile : api/*.json -->
+<script src="js/config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/data.js"></script>
+<script src="js/contact.js"></script>
+<script src="js/compte-ui.js"></script>
+
+<script src="js/stars.js"></script>
+<script src="js/nav.js"></script>
+<script src="js/calendrier.js"></script>
+<script src="js/scroll-progress.js"></script>
+<script src="js/animations.js"></script>
+
+</body>
+</html>

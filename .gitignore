@@ -1,0 +1,15 @@
+# Le panel de mise à jour ne doit JAMAIS partir sur GitHub :
+# le dépôt est public, et config.php contient l'empreinte du mot de passe.
+# Il reste sur l'ordinateur, et n'est déposé que sur un hébergement PHP privé.
+admin/
+
+# Sauvegardes créées par le panel côté serveur
+sauvegardes/
+
+# Script de publication : il reste sur l'ordinateur
+PUBLIER-SUR-GITHUB.bat
+
+# Fichiers système
+.DS_Store
+Thumbs.db
+desktop.ini

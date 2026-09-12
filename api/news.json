@@ -1,0 +1,68 @@
+{
+  "updatedAt": "2026-08-23",
+  "data": [
+    {
+      "id": "forum-associations",
+      "title": "Forum des associations",
+      "date": null,
+      "dateLabel": "Date à confirmer",
+      "summary": "Le club tient un stand au forum des associations de Saint-Médard-en-Jalles : rencontre, renseignements et dépôt des dossiers d'inscription.",
+      "content": "Le club tient un stand au forum des associations de Saint-Médard-en-Jalles.\n\nC'est l'occasion de rencontrer les bénévoles, de poser vos questions sur les disciplines proposées et de déposer directement votre dossier d'inscription pour la saison 2026–2027.\n\nLieu : place de la République.\n\nLa date de l'édition 2026 n'est pas encore confirmée par le club.",
+      "place": "Place de la République",
+      "tags": [
+        "Inscriptions"
+      ]
+    },
+    {
+      "id": "portes-ouvertes",
+      "title": "Portes ouvertes",
+      "date": null,
+      "dateLabel": "Date à confirmer",
+      "summary": "Journée portes ouvertes à l'Espace Roller, suivie du disco roller de rentrée. Essai des disciplines et dépôt des dossiers.",
+      "content": "Journée portes ouvertes à l'Espace Roller, suivie du disco roller de rentrée.\n\nVous pouvez essayer les disciplines du club, rencontrer les moniteurs et déposer votre dossier d'inscription.\n\nJusqu'à 3 cours d'essai sont possibles avant de vous engager.\n\nLa date de l'édition 2026 n'est pas encore confirmée par le club.",
+      "place": "Espace Roller",
+      "tags": [
+        "Inscriptions",
+        "Animation"
+      ]
+    },
+    {
+      "id": "disco-roller",
+      "title": "Disco roller",
+      "date": null,
+      "dateLabel": "Toute la saison",
+      "summary": "Soirées disco-roller organisées par le club tout au long de la saison à l'Espace Roller.",
+      "content": "Le club organise des soirées disco-roller tout au long de la saison à l'Espace Roller.\n\nMusique, lumières et patins : une animation ouverte et conviviale, encadrée par les bénévoles du club.\n\nLes dates de chaque soirée sont annoncées sur les réseaux sociaux du club.",
+      "place": "Espace Roller · soirées club",
+      "tags": [
+        "Animation"
+      ]
+    },
+    {
+      "id": "matchs-domicile",
+      "title": "Matchs à domicile",
+      "date": null,
+      "dateLabel": "Voir le calendrier",
+      "summary": "Les équipes N1 à N4 reçoivent au stade Robert Monseau. Le calendrier officiel est publié par la fédération sur Rolskanet.",
+      "content": "Les équipes de Nationale 1 à Nationale 4 reçoivent leurs adversaires au stade Robert Monseau.\n\nLe calendrier des rencontres, les résultats et les classements sont publiés par la fédération sur Rolskanet. L'application ouvre directement ces pages officielles.",
+      "place": "Stade Robert Monseau · N1 à N4",
+      "url": "https://rolskanet.fr/sportif/synthese/rencontres/LH",
+      "tags": [
+        "Hockey",
+        "Compétition"
+      ]
+    },
+    {
+      "id": "fete-du-sport",
+      "title": "Fête du sport",
+      "date": null,
+      "dateLabel": "Date à confirmer",
+      "summary": "Le club participe chaque année à la fête du sport de Saint-Médard-en-Jalles.",
+      "content": "Le club participe chaque année à la fête du sport de Saint-Médard-en-Jalles, avec démonstrations et initiations.\n\nLa date de l'édition 2026 n'est pas encore confirmée par le club.",
+      "place": "Saint-Médard-en-Jalles",
+      "tags": [
+        "Animation"
+      ]
+    }
+  ]
+}

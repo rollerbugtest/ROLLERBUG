@@ -1,0 +1,18 @@
+# Ce qui ne doit JAMAIS partir en ligne
+#
+# Vercel sert des fichiers statiques : il n'exécute pas le PHP. Sans cette
+# liste, config.php serait téléchargeable en clair — avec l'empreinte du mot
+# de passe du panel — et le panel d'administration serait ouvert à tous.
+admin/
+
+# Sources destinées à l'application mobile et à la base, pas au site public
+app-supabase/
+supabase/
+
+# Documentation interne
+README.md
+
+# Fichiers système
+.DS_Store
+Thumbs.db
+desktop.ini

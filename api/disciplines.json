@@ -1,0 +1,61 @@
+{
+  "updatedAt": "2026-08-23",
+  "data": [
+    {
+      "slug": "patinage",
+      "id": "patinage",
+      "name": "École de Patinage",
+      "icon": "🛼",
+      "description": "Baby Roller dès 3 ans, cours enfants et adultes. Apprentissage du patinage en ligne et des bases techniques. Environ 150 enfants par an.",
+      "price": "Inclus / adhésion"
+    },
+    {
+      "slug": "hockey",
+      "id": "hockey",
+      "name": "Roller Hockey",
+      "icon": "🏒",
+      "description": "De l'école de hockey U11 aux équipes Nationale 1 seniors. 6 équipes compétitives, section féminine et gardiens.",
+      "price": "235 € / saison"
+    },
+    {
+      "slug": "freestyle",
+      "id": "freestyle",
+      "name": "Roller Freestyle",
+      "icon": "🛹",
+      "description": "Slalom, figures et compétitions. Toutes catégories, de la section loisir à la compétition. Coachs diplômés.",
+      "price": "Nous contacter"
+    },
+    {
+      "slug": "skate",
+      "id": "skate",
+      "name": "Skate Loisir",
+      "icon": "🤸",
+      "description": "Cours de skateboard en loisir. Initiation et progression dans une ambiance décontractée.",
+      "price": "Nous contacter"
+    },
+    {
+      "slug": "inline-freestyle",
+      "id": "freestyle",
+      "name": "In Line Freestyle",
+      "icon": "🌀",
+      "description": "Slalom et figures en roller en ligne. Technique, style et compétitions dédiées à cette discipline.",
+      "price": "Nous contacter"
+    },
+    {
+      "slug": "street",
+      "id": "street",
+      "name": "Street",
+      "icon": "🧱",
+      "description": "Pratique du roller street : rampes, modules et figures en environnement urbain. Ambiance libre.",
+      "price": "Nous contacter"
+    },
+    {
+      "slug": "rando",
+      "id": "rando",
+      "name": "Rando",
+      "icon": "🧭",
+      "description": "Randonnées roller adultes en extérieur. Sorties en groupe sur routes et pistes, à un rythme accessible. Ouvert aux patineurs autonomes.",
+      "price": "Nous contacter"
+    }
+  ]
+}

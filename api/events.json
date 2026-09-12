@@ -1,0 +1,71 @@
+{
+  "updatedAt": "2026-08-25",
+  "data": [
+    {
+      "id": "ev-disco-roller",
+      "title": "Disco roller",
+      "icon": "🪩",
+      "date": null,
+      "dateLabel": "Plusieurs soirées par saison",
+      "location": "Espace Roller — Stade Robert Monseau",
+      "address": "29 rue William Chaumet, 33160 Saint-Médard-en-Jalles",
+      "description": "Soirées musique et lumières sur patins, ouvertes à tous — licenciés, familles et curieux. Encadrées par les bénévoles du club. Les dates de chaque soirée sont annoncées sur Instagram et Facebook.",
+      "category": "animation"
+    },
+    {
+      "id": "ev-stages-vacances",
+      "title": "Stages vacances",
+      "icon": "🎒",
+      "date": null,
+      "dateLabel": "À chaque vacances scolaires",
+      "location": "Espace Roller — Stade Robert Monseau",
+      "address": "29 rue William Chaumet, 33160 Saint-Médard-en-Jalles",
+      "description": "Stages encadrés pendant les vacances scolaires : patinage, hockey et freestyle, sur plusieurs jours. Ouverts aux licenciés comme aux non-licenciés. Programme, tarifs et inscriptions annoncés avant chaque période.",
+      "category": "stage"
+    },
+    {
+      "id": "ev-forum",
+      "title": "Forum des associations",
+      "icon": "📋",
+      "date": null,
+      "dateLabel": "Date à confirmer",
+      "location": "Place de la République",
+      "address": "Place de la République, 33160 Saint-Médard-en-Jalles",
+      "description": "Stand du club : renseignements et dépôt des dossiers d'inscription 2026–2027.",
+      "category": "inscription"
+    },
+    {
+      "id": "ev-portes-ouvertes",
+      "title": "Portes ouvertes + disco roller de rentrée",
+      "icon": "🚪",
+      "date": null,
+      "dateLabel": "Date à confirmer",
+      "location": "Espace Roller — Stade Robert Monseau",
+      "address": "29 rue William Chaumet, 33160 Saint-Médard-en-Jalles",
+      "description": "Essai des disciplines, rencontre des moniteurs, dépôt des dossiers — la journée se termine par le disco roller de rentrée.",
+      "category": "inscription"
+    },
+    {
+      "id": "ev-fete-du-sport",
+      "title": "Fête du sport",
+      "icon": "🎉",
+      "date": null,
+      "dateLabel": "Date à confirmer",
+      "location": "Saint-Médard-en-Jalles",
+      "address": "Saint-Médard-en-Jalles",
+      "description": "Le club participe chaque année à la fête du sport de la ville, avec démonstrations et initiations.",
+      "category": "animation"
+    },
+    {
+      "id": "ev-reprise",
+      "title": "Reprise des cours",
+      "icon": "🗓️",
+      "date": null,
+      "dateLabel": "Septembre 2026, date à confirmer",
+      "location": "Espace Roller — Stade Robert Monseau",
+      "address": "29 rue William Chaumet, 33160 Saint-Médard-en-Jalles",
+      "description": "Reprise de tous les créneaux de la saison 2026–2027.",
+      "category": "club"
+    }
+  ]
+}

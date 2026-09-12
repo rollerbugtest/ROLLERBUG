@@ -1,0 +1,103 @@
+{
+  "updatedAt": "2026-09-11",
+  "data": {
+    "name": "Roller Bug",
+    "founded": 1997,
+    "city": "Saint-Médard-en-Jalles",
+    "memberCount": "~400 licenciés",
+    "address": {
+      "label": "Association Roller Bug",
+      "street": "29 rue William Chaumet",
+      "postalCode": "33160",
+      "city": "Saint-Médard-en-Jalles",
+      "venue": "Stade Robert Monseau",
+      "mailingAddress": "Association Roller Bug, 14 rue Pasteur, 33160 St-Médard-en-Jalles"
+    },
+    "contact": {
+      "email": "rollerbugcontact@gmail.com",
+      "phone": "05.56.95.72.77",
+      "phoneRaw": "0556957277",
+      "secondary": {
+        "label": "Contact Freestyle & Scolaire",
+        "name": "Davy Raison",
+        "email": "dr.rollerbug@gmail.com",
+        "phone": "06.12.84.64.19",
+        "phoneRaw": "0612846419"
+      }
+    },
+    "socials": [
+      {
+        "id": "instagram",
+        "name": "Instagram",
+        "url": "https://www.instagram.com/rollerbug_stmedard/",
+        "icon": "logo-instagram"
+      },
+      {
+        "id": "facebook",
+        "name": "Facebook",
+        "url": "https://fr-fr.facebook.com/RollerbugSaintMedard/",
+        "icon": "logo-facebook"
+      },
+      {
+        "id": "youtube",
+        "name": "YouTube",
+        "url": "https://www.youtube.com/@rollerbugsaintmedardenjall8520",
+        "icon": "logo-youtube"
+      }
+    ],
+    "history": [
+      "Roller Bug est basé à Saint-Médard-en-Jalles, au cœur du stade Robert Monseau. Après la fermeture de la patinoire en mai 1992, la ville utilisa la salle comme espace de stockage jusqu'en mars 1997. C'est durant cette année qu'un petit groupe de passionnés créa le club.",
+      "La première affiliation à la Fédération de roller eut lieu pour la saison 1997–1998. Le premier président, à l'origine de la création, fut Patrick Phan.",
+      "Depuis ces débuts, le club a beaucoup grandi : de 97 licenciés lors de la première année, nous atteignons aujourd’hui environ 400 licenciés. En 2012, la salle fut entièrement rénovée pour accueillir une piste de 20 × 40 m avec un sol en sport court.",
+      "Environ 150 enfants passent chaque année par nos écoles de patinage, tout comme une trentaine d’adultes. La section Baby Roller accueille dès l’âge de trois ans une vingtaine de petits patineurs."
+    ],
+    "facilities": [
+      "Piste 20 × 40 m — sol sport court (dalles 30 × 30 cm)",
+      "4 vestiaires pour les pratiquants + douches",
+      "1 vestiaire arbitre / moniteurs",
+      "1 infirmerie",
+      "1 boutique (matériel hockey en vente)",
+      "1 buvette",
+      "3 locaux de rangement de matériel"
+    ],
+    "yearRoundActivities": [
+      "Randonnées roller adultes",
+      "Disco-rollers",
+      "Stages enfants (5–10 ans) en vacances scolaires",
+      "Carnaval de St-Médard avec char roller",
+      "Forum des associations et fête du sport",
+      "Initiations écoles maternelles & centres de loisirs",
+      "Cap 33 chaque été · In Line Freestyle · Street"
+    ],
+    "stats": [
+      {
+        "value": "~400",
+        "label": "Licenciés"
+      },
+      {
+        "value": "1997",
+        "label": "Fondation du club"
+      },
+      {
+        "value": "7",
+        "label": "Disciplines"
+      },
+      {
+        "value": "8",
+        "label": "Équipes compétition hockey"
+      }
+    ],
+    "legal": {
+      "publisher": "ROLLERBUG — rollerbugcontact@gmail.com — 05.56.95.72.77.\nPropriétaire, concepteur du site et rédacteur de la publication.",
+      "photos": "Photos : RAISON Davy",
+      "hosting": [
+        "OVH",
+        "SAS au capital de 10 069 020 €",
+        "RCS Lille Métropole 424 761 419 00045",
+        "Code APE 2620Z",
+        "N° TVA : FR 22 424 761 419",
+        "Siège social : 2 rue Kellermann, 59100 Roubaix – France"
+      ]
+    }
+  }
+}

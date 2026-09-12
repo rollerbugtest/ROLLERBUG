@@ -1,0 +1,21 @@
+{
+  "updatedAt": "2026-09-11",
+  "data": [
+    {
+      "id": "guiraud-elisa",
+      "firstName": "Elisa",
+      "lastName": "Guiraud",
+      "name": "Elisa Guiraud",
+      "role": "Responsable communication.",
+      "photo": ""
+    },
+    {
+      "id": "billaud-charlotte",
+      "firstName": "Charlotte",
+      "lastName": "Billaud",
+      "name": "Charlotte Billaud",
+      "role": "Responsable communication.",
+      "photo": ""
+    }
+  ]
+}
