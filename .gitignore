@@ -6,8 +6,13 @@ admin/
 # Sauvegardes créées par le panel côté serveur
 sauvegardes/
 
-# Script de publication : il reste sur l'ordinateur
+# Scripts de publication : ils restent sur l'ordinateur
+PUBLIER-LE-SITE.bat
 PUBLIER-SUR-GITHUB.bat
+METTRE-EN-LIGNE-VERCEL.bat
+
+# Dossier de liaison créé par la commande Vercel
+.vercel/
 
 # Fichiers système
 .DS_Store

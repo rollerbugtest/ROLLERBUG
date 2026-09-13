@@ -1,12 +1,12 @@
 {
-  "updatedAt": "2026-09-11",
+  "updatedAt": "2026-09-13",
   "data": [
     {
       "id": "guiraud-elisa",
       "firstName": "Elisa",
       "lastName": "Guiraud",
       "name": "Elisa Guiraud",
-      "role": "Responsable communication.",
+      "role": "Réseaux sociaux — Instagram.",
       "photo": ""
     },
     {
@@ -14,7 +14,7 @@
       "firstName": "Charlotte",
       "lastName": "Billaud",
       "name": "Charlotte Billaud",
-      "role": "Responsable communication.",
+      "role": "Photos du club — section hockey.",
       "photo": ""
     }
   ]
