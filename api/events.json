@@ -14,22 +14,28 @@
       "longDescription": "Plusieurs fois dans la saison, la piste de l'Espace Roller se transforme en piste de danse : lumières, musique et patins aux pieds, pour tous les âges.\n\nOuvert aux licenciés comme aux non-licenciés, en famille ou entre amis. Les patins et protections peuvent être prêtés sur place dans la limite des stocks disponibles, et des bénévoles du club encadrent la soirée d'un bout à l'autre.\n\nLes dates de chaque soirée sont annoncées sur Instagram et Facebook, ainsi qu'à l'accueil du club.",
       "banner": "",
       "pdfUrl": "",
-      "pdfLabel": ""
+      "pdfLabel": "",
+      "bannerFit": "cover",
+      "detailImage": "",
+      "detailImageAlt": ""
     },
     {
       "id": "ev-stages-vacances",
-      "title": "Stages vacances",
+      "title": "Stages roller — Vacances Toussaint 2026",
       "icon": "🎒",
       "date": null,
-      "dateLabel": "À chaque vacances scolaires",
+      "dateLabel": "Du 19 au 23 et du 26 au 30 octobre 2026",
       "location": "Espace Roller — Stade Robert Monseau",
       "address": "29 rue William Chaumet, 33160 Saint-Médard-en-Jalles",
-      "description": "Stages encadrés pendant les vacances scolaires : patinage, hockey et freestyle, sur plusieurs jours. Ouverts aux licenciés comme aux non-licenciés. Programme, tarifs et inscriptions annoncés avant chaque période.",
+      "description": "Deux stages de cinq jours pour les 5–10 ans : roller le matin, sorties ludiques l'après-midi. 170 € pour les adhérents, 195 € sinon.",
       "category": "stage",
-      "longDescription": "À chaque période de vacances scolaires, le club organise des stages encadrés sur plusieurs jours : patinage, hockey et freestyle, répartis par niveau et par âge.\n\nLes stages sont ouverts aux licenciés comme aux non-licenciés. Le matériel peut être prêté pour les débutants. Les journées alternent travail technique, jeux collectifs et temps libre encadré.\n\nLe programme détaillé, les tarifs et le bulletin d'inscription sont publiés avant chaque période — le document à télécharger ci-dessous, quand il est disponible, contient tout le nécessaire.",
-      "banner": "",
-      "pdfUrl": "",
-      "pdfLabel": ""
+      "longDescription": "Deux stages de cinq jours pendant les vacances de la Toussaint, pour les enfants de 5 à 10 ans : du roller le matin, des sorties ludiques l'après-midi.\n\nHoraires : 9h30 à 17h tous les jours. Dépose possible dès 8h30, récupération entre 17h et 17h30.\n\nSemaine 1 — du lundi 19 au vendredi 23 octobre 2026.\nSemaine 2, spéciale Halloween — du lundi 26 au vendredi 30 octobre 2026.\nAu programme des deux semaines : Parc Coccinelle, bowling, cinéma, trampoline park et olympiades.\n\nTarifs par semaine : 170 € pour les adhérents, 195 € pour les non-adhérents. Pour les non-adhérents, ce tarif comprend la licence fédérale de roller, qui tient lieu d'assurance et donne accès aux tarifs adhérents jusqu'au 31/08/2027.\n\nRepas et goûters sont à prévoir : ils ne sont pas compris dans le stage.\n\nLe club recherche des chauffeurs bénévoles pour conduire un de ses minibus lors des sorties de l'après-midi. Un coup de main est le bienvenu.\n\nRenseignements et inscriptions : Davy — 06 12 84 64 19 — dr.rollerbug@gmail.com. Le dossier d'inscription complet est téléchargeable ci-dessous.",
+      "banner": "images/evenements/ev-stages-vacances.webp",
+      "pdfUrl": "documents-evenements/inscription-stages-toussaint-2026.pdf",
+      "pdfLabel": "Dossier d'inscription (PDF)",
+      "bannerFit": "contain",
+      "detailImage": "images/evenements/ev-stages-vacances-programme.webp",
+      "detailImageAlt": "Affiche des stages roller Toussaint 2026 : programme, dates et tarifs des deux semaines de stage."
     },
     {
       "id": "ev-forum",
@@ -44,7 +50,10 @@
       "longDescription": "Le club tient un stand au forum des associations de Saint-Médard-en-Jalles, à la rentrée.\n\nC'est l'occasion de poser toutes les questions sur les créneaux, les tarifs et les disciplines, de rencontrer des membres du bureau et des entraîneurs, et de déposer directement un dossier d'inscription pour la saison 2026–2027.",
       "banner": "",
       "pdfUrl": "",
-      "pdfLabel": ""
+      "pdfLabel": "",
+      "bannerFit": "cover",
+      "detailImage": "",
+      "detailImageAlt": ""
     },
     {
       "id": "ev-portes-ouvertes",
@@ -59,7 +68,10 @@
       "longDescription": "Une journée pour découvrir le club de l'intérieur : essai libre des disciplines, rencontre des moniteurs et des équipes, visite de l'Espace Roller.\n\nLe matériel est prêté sur place pour les essais. Les dossiers d'inscription peuvent être déposés sur place, et la journée se termine par le disco roller de rentrée.",
       "banner": "",
       "pdfUrl": "",
-      "pdfLabel": ""
+      "pdfLabel": "",
+      "bannerFit": "cover",
+      "detailImage": "",
+      "detailImageAlt": ""
     },
     {
       "id": "ev-fete-du-sport",
@@ -74,7 +86,10 @@
       "longDescription": "Le club participe chaque année à la fête du sport organisée par la ville, aux côtés des autres associations sportives de Saint-Médard-en-Jalles.\n\nAu programme : démonstrations des équipes de hockey, initiations au patinage pour les plus jeunes, et présentation des créneaux de la saison.",
       "banner": "",
       "pdfUrl": "",
-      "pdfLabel": ""
+      "pdfLabel": "",
+      "bannerFit": "cover",
+      "detailImage": "",
+      "detailImageAlt": ""
     },
     {
       "id": "ev-reprise",
@@ -89,7 +104,10 @@
       "longDescription": "Reprise de l'ensemble des créneaux de la saison 2026–2027 : école de patinage, baby roller, freestyle et toutes les catégories hockey.\n\nLe planning hebdomadaire complet est consultable dans la section « Planning » du site. Les inscriptions restent possibles après la reprise, dans la limite des places disponibles.",
       "banner": "",
       "pdfUrl": "",
-      "pdfLabel": ""
+      "pdfLabel": "",
+      "bannerFit": "cover",
+      "detailImage": "",
+      "detailImageAlt": ""
     }
   ]
 }

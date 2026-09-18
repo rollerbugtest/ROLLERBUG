@@ -35,6 +35,9 @@
     elBanniere.style.backgroundImage = banniere
       ? 'url("' + banniere + '"), var(--event-degrade)'
       : 'var(--event-degrade)';
+    // Les affiches très larges sont montrées en entier plutôt que rognées.
+    elBanniere.style.backgroundSize =
+      carte.getAttribute('data-banniere-fit') === 'contain' ? 'contain' : 'cover';
     elIco.textContent = carte.getAttribute('data-ico') || '📅';
 
     elTitre.textContent = carte.getAttribute('data-titre') || '';

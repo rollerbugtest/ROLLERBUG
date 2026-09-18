@@ -789,6 +789,18 @@
     margin-bottom:14px;
   }
   .event-dlg-texte p:last-child{ margin-bottom:0; }
+  /* Affiche détaillée de l'événement, sous le texte : le document PDF reste la
+     référence, l'image n'est là que pour donner le programme d'un coup d'œil. */
+  .event-visuel{
+    display:block;
+    width:100%;
+    max-width:100%;
+    height:auto;
+    margin-top:22px;
+    border-radius:12px;
+    border:1px solid var(--glass-border);
+  }
+  .event-banniere, .event-dlg-banniere{ background-repeat:no-repeat; }
   .event-dlg-pdf{ margin-top:26px; }
   /* .btn impose display:inline-block, qui l'emporte sur la règle par défaut
      du navigateur pour [hidden] : sans ce !important, le bouton resterait

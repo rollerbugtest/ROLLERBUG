@@ -179,8 +179,11 @@
   }
 
   function carteEvenement(e) {
+    // bannerFit:"contain" pour les affiches très larges : on les montre en
+    // entier plutôt que de rogner le texte sur les côtés.
     var banniere = e.banner
-      ? ' style="background-image:url(&quot;' + esc(e.banner) + '&quot;), var(--event-degrade);"'
+      ? ' style="background-image:url(&quot;' + esc(e.banner) + '&quot;), var(--event-degrade);' +
+        (e.bannerFit === 'contain' ? 'background-size:contain;' : '') + '"'
       : '';
     var lieu = [e.location, e.address].filter(Boolean).join(' — ');
     var pdf = e.pdfUrl
@@ -193,7 +196,8 @@
       ' data-ico="' + esc(e.icon || '📅') + '"' +
       ' data-date="' + esc(e.dateLabel || '') + '"' +
       ' data-lieu="' + esc(lieu) + '"' +
-      ' data-banniere="' + esc(e.banner || '') + '"' + pdf + '>' +
+      ' data-banniere="' + esc(e.banner || '') + '"' +
+      ' data-banniere-fit="' + esc(e.bannerFit || 'cover') + '"' + pdf + '>' +
       '<div class="event-banniere"' + banniere + '><span class="event-ico">' +
         esc(e.icon || '📅') + '</span></div>' +
       '<div class="event-corps">' +
@@ -202,7 +206,11 @@
         '<div class="disc-tarif">' + esc(e.dateLabel || '') + '</div>' +
         '<span class="event-plus">' + (e.pdfUrl ? 'Fiche et document' : 'En savoir plus') + ' →</span>' +
       '</div>' +
-      '<div class="event-detail" hidden>' + paragraphes(e.longDescription || e.description) + '</div>' +
+      '<div class="event-detail" hidden>' + paragraphes(e.longDescription || e.description) +
+        (e.detailImage
+          ? '<img class="event-visuel" src="' + esc(e.detailImage) + '" alt="' +
+            esc(e.detailImageAlt || e.title) + '" loading="lazy">'
+          : '') + '</div>' +
       '</article>';
   }
 
