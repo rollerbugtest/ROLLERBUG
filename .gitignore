@@ -10,6 +10,7 @@ sauvegardes/
 PUBLIER-LE-SITE.bat
 PUBLIER-SUR-GITHUB.bat
 METTRE-EN-LIGNE-VERCEL.bat
+VERCEL-CHANGER-DE-COMPTE.bat
 
 # Dossier de liaison créé par la commande Vercel
 .vercel/
