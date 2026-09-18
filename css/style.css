@@ -172,6 +172,120 @@
   nav a:hover{color:var(--ink);}
   nav a:hover::after{width:100%;}
 
+  /* ---------- Sous-menus du menu principal ----------
+     Ouverture au survol et au focus en CSS pur : le sous-menu étant un enfant
+     du <li>, il reste ouvert quand la souris descend du titre vers les liens.
+     Le padding-top de .sous-menu sert de pont invisible au-dessus du panneau,
+     pour que ce trajet ne passe jamais « à côté » de la zone survolée. */
+  /* Le titre et sa flèche forment un bloc insécable : sans ça, avec neuf
+     rubriques dans la barre, la flèche passe à la ligne sous le libellé. */
+  .a-sous-menu{
+    position:relative;
+    display:inline-flex;
+    align-items:center;
+    white-space:nowrap;
+  }
+
+  .nav-fleche{
+    display:inline-block;
+    flex:0 0 auto;
+    margin-left:4px;
+    width:12px; height:12px;
+    padding:0;
+    background:none;
+    border:none;
+    cursor:pointer;
+    vertical-align:middle;
+    position:relative;
+  }
+  .nav-fleche::before{
+    content:'';
+    position:absolute;
+    top:50%; left:50%;
+    width:5px; height:5px;
+    margin:-4px 0 0 -3px;
+    border-right:1.5px solid var(--ink-dim);
+    border-bottom:1.5px solid var(--ink-dim);
+    transform:rotate(45deg);
+    transition:transform .25s ease, border-color .25s ease;
+  }
+  .a-sous-menu:hover > .nav-fleche::before,
+  .a-sous-menu:focus-within > .nav-fleche::before,
+  .a-sous-menu.ouvert > .nav-fleche::before{ border-color:var(--gold); }
+  .a-sous-menu.ouvert > .nav-fleche::before{ transform:rotate(-135deg); margin-top:-1px; }
+  .nav-fleche:focus-visible{ outline:2px solid var(--gold); outline-offset:2px; border-radius:3px; }
+
+  .sous-menu{
+    position:absolute;
+    top:100%; left:-20px;
+    min-width:236px;
+    margin:0;
+    padding:16px 0 0;     /* le pont invisible */
+    list-style:none;
+    display:block;
+    opacity:0;
+    visibility:hidden;
+    transform:translateY(-6px);
+    transition:opacity .22s ease, transform .22s ease, visibility 0s linear .22s;
+    z-index:60;
+  }
+  /* Le panneau lui-même : dessiné sous le pont, pas dessus. */
+  .sous-menu::before{
+    content:'';
+    position:absolute;
+    inset:16px 0 0 0;
+    background:linear-gradient(155deg, #141414, #090909);
+    border:1px solid var(--glass-border);
+    border-radius:12px;
+    box-shadow:0 18px 44px rgba(0,0,0,.6);
+    z-index:-1;
+  }
+  .a-sous-menu:hover > .sous-menu,
+  .a-sous-menu:focus-within > .sous-menu,
+  .a-sous-menu.ouvert > .sous-menu{
+    opacity:1;
+    visibility:visible;
+    transform:translateY(0);
+    transition:opacity .22s ease, transform .22s ease, visibility 0s;
+  }
+
+  .sous-menu li{ position:relative; }
+  nav .sous-menu a{
+    display:block;
+    padding:11px 20px;
+    font-size:12px;
+    letter-spacing:.9px;
+    white-space:normal;
+    border-left:2px solid transparent;
+    transition:color .2s ease, border-color .2s ease, background .2s ease;
+  }
+  /* Le soulignement coulissant est réservé au menu principal. */
+  nav .sous-menu a::after{ display:none; }
+  nav .sous-menu a:hover,
+  nav .sous-menu a:focus-visible{
+    color:var(--gold);
+    border-left-color:var(--gold);
+    background:rgba(247,198,0,.06);
+  }
+  nav .sous-menu a:focus-visible{ outline:none; }
+  /* Échap referme, même si le focus ou la souris sont restés sur la rubrique.
+     Placée après les règles d'ouverture, cette règle l'emporte à égalité de
+     spécificité. Elle est retirée dès que la souris ou le focus quittent. */
+  .a-sous-menu.echap > .sous-menu{
+    opacity:0;
+    visibility:hidden;
+    transform:translateY(-6px);
+  }
+
+  /* Titre souligné tant que son panneau est ouvert. */
+  .a-sous-menu:hover > a::after,
+  .a-sous-menu:focus-within > a::after,
+  .a-sous-menu.ouvert > a::after{ width:100%; }
+
+  @media(prefers-reduced-motion: reduce){
+    .sous-menu{ transition:none; }
+  }
+
   .nav-toggle{
     display:none;
     flex-direction:column;
@@ -205,7 +319,128 @@
     nav a{font-size:12px; letter-spacing:.9px;}
   }
   @media(max-width:1200px){
-    .nav-toggle{display:flex;}
+    /* ---------- Sous-menus du menu principal ----------
+     Ouverture au survol et au focus en CSS pur : le sous-menu étant un enfant
+     du <li>, il reste ouvert quand la souris descend du titre vers les liens.
+     Le padding-top de .sous-menu sert de pont invisible au-dessus du panneau,
+     pour que ce trajet ne passe jamais « à côté » de la zone survolée. */
+  /* Le titre et sa flèche forment un bloc insécable : sans ça, avec neuf
+     rubriques dans la barre, la flèche passe à la ligne sous le libellé. */
+  .a-sous-menu{
+    position:relative;
+    display:inline-flex;
+    align-items:center;
+    white-space:nowrap;
+  }
+
+  .nav-fleche{
+    display:inline-block;
+    flex:0 0 auto;
+    margin-left:4px;
+    width:12px; height:12px;
+    padding:0;
+    background:none;
+    border:none;
+    cursor:pointer;
+    vertical-align:middle;
+    position:relative;
+  }
+  .nav-fleche::before{
+    content:'';
+    position:absolute;
+    top:50%; left:50%;
+    width:5px; height:5px;
+    margin:-4px 0 0 -3px;
+    border-right:1.5px solid var(--ink-dim);
+    border-bottom:1.5px solid var(--ink-dim);
+    transform:rotate(45deg);
+    transition:transform .25s ease, border-color .25s ease;
+  }
+  .a-sous-menu:hover > .nav-fleche::before,
+  .a-sous-menu:focus-within > .nav-fleche::before,
+  .a-sous-menu.ouvert > .nav-fleche::before{ border-color:var(--gold); }
+  .a-sous-menu.ouvert > .nav-fleche::before{ transform:rotate(-135deg); margin-top:-1px; }
+  .nav-fleche:focus-visible{ outline:2px solid var(--gold); outline-offset:2px; border-radius:3px; }
+
+  .sous-menu{
+    position:absolute;
+    top:100%; left:-20px;
+    min-width:236px;
+    margin:0;
+    padding:16px 0 0;     /* le pont invisible */
+    list-style:none;
+    display:block;
+    opacity:0;
+    visibility:hidden;
+    transform:translateY(-6px);
+    transition:opacity .22s ease, transform .22s ease, visibility 0s linear .22s;
+    z-index:60;
+  }
+  /* Le panneau lui-même : dessiné sous le pont, pas dessus. */
+  .sous-menu::before{
+    content:'';
+    position:absolute;
+    inset:16px 0 0 0;
+    background:linear-gradient(155deg, #141414, #090909);
+    border:1px solid var(--glass-border);
+    border-radius:12px;
+    box-shadow:0 18px 44px rgba(0,0,0,.6);
+    z-index:-1;
+  }
+  .a-sous-menu:hover > .sous-menu,
+  .a-sous-menu:focus-within > .sous-menu,
+  .a-sous-menu.ouvert > .sous-menu{
+    opacity:1;
+    visibility:visible;
+    transform:translateY(0);
+    transition:opacity .22s ease, transform .22s ease, visibility 0s;
+  }
+
+  .sous-menu li{ position:relative; }
+  nav .sous-menu a{
+    display:block;
+    padding:11px 20px;
+    font-size:12px;
+    letter-spacing:.9px;
+    white-space:normal;
+    border-left:2px solid transparent;
+    transition:color .2s ease, border-color .2s ease, background .2s ease;
+  }
+  /* Le soulignement coulissant est réservé au menu principal. */
+  nav .sous-menu a::after{ display:none; }
+  nav .sous-menu a:hover,
+  nav .sous-menu a:focus-visible{
+    color:var(--gold);
+    border-left-color:var(--gold);
+    background:rgba(247,198,0,.06);
+  }
+  nav .sous-menu a:focus-visible{ outline:none; }
+  /* Échap referme, même si le focus ou la souris sont restés sur la rubrique.
+     Placée après les règles d'ouverture, cette règle l'emporte à égalité de
+     spécificité. Elle est retirée dès que la souris ou le focus quittent. */
+  .a-sous-menu.echap > .sous-menu{
+    opacity:0;
+    visibility:hidden;
+    transform:translateY(-6px);
+  }
+
+  /* Titre souligné tant que son panneau est ouvert. */
+  .a-sous-menu:hover > a::after,
+  .a-sous-menu:focus-within > a::after,
+  .a-sous-menu.ouvert > a::after{ width:100%; }
+
+  /* Les ancres internes visées par les sous-menus : même dégagement que les
+     sections, sinon l'en-tête fixe recouvre le bloc visé. */
+  #clubHistory, #infrastructures, #teamList, #coachesGrid,
+  #portesOuvertes, #commentSInscrire, #docLinks, .disc-card{
+    scroll-margin-top:110px;
+  }
+
+  @media(prefers-reduced-motion: reduce){
+    .sous-menu{ transition:none; }
+  }
+
+  .nav-toggle{display:flex;}
     nav{
       display:block;
       position:fixed;
@@ -239,6 +474,46 @@
     nav ul li{border-bottom:1px solid var(--line);}
     nav ul li:last-child{border-bottom:none;}
     nav a{display:block; padding:16px 0;}
+
+    /* En dessous de 1200px le menu devient une liste dépliante : le sous-menu
+       reprend sa place dans le flux et s'ouvre en accordéon. */
+    .a-sous-menu{
+      display:grid;
+      grid-template-columns:1fr auto;
+      align-items:center;
+    }
+    .nav-fleche{
+      width:44px; height:44px;   /* cible tactile confortable */
+      margin:0;
+      justify-self:end;
+    }
+    .nav-fleche::before{ width:7px; height:7px; margin:-5px 0 0 -4px; }
+    .sous-menu{
+      grid-column:1 / -1;
+      position:static;
+      min-width:0;
+      padding:0;
+      opacity:1;
+      visibility:visible;
+      transform:none;
+      max-height:0;
+      overflow:hidden;
+      transition:max-height .3s ease;
+    }
+    .sous-menu::before{ display:none; }
+    .a-sous-menu.ouvert > .sous-menu{ max-height:520px; }
+    /* Sur écran tactile, le survol ne doit pas déplier tout seul. */
+    .a-sous-menu:hover > .sous-menu,
+    .a-sous-menu:focus-within > .sous-menu{ max-height:0; }
+    .a-sous-menu.ouvert > .sous-menu{ max-height:520px; }
+    nav .sous-menu a{
+      padding:12px 0 12px 16px;
+      border-left:2px solid var(--line);
+      font-size:12px;
+    }
+    nav .sous-menu li:last-child a{ padding-bottom:16px; }
+    nav .sous-menu li{ border-bottom:none; }
+
   }
 
   /* ---------- Hero ---------- */

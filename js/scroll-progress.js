@@ -27,6 +27,16 @@
       step.dot.setAttribute('aria-current', isActive ? 'true' : 'false');
       if(step.link) step.link.classList.toggle('active', isActive);
     });
+
+    /* Section rangée dans un sous-menu (Événements, Bureau, Contact, Hockey) :
+       son lien est replié, donc invisible. On allume aussi la rubrique parente,
+       sinon plus rien ne serait souligné dans la barre. Second passage, parce
+       que la boucle ci-dessus vient d'éteindre tous les liens. */
+    const actif = steps[activeIdx];
+    if(actif && actif.link){
+      const parent = actif.link.closest('.sous-menu')?.closest('.a-sous-menu');
+      if(parent) parent.querySelector(':scope > a').classList.add('active');
+    }
   }
 
   steps.forEach(step => {

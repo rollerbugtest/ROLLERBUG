@@ -55,15 +55,33 @@
     </a>
     <nav id="mainNav">
       <ul>
-        <li><a href="#actualites">Actus</a></li>
-        <li><a href="#evenements">Événements</a></li>
-        <li><a href="#club">Le club</a></li>
-        <li><a href="#disciplines">Disciplines</a></li>
+        <li class="a-sous-menu">
+          <a href="#actualites">Actus</a>
+          <button type="button" class="nav-fleche" aria-expanded="false" aria-controls="sm-actus"
+                  aria-label="Afficher les sous-rubriques de Actus"></button>
+          <ul class="sous-menu" id="sm-actus">
+            <li><a href="#evenements">Événements</a></li>
+          </ul>
+        </li>
+        <li class="a-sous-menu">
+          <a href="#club">Le club</a>
+          <button type="button" class="nav-fleche" aria-expanded="false" aria-controls="sm-club"
+                  aria-label="Afficher les sous-rubriques de Le club"></button>
+          <ul class="sous-menu" id="sm-club">
+            <li><a href="#bureau">Bureau</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </li>
+        <li class="a-sous-menu">
+          <a href="#disciplines">Disciplines</a>
+          <button type="button" class="nav-fleche" aria-expanded="false" aria-controls="sm-disciplines"
+                  aria-label="Afficher les sous-rubriques de Disciplines"></button>
+          <ul class="sous-menu" id="sm-disciplines">
+            <li><a href="#hockey">Hockey</a></li>
+          </ul>
+        </li>
         <li><a href="#calendrier">Planning</a></li>
-        <li><a href="#hockey">Hockey</a></li>
-        <li><a href="#bureau">Bureau</a></li>
         <li><a href="#inscriptions">Inscriptions</a></li>
-        <li><a href="#contact">Contact</a></li>
       </ul>
     </nav>
     <button class="account-btn" id="accountBtn" aria-label="Se connecter" title="Mon compte"
@@ -802,6 +820,7 @@ Au programme des deux semaines : Parc Coccinelle, bowling, cinéma, trampoline p
 
 <script src="js/stars.js"></script>
 <script src="js/nav.js"></script>
+<script src="js/sous-menus.js"></script>
 <script src="js/calendrier.js"></script>
 <script src="js/scroll-progress.js"></script>
 <script src="js/animations.js"></script>
