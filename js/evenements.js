@@ -94,6 +94,74 @@
     if (ev.target === dlg) ferme();
   });
 
+  /* ------------------------------------------------------------------
+     Compte à rebours sous chaque carte.
+
+     Une seule horloge pour toutes les cartes plutôt qu'un minuteur par
+     événement, et elle s'arrête quand l'onglet passe en arrière-plan :
+     inutile de faire tourner ça dans un onglet que personne ne regarde.
+     ------------------------------------------------------------------ */
+  var horloge = null;
+
+  function deuxChiffres(n) { return (n < 10 ? '0' : '') + n; }
+
+  function texteRestant(ms) {
+    var s = Math.floor(ms / 1000);
+    var j = Math.floor(s / 86400); s -= j * 86400;
+    var h = Math.floor(s / 3600);  s -= h * 3600;
+    var m = Math.floor(s / 60);    s -= m * 60;
+    if (j > 0) return j + (j > 1 ? ' jours ' : ' jour ') + deuxChiffres(h) + ' h ' + deuxChiffres(m) + ' min';
+    if (h > 0) return deuxChiffres(h) + ' h ' + deuxChiffres(m) + ' min ' + deuxChiffres(s) + ' s';
+    return deuxChiffres(m) + ' min ' + deuxChiffres(s) + ' s';
+  }
+
+  function majCompteurs() {
+    var compteurs = document.querySelectorAll('.event-timer[data-debut]');
+    if (!compteurs.length) { arreteHorloge(); return; }
+    var maintenant = Date.now();
+    var encoreUnQuiTourne = false;
+
+    Array.prototype.forEach.call(compteurs, function (el) {
+      var debut = Date.parse(el.getAttribute('data-debut'));
+      var fin = Date.parse(el.getAttribute('data-fin') || '') || debut;
+      if (isNaN(debut)) { el.hidden = true; return; }
+
+      if (maintenant < debut) {
+        el.className = 'event-timer';
+        el.innerHTML = '<span class="event-timer-libelle">Commence dans</span>' +
+          '<span class="event-timer-valeur">' + texteRestant(debut - maintenant) + '</span>';
+        encoreUnQuiTourne = true;
+      } else if (maintenant < fin) {
+        el.className = 'event-timer event-timer--encours';
+        el.innerHTML = '<span class="event-timer-valeur">C\'est en ce moment</span>';
+        encoreUnQuiTourne = true;
+      } else {
+        el.className = 'event-timer event-timer--passe';
+        el.innerHTML = '<span class="event-timer-valeur">Événement terminé</span>';
+      }
+    });
+
+    if (!encoreUnQuiTourne) arreteHorloge();
+  }
+
+  function lanceHorloge() {
+    majCompteurs();
+    if (!horloge) horloge = setInterval(majCompteurs, 1000);
+  }
+
+  function arreteHorloge() {
+    if (horloge) { clearInterval(horloge); horloge = null; }
+  }
+
+  document.addEventListener('visibilitychange', function () {
+    if (document.hidden) arreteHorloge(); else lanceHorloge();
+  });
+
+  // Au chargement pour le contenu de secours, puis à nouveau quand data.js a
+  // remplacé les cartes par celles d'api/events.json.
+  lanceHorloge();
+  document.addEventListener('rollerbug:evenements', lanceHorloge);
+
   dlg.addEventListener('close', function () {
     if (declencheur) { declencheur.focus(); declencheur = null; }
   });

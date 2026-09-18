@@ -204,6 +204,10 @@
         '<h3>' + esc(e.title) + '</h3>' +
         '<p class="event-resume">' + esc(e.description) + '</p>' +
         '<div class="disc-tarif">' + esc(e.dateLabel || '') + '</div>' +
+        (e.startsAt
+          ? '<div class="event-timer" data-debut="' + esc(e.startsAt) + '" data-fin="' +
+            esc(e.endsAt || '') + '"></div>'
+          : '') +
         '<span class="event-plus">' + (e.pdfUrl ? 'Fiche et document' : 'En savoir plus') + ' →</span>' +
       '</div>' +
       '<div class="event-detail" hidden>' + paragraphes(e.longDescription || e.description) +

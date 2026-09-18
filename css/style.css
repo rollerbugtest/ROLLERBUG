@@ -726,6 +726,35 @@
     overflow:hidden;
   }
   .event-corps .disc-tarif{ margin-top:auto; }
+  /* Compte à rebours : deux lignes discrètes sous la date, pour qu'on voie
+     d'un coup d'œil si l'événement approche. */
+  .event-timer{
+    margin-top:12px;
+    padding-top:12px;
+    border-top:1px solid var(--line);
+  }
+  .event-timer-libelle{
+    display:block;
+    font-size:.7rem;
+    letter-spacing:1.4px;
+    text-transform:uppercase;
+    color:var(--ink-dim);
+    margin-bottom:4px;
+  }
+  .event-timer-valeur{
+    font-family:'JetBrains Mono', monospace;
+    font-size:.95rem;
+    font-weight:700;
+    color:var(--gold);
+    font-variant-numeric:tabular-nums;
+  }
+  .event-timer--encours .event-timer-valeur{ color:#6fe0a8; }
+  .event-timer--passe .event-timer-valeur{
+    color:var(--ink-dim);
+    font-weight:400;
+    font-size:.85rem;
+  }
+
   .event-plus{
     margin-top:14px;
     font-size:.82rem;
@@ -793,10 +822,13 @@
      référence, l'image n'est là que pour donner le programme d'un coup d'œil. */
   .event-visuel{
     display:block;
-    width:100%;
+    /* Les affiches sont tantôt larges, tantôt verticales : on les borne dans
+       les deux sens pour qu'une affiche portrait n'occupe pas trois écrans. */
+    width:auto;
     max-width:100%;
     height:auto;
-    margin-top:22px;
+    max-height:min(620px, 70vh);
+    margin:22px auto 0;
     border-radius:12px;
     border:1px solid var(--glass-border);
   }
