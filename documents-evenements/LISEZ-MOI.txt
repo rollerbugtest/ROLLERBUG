@@ -1,0 +1,11 @@
+Documents téléchargeables des événements
+========================================
+
+Déposez ici le PDF d'un événement (programme, bulletin d'inscription,
+affiche...), puis renseignez-le dans api/events.json :
+
+  "pdfUrl": "documents-evenements/stage-toussaint-2026.pdf",
+  "pdfLabel": "Programme et inscription (PDF)"
+
+Le bouton de téléchargement apparaît alors dans la fiche de l'événement.
+Si "pdfUrl" est vide, aucun bouton n'est affiché.

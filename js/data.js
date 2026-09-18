@@ -169,16 +169,47 @@
   }
 
   // Événements & stages : disco rollers, stages de vacances, rendez-vous du club.
+  // Un événement = une carte avec bandeau, et sa fiche complète rangée dans la
+  // carte elle-même (.event-detail, masqué). js/evenements.js n'a plus qu'à la
+  // recopier dans la boîte de dialogue : ça fonctionne aussi bien avec les
+  // données JSON qu'avec le contenu de secours écrit en dur dans index.html.
+  function paragraphes(texte) {
+    return String(texte || '').split(/\n\s*\n/).filter(function (p) { return p.trim(); })
+      .map(function (p) { return '<p>' + esc(p.trim()) + '</p>'; }).join('');
+  }
+
+  function carteEvenement(e) {
+    var banniere = e.banner
+      ? ' style="background-image:url(&quot;' + esc(e.banner) + '&quot;), var(--event-degrade);"'
+      : '';
+    var lieu = [e.location, e.address].filter(Boolean).join(' — ');
+    var pdf = e.pdfUrl
+      ? ' data-pdf="' + esc(e.pdfUrl) + '" data-pdf-label="' +
+        esc(e.pdfLabel || 'Télécharger le document (PDF)') + '"'
+      : '';
+    return '<article class="event-card glass" tabindex="0" role="button" aria-haspopup="dialog"' +
+      ' aria-label="' + esc(e.title) + ' — ouvrir la fiche"' +
+      ' data-titre="' + esc(e.title) + '"' +
+      ' data-ico="' + esc(e.icon || '📅') + '"' +
+      ' data-date="' + esc(e.dateLabel || '') + '"' +
+      ' data-lieu="' + esc(lieu) + '"' +
+      ' data-banniere="' + esc(e.banner || '') + '"' + pdf + '>' +
+      '<div class="event-banniere"' + banniere + '><span class="event-ico">' +
+        esc(e.icon || '📅') + '</span></div>' +
+      '<div class="event-corps">' +
+        '<h3>' + esc(e.title) + '</h3>' +
+        '<p class="event-resume">' + esc(e.description) + '</p>' +
+        '<div class="disc-tarif">' + esc(e.dateLabel || '') + '</div>' +
+        '<span class="event-plus">' + (e.pdfUrl ? 'Fiche et document' : 'En savoir plus') + ' →</span>' +
+      '</div>' +
+      '<div class="event-detail" hidden>' + paragraphes(e.longDescription || e.description) + '</div>' +
+      '</article>';
+  }
+
   function rendreEvenements(events) {
     if (!Array.isArray(events) || !events.length) return;
-    set('eventsGrid', events.map(function (e) {
-      return '<div class="disc-card glass">' +
-        '<div class="disc-ico">' + esc(e.icon || '📅') + '</div>' +
-        '<h3>' + esc(e.title) + '</h3>' +
-        '<p>' + esc(e.description) + '</p>' +
-        '<div class="disc-tarif">' + esc(e.dateLabel || '') + '</div>' +
-        '</div>';
-    }).join(''));
+    set('eventsGrid', events.map(carteEvenement).join(''));
+    document.dispatchEvent(new CustomEvent('rollerbug:evenements'));
   }
 
   function rendrePlanning(planning) {

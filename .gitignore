@@ -19,3 +19,6 @@ VERCEL-CHANGER-DE-COMPTE.bat
 .DS_Store
 Thumbs.db
 desktop.ini
+
+.vercel
+.env*

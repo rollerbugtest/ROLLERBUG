@@ -14,7 +14,7 @@
      Les deux doivent rester identiques. */
   const REVEAL = [
     '.section-tag', '.section-title', '.section-lead', '.about-text',
-    '.stat', '.infra-card', '.disc-card', '.news-item', '.insta-embed',
+    '.stat', '.infra-card', '.disc-card', '.event-card', '.news-item', '.insta-embed',
     '.cal-filters', '.cal-day', '.cal-note',
     '.team-block-title', '.team-row', '.coach', '.insc-card',
     '.bureau-card', '.value-card', '.legal-block', '.contact-info', '.signup-form',
@@ -129,7 +129,7 @@
   // Légère inclinaison 3D des cartes
   dataReady.then(() => {
   const tiltCards = document.querySelectorAll(
-    '.disc-card, .insc-card, .bureau-card, .value-card, .coach, .news-item, .stat'
+    '.disc-card, .event-card, .insc-card, .bureau-card, .value-card, .coach, .news-item, .stat'
   );
   tiltCards.forEach(card => {
     card.addEventListener('mousemove', e => {

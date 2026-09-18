@@ -1,0 +1,23 @@
+Bandeaux des événements
+=======================
+
+Déposez ici une image par événement, au format .webp de préférence
+(.jpg et .png fonctionnent aussi).
+
+Format conseillé : 1200 x 675 px (16/9). L'image est recadrée au centre,
+donc placez le sujet au milieu.
+
+Nom du fichier = identifiant de l'événement dans api/events.json :
+
+  ev-disco-roller.webp        Disco roller
+  ev-stages-vacances.webp     Stages vacances
+  ev-forum.webp               Forum des associations
+  ev-portes-ouvertes.webp     Portes ouvertes
+  ev-fete-du-sport.webp       Fête du sport
+  ev-reprise.webp             Reprise des cours
+
+Puis renseignez le chemin dans api/events.json, champ "banner" :
+
+  "banner": "images/evenements/ev-disco-roller.webp"
+
+Sans image, la carte affiche un dégradé doré : rien ne casse.
