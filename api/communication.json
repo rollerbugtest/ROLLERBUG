@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-13",
+  "updatedAt": "2026-09-19",
   "data": [
     {
       "id": "guiraud-elisa",
@@ -7,7 +7,7 @@
       "lastName": "Guiraud",
       "name": "Elisa Guiraud",
       "role": "Réseaux sociaux — Instagram.",
-      "photo": ""
+      "photo": "images/bureau/guiraud-elisa.webp"
     },
     {
       "id": "billaud-charlotte",
@@ -15,7 +15,7 @@
       "lastName": "Billaud",
       "name": "Charlotte Billaud",
       "role": "Photos du club — section hockey.",
-      "photo": ""
+      "photo": "images/bureau/billaud-charlotte.webp"
     }
   ]
 }

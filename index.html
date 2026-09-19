@@ -140,30 +140,31 @@
     <!-- Bandeau d'actualités — rendez-vous récurrents du club.
          Les dates sont à mettre à jour à chaque saison. -->
     <div class="news-band" id="newsBand">
-      <a class="news-item" href="#inscriptions">
-        <div class="news-date">Ven. 05 sept.</div>
-        <div class="news-title">Forum des associations</div>
-        <div class="news-place">Place de la République · 17h30–21h30</div>
+      <a class="news-item news-item--externe" href="https://rolskanet.fr/sportif/synthese/rencontres/LH" target="_blank" rel="noopener">
+        <span class="news-entete">
+          <span class="news-date">Sam. 19 sept. · 20h</span>
+          <span class="news-fleche" aria-hidden="true">↗</span>
+        </span>
+        <h3 class="news-title">Nationale 1 à Bourges</h3>
+        <span class="news-place">Déplacement · 1ᵉʳ match de la saison</span>
+        <span class="sr-only"> (ouvre un nouvel onglet)</span>
       </a>
-      <a class="news-item" href="#inscriptions">
-        <div class="news-date">Sam. 06 sept.</div>
-        <div class="news-title">Portes ouvertes</div>
-        <div class="news-place">Espace Roller · 10h–17h</div>
+      <a class="news-item" href="#hockey">
+        <span class="news-entete">
+          <span class="news-date">Dim. 20 sept. · 14h</span>
+          <span class="news-fleche" aria-hidden="true">→</span>
+        </span>
+        <h3 class="news-title">Nationale 2 reçoit Pessac</h3>
+        <span class="news-place">À domicile · match amical</span>
       </a>
-      <a class="news-item" href="#club">
-        <div class="news-date">Toute la saison</div>
-        <div class="news-title">Disco roller</div>
-        <div class="news-place">Espace Roller · soirées club</div>
-      </a>
-      <a class="news-item" href="https://rolskanet.fr/sportif/synthese/rencontres/LH" target="_blank" rel="noopener">
-        <div class="news-date">Voir le calendrier</div>
-        <div class="news-title">Match à domicile</div>
-        <div class="news-place">Stade Robert Monseau · N1 à N4</div>
-      </a>
-      <a class="news-item" href="#club">
-        <div class="news-date">Date à confirmer</div>
-        <div class="news-title">Fête du sport</div>
-        <div class="news-place">Saint-Médard-en-Jalles</div>
+      <a class="news-item news-item--externe" href="https://rolskanet.fr/sportif/synthese/rencontres/LH" target="_blank" rel="noopener">
+        <span class="news-entete">
+          <span class="news-date">Sam. 19 sept. · 20h</span>
+          <span class="news-fleche" aria-hidden="true">↗</span>
+        </span>
+        <h3 class="news-title">Nationale 3 à Tarbes</h3>
+        <span class="news-place">Déplacement</span>
+        <span class="sr-only"> (ouvre un nouvel onglet)</span>
       </a>
     </div>
 
@@ -336,225 +337,302 @@ Au programme des deux semaines : Parc Coccinelle, bowling, cinéma, trampoline p
     <h2 class="section-title">Horaires des entraînements.</h2>
     <p class="section-lead">Tous les créneaux de la semaine, discipline par discipline. Utilisez les filtres pour n'afficher que ce qui vous concerne.</p>
 
-    <div class="cal-filters" role="group" aria-label="Filtrer par discipline">
-      <button class="cal-filter active" data-disc="all" aria-pressed="true">Toutes</button>
-      <button class="cal-filter" data-disc="patinage" aria-pressed="false">École de patinage</button>
-      <button class="cal-filter" data-disc="baby" aria-pressed="false">Baby roller</button>
-      <button class="cal-filter" data-disc="freestyle" aria-pressed="false">Roller freestyle</button>
-      <button class="cal-filter" data-disc="hockey" aria-pressed="false">Roller hockey</button>
+    <div class="cal-filters" role="group" aria-label="Filtrer le planning par discipline">
+      <button type="button" class="cal-filter active" data-disc="all" aria-pressed="true"><span class="cal-filter-puce" aria-hidden="true"></span>Toutes<span class="cal-filter-nb">36</span></button>
+      <button type="button" class="cal-filter" data-disc="patinage" aria-pressed="false"><span class="cal-filter-puce" aria-hidden="true"></span>École de patinage<span class="cal-filter-nb">6</span></button>
+      <button type="button" class="cal-filter" data-disc="baby" aria-pressed="false"><span class="cal-filter-puce" aria-hidden="true"></span>Baby roller<span class="cal-filter-nb">1</span></button>
+      <button type="button" class="cal-filter" data-disc="freestyle" aria-pressed="false"><span class="cal-filter-puce" aria-hidden="true"></span>Roller freestyle<span class="cal-filter-nb">3</span></button>
+      <button type="button" class="cal-filter" data-disc="hockey" aria-pressed="false"><span class="cal-filter-puce" aria-hidden="true"></span>Roller hockey<span class="cal-filter-nb">25</span></button>
+      <button type="button" class="cal-filter" data-disc="roller-sport" aria-pressed="false"><span class="cal-filter-puce" aria-hidden="true"></span>Roller sport<span class="cal-filter-nb">1</span></button>
     </div>
 
-    <div class="cal-week" id="calWeek">
-      <div class="cal-day">
+    <div class="cal-jours" id="calJours" role="group" aria-label="Choisir un jour">
+        <button type="button" class="cal-jour-onglet" data-jour="1" aria-pressed="false"><span class="cal-jour-nom">Lundi</span><span class="cal-jour-nb">5</span></button>
+        <button type="button" class="cal-jour-onglet" data-jour="2" aria-pressed="false"><span class="cal-jour-nom">Mardi</span><span class="cal-jour-nb">5</span></button>
+        <button type="button" class="cal-jour-onglet" data-jour="3" aria-pressed="false"><span class="cal-jour-nom">Mercredi</span><span class="cal-jour-nb">10</span></button>
+        <button type="button" class="cal-jour-onglet" data-jour="4" aria-pressed="false"><span class="cal-jour-nom">Jeudi</span><span class="cal-jour-nb">5</span></button>
+        <button type="button" class="cal-jour-onglet" data-jour="5" aria-pressed="false"><span class="cal-jour-nom">Vendredi</span><span class="cal-jour-nb">5</span></button>
+        <button type="button" class="cal-jour-onglet" data-jour="6" aria-pressed="false"><span class="cal-jour-nom">Samedi</span><span class="cal-jour-nb">4</span></button>
+        <button type="button" class="cal-jour-onglet" data-jour="7" aria-pressed="false"><span class="cal-jour-nom">Dimanche</span><span class="cal-jour-nb">2</span></button>
+    </div>
+
+    <div class="cal-panneau">
+      <div class="cal-week" id="calWeek">
+      <div class="cal-day" data-jour="1">
         <h3 class="cal-day-name">Lundi</h3>
-        <div class="cal-slot" data-disc="hockey">
-          <div class="cal-time">12h20 – 13h20</div>
-          <div class="cal-cat">CE Hockey compétition — Aérockey</div>
-          <div class="cal-meta">Créneau scolaire</div>
-        </div>
-        <div class="cal-slot" data-disc="hockey">
-          <div class="cal-time">17h45 – 19h00</div>
-          <div class="cal-cat">Hockey U13</div>
-          <div class="cal-meta">Enfants · 2014–2015</div>
-        </div>
-        <div class="cal-slot" data-disc="freestyle">
-          <div class="cal-time">19h00 – 20h15</div>
-          <div class="cal-cat">Roller freestyle</div>
-          <div class="cal-meta">Enfants &amp; adultes</div>
-        </div>
-        <div class="cal-slot" data-disc="patinage">
-          <div class="cal-time">20h15 – 21h30</div>
-          <div class="cal-cat">École de patinage — niveaux 1-2-3</div>
-          <div class="cal-meta">Enfants &amp; adultes · tous niveaux</div>
-        </div>
-        <div class="cal-slot" data-disc="hockey">
-          <div class="cal-time">21h30 – 22h45</div>
-          <div class="cal-cat">Hockey Nationale 2</div>
-          <div class="cal-meta">Adultes · compétition</div>
+        <div class="cal-day-liste">
+          <article class="cal-slot" data-disc="hockey">
+            <div class="cal-time"><span class="cal-h">12h30</span><span class="cal-h-fin">13h30</span></div>
+            <div class="cal-corps">
+              <h4 class="cal-cat">Hockey compétition</h4>
+              <p class="cal-meta">CE · Aérockey</p>
+            </div>
+          </article>
+          <article class="cal-slot" data-disc="hockey">
+            <div class="cal-time"><span class="cal-h">18h00</span><span class="cal-h-fin">19h15</span></div>
+            <div class="cal-corps">
+              <h4 class="cal-cat">Hockey U13</h4>
+            </div>
+          </article>
+          <article class="cal-slot" data-disc="freestyle">
+            <div class="cal-time"><span class="cal-h">19h15</span><span class="cal-h-fin">20h30</span></div>
+            <div class="cal-corps">
+              <h4 class="cal-cat">Roller freestyle</h4>
+            </div>
+          </article>
+          <article class="cal-slot" data-disc="patinage">
+            <div class="cal-time"><span class="cal-h">20h30</span><span class="cal-h-fin">21h45</span></div>
+            <div class="cal-corps">
+              <h4 class="cal-cat">École de patinage</h4>
+              <p class="cal-meta">Niveaux 1-2-3</p>
+            </div>
+          </article>
+          <article class="cal-slot" data-disc="hockey">
+            <div class="cal-time"><span class="cal-h">21h45</span><span class="cal-h-fin">23h00</span></div>
+            <div class="cal-corps">
+              <h4 class="cal-cat">Hockey Nationale 2</h4>
+            </div>
+          </article>
+          <p class="cal-vide" hidden>Aucun cours de cette discipline ce jour-là.</p>
         </div>
       </div>
-
-      <div class="cal-day">
+      <div class="cal-day" data-jour="2">
         <h3 class="cal-day-name">Mardi</h3>
-        <div class="cal-slot" data-disc="patinage">
-          <div class="cal-time">12h20 – 13h20</div>
-          <div class="cal-cat">CE École de patinage — Aérockey</div>
-          <div class="cal-meta">Créneau scolaire</div>
-        </div>
-        <div class="cal-slot" data-disc="baby">
-          <div class="cal-time">17h45 – 18h45</div>
-          <div class="cal-cat">Baby roller</div>
-          <div class="cal-meta">Enfants · 3–5 ans</div>
-        </div>
-        <div class="cal-slot" data-disc="hockey">
-          <div class="cal-time">18h45 – 20h00</div>
-          <div class="cal-cat">Spécifique gardiens / shooteurs</div>
-          <div class="cal-meta">Maniement · jeunes &amp; compétition</div>
-        </div>
-        <div class="cal-slot" data-disc="hockey">
-          <div class="cal-time">20h00 – 21h15</div>
-          <div class="cal-cat">Hockey Nationale 3 + Filles</div>
-          <div class="cal-meta">Adultes · compétition</div>
-        </div>
-        <div class="cal-slot" data-disc="hockey">
-          <div class="cal-time">21h15 – 22h45</div>
-          <div class="cal-cat">Hockey Nationale 1</div>
-          <div class="cal-meta">Adultes · compétition</div>
+        <div class="cal-day-liste">
+          <article class="cal-slot" data-disc="patinage">
+            <div class="cal-time"><span class="cal-h">12h30</span><span class="cal-h-fin">13h30</span></div>
+            <div class="cal-corps">
+              <h4 class="cal-cat">École de patinage</h4>
+              <p class="cal-meta">CE</p>
+            </div>
+          </article>
+          <article class="cal-slot" data-disc="baby">
+            <div class="cal-time"><span class="cal-h">18h00</span><span class="cal-h-fin">19h00</span></div>
+            <div class="cal-corps">
+              <h4 class="cal-cat">Baby roller</h4>
+            </div>
+          </article>
+          <article class="cal-slot" data-disc="hockey">
+            <div class="cal-time"><span class="cal-h">19h00</span><span class="cal-h-fin">20h15</span></div>
+            <div class="cal-corps">
+              <h4 class="cal-cat">Maniement gardien / shooteur</h4>
+              <p class="cal-meta">SPE</p>
+            </div>
+          </article>
+          <article class="cal-slot" data-disc="hockey">
+            <div class="cal-time"><span class="cal-h">20h15</span><span class="cal-h-fin">21h30</span></div>
+            <div class="cal-corps">
+              <h4 class="cal-cat">Hockey Nationale 3 + Filles</h4>
+            </div>
+          </article>
+          <article class="cal-slot" data-disc="hockey">
+            <div class="cal-time"><span class="cal-h">21h30</span><span class="cal-h-fin">23h00</span></div>
+            <div class="cal-corps">
+              <h4 class="cal-cat">Hockey Nationale 1</h4>
+            </div>
+          </article>
+          <p class="cal-vide" hidden>Aucun cours de cette discipline ce jour-là.</p>
         </div>
       </div>
-
-      <div class="cal-day">
+      <div class="cal-day" data-jour="3">
         <h3 class="cal-day-name">Mercredi</h3>
-        <div class="cal-slot" data-disc="patinage">
-          <div class="cal-time">09h15 – 10h30</div>
-          <div class="cal-cat">École de patinage — débutants</div>
-          <div class="cal-meta">Enfants</div>
-        </div>
-        <div class="cal-slot" data-disc="patinage">
-          <div class="cal-time">10h30 – 12h00</div>
-          <div class="cal-cat">École de patinage — intermédiaires</div>
-          <div class="cal-meta">Enfants</div>
-        </div>
-        <div class="cal-slot" data-disc="hockey">
-          <div class="cal-time">12h20 – 13h20</div>
-          <div class="cal-cat">CE Hockey loisirs — Aérockey</div>
-          <div class="cal-meta">Créneau scolaire</div>
-        </div>
-        <div class="cal-slot" data-disc="hockey">
-          <div class="cal-time">14h00 – 15h15</div>
-          <div class="cal-cat">Hockey U9/U11</div>
-          <div class="cal-meta">Enfants · 2016–2017</div>
-        </div>
-        <div class="cal-slot" data-disc="hockey">
-          <div class="cal-time">15h15 – 16h30</div>
-          <div class="cal-cat">Hockey U13</div>
-          <div class="cal-meta">Enfants · 2014–2015</div>
-        </div>
-        <div class="cal-slot" data-disc="hockey">
-          <div class="cal-time">16h30 – 17h45</div>
-          <div class="cal-cat">Hockey U15</div>
-          <div class="cal-meta">Enfants · 2012–2013</div>
-        </div>
-        <div class="cal-slot" data-disc="hockey">
-          <div class="cal-time">17h45 – 19h00</div>
-          <div class="cal-cat">Hockey U17</div>
-          <div class="cal-meta">Jeunes · 2010–2011</div>
-        </div>
-        <div class="cal-slot" data-disc="hockey">
-          <div class="cal-time">19h00 – 20h15</div>
-          <div class="cal-cat">Hockey U20</div>
-          <div class="cal-meta">Jeunes · 2007 à 2009</div>
-        </div>
-        <div class="cal-slot" data-disc="hockey">
-          <div class="cal-time">20h15 – 21h30</div>
-          <div class="cal-cat">Hockey Filles</div>
-          <div class="cal-meta">Adultes · compétition féminine</div>
-        </div>
-        <div class="cal-slot" data-disc="hockey">
-          <div class="cal-time">21h30 – 22h45</div>
-          <div class="cal-cat">Hockey PréNat (N4)</div>
-          <div class="cal-meta">Adultes · compétition</div>
+        <div class="cal-day-liste">
+          <article class="cal-slot" data-disc="patinage">
+            <div class="cal-time"><span class="cal-h">09h30</span><span class="cal-h-fin">10h45</span></div>
+            <div class="cal-corps">
+              <h4 class="cal-cat">École de patinage</h4>
+              <p class="cal-meta">Débutants · enfants</p>
+            </div>
+          </article>
+          <article class="cal-slot" data-disc="patinage">
+            <div class="cal-time"><span class="cal-h">10h45</span><span class="cal-h-fin">12h20</span></div>
+            <div class="cal-corps">
+              <h4 class="cal-cat">École de patinage</h4>
+              <p class="cal-meta">Intermédiaires</p>
+            </div>
+          </article>
+          <article class="cal-slot" data-disc="hockey">
+            <div class="cal-time"><span class="cal-h">12h30</span><span class="cal-h-fin">13h30</span></div>
+            <div class="cal-corps">
+              <h4 class="cal-cat">Hockey loisirs</h4>
+              <p class="cal-meta">CE · Aérockey</p>
+            </div>
+          </article>
+          <article class="cal-slot" data-disc="hockey">
+            <div class="cal-time"><span class="cal-h">14h15</span><span class="cal-h-fin">15h30</span></div>
+            <div class="cal-corps">
+              <h4 class="cal-cat">Hockey U9/U11</h4>
+            </div>
+          </article>
+          <article class="cal-slot" data-disc="hockey">
+            <div class="cal-time"><span class="cal-h">15h30</span><span class="cal-h-fin">16h45</span></div>
+            <div class="cal-corps">
+              <h4 class="cal-cat">Hockey U13</h4>
+            </div>
+          </article>
+          <article class="cal-slot" data-disc="hockey">
+            <div class="cal-time"><span class="cal-h">16h45</span><span class="cal-h-fin">18h00</span></div>
+            <div class="cal-corps">
+              <h4 class="cal-cat">Hockey U15</h4>
+            </div>
+          </article>
+          <article class="cal-slot" data-disc="hockey">
+            <div class="cal-time"><span class="cal-h">18h00</span><span class="cal-h-fin">19h15</span></div>
+            <div class="cal-corps">
+              <h4 class="cal-cat">Hockey U17</h4>
+            </div>
+          </article>
+          <article class="cal-slot" data-disc="hockey">
+            <div class="cal-time"><span class="cal-h">19h15</span><span class="cal-h-fin">20h30</span></div>
+            <div class="cal-corps">
+              <h4 class="cal-cat">Hockey U20</h4>
+            </div>
+          </article>
+          <article class="cal-slot" data-disc="hockey">
+            <div class="cal-time"><span class="cal-h">20h30</span><span class="cal-h-fin">21h45</span></div>
+            <div class="cal-corps">
+              <h4 class="cal-cat">Hockey Filles</h4>
+            </div>
+          </article>
+          <article class="cal-slot" data-disc="hockey">
+            <div class="cal-time"><span class="cal-h">21h45</span><span class="cal-h-fin">23h00</span></div>
+            <div class="cal-corps">
+              <h4 class="cal-cat">Hockey Nationale 4</h4>
+            </div>
+          </article>
+          <p class="cal-vide" hidden>Aucun cours de cette discipline ce jour-là.</p>
         </div>
       </div>
-
-      <div class="cal-day">
+      <div class="cal-day" data-jour="4">
         <h3 class="cal-day-name">Jeudi</h3>
-        <div class="cal-slot" data-disc="hockey">
-          <div class="cal-time">12h20 – 13h20</div>
-          <div class="cal-cat">CE Hockey compétition — Aérockey</div>
-          <div class="cal-meta">Créneau scolaire</div>
-        </div>
-        <div class="cal-slot" data-disc="hockey">
-          <div class="cal-time">17h30 – 18h45</div>
-          <div class="cal-cat">Hockey U9/U11</div>
-          <div class="cal-meta">Enfants · 2016–2017</div>
-        </div>
-        <div class="cal-slot" data-disc="freestyle">
-          <div class="cal-time">18h45 – 20h00</div>
-          <div class="cal-cat">Roller freestyle</div>
-          <div class="cal-meta">Enfants &amp; adultes</div>
-        </div>
-        <div class="cal-slot" data-disc="hockey">
-          <div class="cal-time">20h00 – 21h15</div>
-          <div class="cal-cat">Hockey Nationale 2</div>
-          <div class="cal-meta">Adultes · compétition</div>
-        </div>
-        <div class="cal-slot" data-disc="hockey">
-          <div class="cal-time">21h15 – 22h45</div>
-          <div class="cal-cat">Hockey Nationale 1</div>
-          <div class="cal-meta">Adultes · compétition</div>
+        <div class="cal-day-liste">
+          <article class="cal-slot" data-disc="hockey">
+            <div class="cal-time"><span class="cal-h">12h30</span><span class="cal-h-fin">13h30</span></div>
+            <div class="cal-corps">
+              <h4 class="cal-cat">Hockey compétition</h4>
+              <p class="cal-meta">CE · Aérockey</p>
+            </div>
+          </article>
+          <article class="cal-slot" data-disc="hockey">
+            <div class="cal-time"><span class="cal-h">17h45</span><span class="cal-h-fin">19h00</span></div>
+            <div class="cal-corps">
+              <h4 class="cal-cat">Hockey U9/U11</h4>
+            </div>
+          </article>
+          <article class="cal-slot" data-disc="freestyle">
+            <div class="cal-time"><span class="cal-h">19h00</span><span class="cal-h-fin">20h15</span></div>
+            <div class="cal-corps">
+              <h4 class="cal-cat">Roller freestyle</h4>
+            </div>
+          </article>
+          <article class="cal-slot" data-disc="hockey">
+            <div class="cal-time"><span class="cal-h">20h15</span><span class="cal-h-fin">21h30</span></div>
+            <div class="cal-corps">
+              <h4 class="cal-cat">Hockey Nationale 2</h4>
+            </div>
+          </article>
+          <article class="cal-slot" data-disc="hockey">
+            <div class="cal-time"><span class="cal-h">21h30</span><span class="cal-h-fin">23h00</span></div>
+            <div class="cal-corps">
+              <h4 class="cal-cat">Hockey Nationale 1</h4>
+            </div>
+          </article>
+          <p class="cal-vide" hidden>Aucun cours de cette discipline ce jour-là.</p>
         </div>
       </div>
-
-      <div class="cal-day">
+      <div class="cal-day" data-jour="5">
         <h3 class="cal-day-name">Vendredi</h3>
-        <div class="cal-slot" data-disc="hockey">
-          <div class="cal-time">12h20 – 13h20</div>
-          <div class="cal-cat">CE Hockey loisirs — Aérockey</div>
-          <div class="cal-meta">Créneau scolaire</div>
-        </div>
-        <div class="cal-slot" data-disc="hockey">
-          <div class="cal-time">17h45 – 19h00</div>
-          <div class="cal-cat">Hockey U15</div>
-          <div class="cal-meta">Enfants · 2012–2013</div>
-        </div>
-        <div class="cal-slot" data-disc="hockey">
-          <div class="cal-time">19h00 – 20h15</div>
-          <div class="cal-cat">Hockey U17</div>
-          <div class="cal-meta">Jeunes · 2010–2011</div>
-        </div>
-        <div class="cal-slot" data-disc="hockey">
-          <div class="cal-time">20h15 – 21h30</div>
-          <div class="cal-cat">Hockey Nationale 3</div>
-          <div class="cal-meta">Adultes · compétition</div>
-        </div>
-        <div class="cal-slot" data-disc="hockey">
-          <div class="cal-time">21h30 – 22h45</div>
-          <div class="cal-cat">Hockey PréNat (N4)</div>
-          <div class="cal-meta">Adultes · compétition</div>
+        <div class="cal-day-liste">
+          <article class="cal-slot" data-disc="hockey">
+            <div class="cal-time"><span class="cal-h">12h30</span><span class="cal-h-fin">13h30</span></div>
+            <div class="cal-corps">
+              <h4 class="cal-cat">Hockey loisirs</h4>
+              <p class="cal-meta">CE · Aérockey</p>
+            </div>
+          </article>
+          <article class="cal-slot" data-disc="hockey">
+            <div class="cal-time"><span class="cal-h">18h00</span><span class="cal-h-fin">19h15</span></div>
+            <div class="cal-corps">
+              <h4 class="cal-cat">Hockey U15</h4>
+            </div>
+          </article>
+          <article class="cal-slot" data-disc="hockey">
+            <div class="cal-time"><span class="cal-h">19h15</span><span class="cal-h-fin">20h30</span></div>
+            <div class="cal-corps">
+              <h4 class="cal-cat">Hockey U17</h4>
+            </div>
+          </article>
+          <article class="cal-slot" data-disc="hockey">
+            <div class="cal-time"><span class="cal-h">20h30</span><span class="cal-h-fin">21h45</span></div>
+            <div class="cal-corps">
+              <h4 class="cal-cat">Hockey Nationale 3</h4>
+            </div>
+          </article>
+          <article class="cal-slot" data-disc="hockey">
+            <div class="cal-time"><span class="cal-h">21h45</span><span class="cal-h-fin">23h00</span></div>
+            <div class="cal-corps">
+              <h4 class="cal-cat">Hockey Nationale 4</h4>
+            </div>
+          </article>
+          <p class="cal-vide" hidden>Aucun cours de cette discipline ce jour-là.</p>
         </div>
       </div>
-
-      <div class="cal-day">
+      <div class="cal-day" data-jour="6">
         <h3 class="cal-day-name">Samedi</h3>
-        <div class="cal-slot" data-disc="patinage">
-          <div class="cal-time">09h15 – 10h30</div>
-          <div class="cal-cat">École de patinage — débutants</div>
-          <div class="cal-meta">Enfants</div>
-        </div>
-        <div class="cal-slot" data-disc="patinage">
-          <div class="cal-time">10h30 – 11h45</div>
-          <div class="cal-cat">École de patinage — intermédiaires</div>
-          <div class="cal-meta">Enfants</div>
-        </div>
-        <div class="cal-slot" data-disc="freestyle">
-          <div class="cal-time">11h45 – 13h00</div>
-          <div class="cal-cat">École de freestyle</div>
-          <div class="cal-meta">Enfants &amp; adultes</div>
-        </div>
-        <div class="cal-slot" data-disc="roller-sport">
-          <div class="cal-time">13h00 – 15h15</div>
-          <div class="cal-cat">Roller sport</div>
-          <div class="cal-meta">Pratique libre encadrée</div>
+        <div class="cal-day-liste">
+          <article class="cal-slot" data-disc="patinage">
+            <div class="cal-time"><span class="cal-h">09h30</span><span class="cal-h-fin">10h45</span></div>
+            <div class="cal-corps">
+              <h4 class="cal-cat">École de patinage</h4>
+              <p class="cal-meta">Débutants · enfants</p>
+            </div>
+          </article>
+          <article class="cal-slot" data-disc="patinage">
+            <div class="cal-time"><span class="cal-h">10h45</span><span class="cal-h-fin">12h00</span></div>
+            <div class="cal-corps">
+              <h4 class="cal-cat">École de patinage</h4>
+              <p class="cal-meta">Intermédiaires</p>
+            </div>
+          </article>
+          <article class="cal-slot" data-disc="freestyle">
+            <div class="cal-time"><span class="cal-h">12h00</span><span class="cal-h-fin">13h20</span></div>
+            <div class="cal-corps">
+              <h4 class="cal-cat">École de freestyle</h4>
+            </div>
+          </article>
+          <article class="cal-slot" data-disc="roller-sport">
+            <div class="cal-time"><span class="cal-h">13h20</span><span class="cal-h-fin">14h30</span></div>
+            <div class="cal-corps">
+              <h4 class="cal-cat">Roller sport</h4>
+            </div>
+          </article>
+          <p class="cal-vide" hidden>Aucun cours de cette discipline ce jour-là.</p>
         </div>
       </div>
-
-      <div class="cal-day">
+      <div class="cal-day" data-jour="7">
         <h3 class="cal-day-name">Dimanche</h3>
-        <div class="cal-slot" data-disc="hockey">
-          <div class="cal-time">17h45 – 19h00</div>
-          <div class="cal-cat">Hockey loisir — initiation</div>
-          <div class="cal-meta">Adultes &amp; U20 · savoir patiner requis</div>
+        <div class="cal-day-liste">
+          <article class="cal-slot" data-disc="hockey">
+            <div class="cal-time"><span class="cal-h">18h00</span><span class="cal-h-fin">19h15</span></div>
+            <div class="cal-corps">
+              <h4 class="cal-cat">Hockey loisirs adultes</h4>
+              <p class="cal-meta">Initiations</p>
+            </div>
+          </article>
+          <article class="cal-slot" data-disc="hockey">
+            <div class="cal-time"><span class="cal-h">19h15</span><span class="cal-h-fin">20h45</span></div>
+            <div class="cal-corps">
+              <h4 class="cal-cat">Hockey loisirs adultes</h4>
+              <p class="cal-meta">Confirmés</p>
+            </div>
+          </article>
+          <p class="cal-vide" hidden>Aucun cours de cette discipline ce jour-là.</p>
         </div>
-        <div class="cal-slot" data-disc="hockey">
-          <div class="cal-time">19h00 – 20h30</div>
-          <div class="cal-cat">Hockey loisir — confirmés</div>
-          <div class="cal-meta">Adultes &amp; U20</div>
-        </div>
+      </div>
       </div>
     </div>
 
-    <p class="cal-note" id="calNote">Pas de cours pendant les vacances scolaires ni les jours fériés, sauf le premier samedi des vacances d'automne, d'hiver et de printemps. Une activité supplémentaire est possible pour 90 € l'année — les cours compétition restent toujours des cours principaux.</p>
+    <p class="cal-note" id="calNote">Pas de cours pendant les vacances scolaires ni les jours fériés, sauf le premier samedi des vacances d&#x27;automne, d&#x27;hiver et de printemps. Une activité supplémentaire est possible pour 90 € l&#x27;année — les cours compétition restent toujours des cours principaux.</p>
   </section>
 
   <section id="hockey">
@@ -694,8 +772,8 @@ Au programme des deux semaines : Parc Coccinelle, bowling, cinéma, trampoline p
     <div class="section-tag bureau-sous-titre">Communication</div>
     <p class="section-lead">Charlotte photographie les équipes de hockey, Elisa fait vivre l'Instagram du club.</p>
     <div class="bureau-grid comm-grid" id="commGrid">
-      <div class="bureau-card glass"><div class="bureau-photo bureau-photo--vide" aria-hidden="true">EG</div><div class="bureau-name">Elisa Guiraud</div><div class="bureau-role">Réseaux sociaux — Instagram.</div></div>
-      <div class="bureau-card glass"><div class="bureau-photo bureau-photo--vide" aria-hidden="true">CB</div><div class="bureau-name">Charlotte Billaud</div><div class="bureau-role">Photos du club — section hockey.</div></div>
+      <div class="bureau-card glass"><img class="bureau-photo" src="images/bureau/guiraud-elisa.webp" alt="Elisa Guiraud" loading="lazy" width="400" height="400" data-initiales="EG"><div class="bureau-name">Elisa Guiraud</div><div class="bureau-role">Réseaux sociaux — Instagram.</div></div>
+      <div class="bureau-card glass"><img class="bureau-photo" src="images/bureau/billaud-charlotte.webp" alt="Charlotte Billaud" loading="lazy" width="400" height="400" data-initiales="CB"><div class="bureau-name">Charlotte Billaud</div><div class="bureau-role">Photos du club — section hockey.</div></div>
     </div>
   </section>
 

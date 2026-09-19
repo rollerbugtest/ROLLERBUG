@@ -53,12 +53,22 @@
   function rendreActualites(news) {
     if (!Array.isArray(news) || !news.length) return;
     set('newsBand', news.map(function (item) {
-      var href = item.url ? esc(item.url) : '#inscriptions';
-      var cible = item.url ? ' target="_blank" rel="noopener"' : '';
-      return '<a class="news-item" href="' + href + '"' + cible + '>' +
-        '<div class="news-date">' + esc(item.dateLabel) + '</div>' +
-        '<div class="news-title">' + esc(item.title) + '</div>' +
-        '<div class="news-place">' + esc(item.place || '') + '</div>' +
+      // url absente  -> renvoie aux inscriptions ;
+      // url en « # »  -> ancre interne de la page ;
+      // url complète  -> site extérieur, ouvert dans un nouvel onglet.
+      var brut = item.url || '#inscriptions';
+      var externe = brut.charAt(0) !== '#';
+      var href = esc(brut);
+      var cible = externe ? ' target="_blank" rel="noopener"' : '';
+      return '<a class="news-item' + (externe ? ' news-item--externe' : '') +
+        '" href="' + href + '"' + cible + '>' +
+        '<span class="news-entete">' +
+          '<span class="news-date">' + esc(item.dateLabel) + '</span>' +
+          '<span class="news-fleche" aria-hidden="true">' + (externe ? '↗' : '→') + '</span>' +
+        '</span>' +
+        '<h3 class="news-title">' + esc(item.title) + '</h3>' +
+        '<span class="news-place">' + esc(item.place || '') + '</span>' +
+        (externe ? '<span class="sr-only"> (ouvre un nouvel onglet)</span>' : '') +
         '</a>';
     }).join(''));
   }
@@ -177,25 +187,37 @@
   function rendrePlanning(planning) {
     if (!planning || !Array.isArray(planning.slots) || !planning.slots.length) return;
 
-    var html = '';
+    var jours = '';
+    var onglets = '';
     for (var jour = 1; jour <= 7; jour++) {
       var creneaux = planning.slots
         .filter(function (s) { return s.weekday === jour; })
         .sort(function (a, b) { return a.start.localeCompare(b.start); });
 
-      html += '<div class="cal-day"><h3 class="cal-day-name">' + JOURS[jour] + '</h3>';
-      html += creneaux.map(function (s) {
-        return '<div class="cal-slot" data-disc="' + esc(s.discipline) + '">' +
-          '<div class="cal-time">' + heure(s.start) + ' – ' + heure(s.end) + '</div>' +
-          '<div class="cal-cat">' + esc(s.category) + '</div>' +
-          '<div class="cal-meta">' + esc(s.meta) + '</div>' +
-          '</div>';
-      }).join('');
-      html += '</div>';
+      onglets += '<button type="button" class="cal-jour-onglet" data-jour="' + jour + '"' +
+        ' aria-pressed="false"><span class="cal-jour-nom">' + JOURS[jour] + '</span>' +
+        '<span class="cal-jour-nb">' + creneaux.length + '</span></button>';
+
+      jours += '<div class="cal-day" data-jour="' + jour + '">' +
+        '<h3 class="cal-day-name">' + JOURS[jour] + '</h3>' +
+        '<div class="cal-day-liste">' +
+        creneaux.map(function (s) {
+          return '<article class="cal-slot" data-disc="' + esc(s.discipline) + '">' +
+            '<div class="cal-time"><span class="cal-h">' + heure(s.start) + '</span>' +
+              '<span class="cal-h-fin">' + heure(s.end) + '</span></div>' +
+            '<div class="cal-corps">' +
+              '<h4 class="cal-cat">' + esc(s.category) + '</h4>' +
+              (s.meta ? '<p class="cal-meta">' + esc(s.meta) + '</p>' : '') +
+            '</div></article>';
+        }).join('') +
+        '<p class="cal-vide" hidden>Aucun cours de cette discipline ce jour-là.</p>' +
+        '</div></div>';
     }
 
-    set('calWeek', html);
+    set('calWeek', jours);
+    set('calJours', onglets);
     if (planning.note) set('calNote', esc(planning.note));
+    document.dispatchEvent(new CustomEvent('rollerbug:planning'));
   }
 
   function rendreHockey(bloc) {

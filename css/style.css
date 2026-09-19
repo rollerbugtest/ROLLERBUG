@@ -24,6 +24,10 @@
     --d-baby:#6fe0a8;
     --d-freestyle:#c98bff;
     --d-hockey:#f7c600;
+    --d-roller-sport:#ff9f5a;
+    /* Coche dessinée en SVG, utilisée en masque : elle prend la couleur du
+       texte du bouton actif, sans fichier image à charger. */
+    --coche:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M13.5 4.5 6.5 12 2.5 8.2l1.2-1.2 2.8 2.7 5.8-6.2z' fill='%23000'/%3E%3C/svg%3E");
 
     /* Bandeau d'événement sans image : dégradé maison, posé SOUS l'image.
        Si le fichier est absent ou mal nommé, c'est lui qu'on voit — jamais
@@ -769,51 +773,149 @@
     line-height:1.7;
   }
 
-  /* ---------- Bandeau d'actualités ---------- */
+  /* ---------- Bandeau d'actualités ----------
+     Cinq rendez-vous : une grille de 6 colonnes leur donne un rythme 3 + 2
+     plutôt que cinq colonnes identiques et étroites. Les deux cartes du bas
+     s'élargissent, ce qui aère la section sans changer le contenu. */
   .news-band{
     margin-top:44px;
     display:grid;
-    grid-template-columns:repeat(auto-fit, minmax(190px, 1fr));
-    gap:12px;
+    grid-template-columns:repeat(6, 1fr);
+    gap:16px;
   }
+  .news-item{ grid-column:span 2; }
+  /* Ne s'applique QUE s'il y a exactement cinq actualités : avec six, tout
+     revient sagement à trois par ligne. */
+  .news-item:nth-child(4):nth-last-child(2),
+  .news-item:nth-child(5):nth-last-child(1){ grid-column:span 3; }
+
   .news-item{
-    display:block;
+    position:relative;
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    min-height:168px;
+    padding:24px 24px 22px;
     text-decoration:none;
-    padding:20px 18px;
-    background:linear-gradient(155deg, var(--glass-bg-strong), var(--glass-bg));
+    color:inherit;
+    overflow:hidden;
+    background:
+      radial-gradient(120% 140% at 0% 0%, rgba(247,198,0,.07), transparent 58%),
+      linear-gradient(155deg, var(--glass-bg-strong), var(--glass-bg));
     -webkit-backdrop-filter:var(--glass-blur);
     backdrop-filter:var(--glass-blur);
     border:1px solid var(--glass-border);
-    border-left:2px solid var(--gold);
-    border-radius:14px;
-    transition:transform .25s ease, background .25s ease, border-color .25s ease;
+    border-radius:16px;
+    transition:transform .3s cubic-bezier(.2,.7,.3,1),
+               border-color .3s ease,
+               box-shadow .3s ease,
+               background .3s ease;
   }
-  .news-item:hover{
-    transform:translateY(-3px);
-    background:rgba(247,198,0,0.06);
+  /* Accent doré en haut à gauche. Un simple liseré sur toute la hauteur, comme
+     avant, faisait cinq barres identiques ; ce trait court qui s'étire au
+     survol donne le même code couleur sans l'effet « code-barres ». */
+  .news-item::before{
+    content:'';
+    position:absolute;
+    top:0; left:0;
+    width:46px; height:3px;
+    background:var(--gold);
+    border-radius:0 0 3px 0;
+    transition:width .34s cubic-bezier(.2,.7,.3,1);
+  }
+  .news-item:hover,
+  .news-item:focus-visible{
+    transform:translateY(-4px);
     border-color:var(--glass-gold);
-    border-left-color:var(--gold);
+    box-shadow:0 16px 40px rgba(0,0,0,.45), 0 0 0 1px rgba(247,198,0,.12) inset;
   }
+  .news-item:hover::before,
+  .news-item:focus-visible::before{ width:100%; }
+  .news-item:focus-visible{
+    outline:2px solid var(--gold);
+    outline-offset:3px;
+  }
+
+  .news-entete{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+  }
+  /* L'indication temporelle : un badge, pas une ligne de texte perdue. */
   .news-date{
+    display:inline-block;
+    padding:5px 11px;
     font-family:'JetBrains Mono', monospace;
-    font-size:11px;
-    letter-spacing:1.5px;
+    font-size:10.5px;
+    font-weight:700;
+    letter-spacing:1.3px;
     text-transform:uppercase;
     color:var(--gold);
-    margin-bottom:10px;
+    background:rgba(247,198,0,.10);
+    border:1px solid rgba(247,198,0,.28);
+    border-radius:999px;
+    white-space:nowrap;
   }
+  .news-fleche{
+    font-size:1rem;
+    line-height:1;
+    color:var(--ink-dim);
+    transition:color .25s ease, transform .3s cubic-bezier(.2,.7,.3,1);
+  }
+  .news-item:hover .news-fleche,
+  .news-item:focus-visible .news-fleche{
+    color:var(--gold);
+    transform:translateX(4px);
+  }
+  .news-item--externe:hover .news-fleche,
+  .news-item--externe:focus-visible .news-fleche{
+    transform:translate(3px, -3px);
+  }
+
   .news-title{
     font-family:'Anton',sans-serif;
-    font-size:1.05rem;
-    letter-spacing:0.5px;
+    font-size:1.2rem;
+    line-height:1.18;
+    letter-spacing:.4px;
     color:var(--ink);
-    margin-bottom:6px;
+    transition:color .25s ease;
   }
+  .news-item:hover .news-title,
+  .news-item:focus-visible .news-title{ color:var(--gold); }
+
+  /* Poussé en bas : les lieux s'alignent d'une carte à l'autre, même quand un
+     titre tient sur deux lignes. */
   .news-place{
+    margin-top:auto;
+    padding-top:4px;
     color:var(--ink-dim);
-    font-size:.78rem;
-    line-height:1.5;
+    font-size:.82rem;
+    line-height:1.55;
   }
+
+  @media(max-width:1080px){
+    .news-band{ grid-template-columns:repeat(2, 1fr); gap:14px; }
+    .news-item,
+    .news-item:nth-child(4):nth-last-child(2),
+    .news-item:nth-child(5):nth-last-child(1){ grid-column:span 1; }
+    /* Une carte seule en fin de ligne prend toute la largeur. */
+    .news-item:last-child:nth-child(odd){ grid-column:span 2; }
+  }
+  @media(max-width:640px){
+    .news-band{ grid-template-columns:1fr; gap:12px; }
+    .news-item,
+    .news-item:last-child:nth-child(odd),
+    .news-item:nth-child(4):nth-last-child(2),
+    .news-item:nth-child(5):nth-last-child(1){ grid-column:span 1; }
+    .news-item{ min-height:0; padding:20px; gap:10px; }
+    .news-title{ font-size:1.1rem; }
+  }
+  @media(prefers-reduced-motion: reduce){
+    .news-item, .news-item::before, .news-fleche{ transition:none; }
+    .news-item:hover, .news-item:focus-visible{ transform:none; }
+  }
+
 
   /* ---------- Barre de suivi verticale ---------- */
   .progress-rail{
@@ -1309,7 +1411,15 @@
     .event-dlg-corps h3{ font-size:1.35rem; }
   }
 
-  /* ---------- Planning hebdomadaire ---------- */
+  /* ---------- Planning hebdomadaire ----------
+     Une teinte par discipline, reprise sur le filtre, sur l'onglet et sur le
+     créneau : on retrouve la même couleur du bouton jusqu'à la carte. */
+  .cal-disc-patinage{ --disc:var(--d-patinage); }
+  .cal-disc-baby{ --disc:var(--d-baby); }
+  .cal-disc-freestyle{ --disc:var(--d-freestyle); }
+  .cal-disc-hockey{ --disc:var(--d-hockey); }
+
+  /* --- Filtres --- */
   .cal-filters{
     margin-top:44px;
     display:flex;
@@ -1317,111 +1427,268 @@
     gap:10px;
   }
   .cal-filter{
+    display:inline-flex;
+    align-items:center;
+    gap:9px;
+    padding:11px 18px;
     font-family:'Inter',sans-serif;
     font-size:12px;
     font-weight:600;
-    letter-spacing:1px;
+    letter-spacing:.8px;
     text-transform:uppercase;
     color:var(--ink-dim);
     background:linear-gradient(155deg, var(--glass-bg-strong), var(--glass-bg));
     border:1px solid var(--glass-border);
     border-radius:999px;
-    padding:11px 20px;
     cursor:pointer;
-    display:inline-flex;
-    align-items:center;
-    gap:9px;
-    transition:color .2s ease, border-color .2s ease, background .2s ease;
+    transition:color .22s ease, border-color .22s ease, background .22s ease, transform .22s ease;
   }
-  /* Pastille de couleur = légende des disciplines */
-  .cal-filter[data-disc]:not([data-disc="all"])::before{
-    content:'';
-    width:8px; height:8px;
+  .cal-filter[data-disc="all"]{ --disc:var(--gold); }
+  .cal-filter[data-disc="patinage"]{ --disc:var(--d-patinage); }
+  .cal-filter[data-disc="baby"]{ --disc:var(--d-baby); }
+  .cal-filter[data-disc="freestyle"]{ --disc:var(--d-freestyle); }
+  .cal-filter[data-disc="hockey"]{ --disc:var(--d-hockey); }
+  .cal-filter[data-disc="roller-sport"]{ --disc:var(--d-roller-sport); }
+
+  .cal-filter-puce{
+    width:9px; height:9px;
     border-radius:50%;
-    flex:none;
+    background:var(--disc);
+    flex:0 0 auto;
+    transition:transform .22s ease;
   }
-  .cal-filter[data-disc="patinage"]::before{background:var(--d-patinage);}
-  .cal-filter[data-disc="baby"]::before{background:var(--d-baby);}
-  .cal-filter[data-disc="freestyle"]::before{background:var(--d-freestyle);}
-  .cal-filter[data-disc="hockey"]::before{background:var(--d-hockey);}
-  .cal-filter:hover{color:var(--ink); border-color:var(--gold);}
+  .cal-filter-nb{
+    font-family:'JetBrains Mono', monospace;
+    font-size:10.5px;
+    padding:2px 7px;
+    border-radius:999px;
+    background:rgba(255,255,255,.08);
+    color:var(--ink-dim);
+  }
+  .cal-filter:hover{
+    color:var(--ink);
+    border-color:var(--disc);
+    transform:translateY(-2px);
+  }
+  .cal-filter:focus-visible{
+    outline:2px solid var(--gold);
+    outline-offset:3px;
+  }
+  /* L'état actif ne repose pas que sur la couleur : le fond devient plein,
+     le texte passe en noir, la pastille se transforme en coche et le libellé
+     s'épaissit. Lisible aussi en noir et blanc. */
   .cal-filter.active{
     color:var(--night-0);
-    background:var(--gold);
-    border-color:var(--gold);
+    font-weight:800;
+    background:var(--disc);
+    border-color:var(--disc);
+    box-shadow:0 6px 20px -6px var(--disc);
+  }
+  .cal-filter.active .cal-filter-puce{
+    background:transparent;
+    width:12px; height:12px;
+    border-radius:0;
+    transform:none;
+    -webkit-mask:var(--coche) center / contain no-repeat;
+    mask:var(--coche) center / contain no-repeat;
+    background-color:var(--night-0);
+  }
+  .cal-filter.active .cal-filter-nb{
+    background:rgba(0,0,0,.22);
+    color:var(--night-0);
+    font-weight:700;
   }
 
+  /* --- Onglets de jour --- */
+  .cal-jours{
+    margin-top:18px;
+    display:flex;
+    gap:8px;
+    overflow-x:auto;
+    padding-bottom:4px;
+    scrollbar-width:thin;
+  }
+  .cal-jour-onglet{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    flex:0 0 auto;
+    padding:10px 16px;
+    font-family:'Inter',sans-serif;
+    font-size:12px;
+    font-weight:600;
+    letter-spacing:.6px;
+    text-transform:uppercase;
+    color:var(--ink-dim);
+    background:none;
+    border:1px solid transparent;
+    border-bottom:2px solid var(--line);
+    border-radius:10px 10px 0 0;
+    cursor:pointer;
+    white-space:nowrap;
+    transition:color .2s ease, border-color .2s ease, background .2s ease;
+  }
+  .cal-jour-nb{
+    font-family:'JetBrains Mono', monospace;
+    font-size:10.5px;
+    color:var(--ink-dim);
+    opacity:.8;
+  }
+  .cal-jour-onglet:hover{ color:var(--ink); border-bottom-color:var(--gold-dim); }
+  .cal-jour-onglet:focus-visible{ outline:2px solid var(--gold); outline-offset:2px; }
+  .cal-jour-onglet.active{
+    color:var(--gold);
+    font-weight:800;
+    background:rgba(247,198,0,.08);
+    border-bottom-color:var(--gold);
+  }
+  .cal-jour-onglet.active .cal-jour-nb{ color:var(--gold); opacity:1; }
+
+  /* --- Panneau de la semaine ---
+     Fond volontairement opaque : le grand logo en filigrane passe derrière et
+     ne vient plus brouiller la lecture des créneaux. */
+  .cal-panneau{
+    margin-top:14px;
+    padding:20px;
+    background:linear-gradient(160deg, rgba(10,10,10,.92), rgba(5,5,5,.96));
+    -webkit-backdrop-filter:blur(14px);
+    backdrop-filter:blur(14px);
+    border:1px solid var(--glass-border);
+    border-radius:20px;
+  }
   .cal-week{
-    margin-top:30px;
     display:grid;
-    grid-template-columns:repeat(7, 1fr);
+    grid-template-columns:repeat(7, minmax(0, 1fr));
     gap:12px;
-    align-items:start;
   }
-  @media(max-width:1180px){ .cal-week{grid-template-columns:repeat(4,1fr);} }
-  @media(max-width:820px){ .cal-week{grid-template-columns:repeat(2,1fr);} }
-  @media(max-width:520px){ .cal-week{grid-template-columns:1fr;} }
-
+  .cal-day{ min-width:0; }
+  .cal-day[hidden]{ display:none; }
   .cal-day-name{
     font-family:'Anton',sans-serif;
     font-size:.95rem;
-    letter-spacing:1.5px;
+    letter-spacing:1.6px;
     text-transform:uppercase;
     color:var(--ink);
     padding-bottom:10px;
     margin-bottom:12px;
     border-bottom:1px solid var(--line);
   }
-  /* Jour sans aucun créneau après filtrage : on le retire */
-  .cal-day.is-empty{display:none;}
+  .cal-day.sans-creneau .cal-day-name{ color:var(--ink-dim); }
+  .cal-day-liste{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+  }
 
+  /* --- Créneau --- */
   .cal-slot{
-    background:linear-gradient(155deg, var(--glass-bg-strong), var(--glass-bg));
+    --disc:var(--ink-dim);
+    position:relative;
+    padding:14px 14px 14px 16px;
+    background:rgba(255,255,255,.035);
     border:1px solid var(--glass-border);
-    border-left:3px solid var(--slot-color, var(--gold));
-    border-radius:10px;
-    padding:12px 13px;
-    margin-bottom:9px;
-    transition:transform .2s ease, background .2s ease, border-color .2s ease;
+    border-radius:12px;
+    overflow:hidden;
+    transition:background .22s ease, border-color .22s ease, transform .22s ease;
   }
-  .cal-slot[hidden]{display:none;}
+  .cal-slot::before{
+    content:'';
+    position:absolute;
+    left:0; top:0; bottom:0;
+    width:3px;
+    background:var(--disc);
+  }
+  .cal-slot[hidden]{ display:none; }
   .cal-slot:hover{
+    background:rgba(255,255,255,.07);
+    border-color:var(--disc);
     transform:translateY(-2px);
-    background:rgba(255,255,255,0.07);
   }
-  .cal-slot[data-disc="patinage"]{--slot-color:var(--d-patinage);}
-  .cal-slot[data-disc="baby"]{--slot-color:var(--d-baby);}
-  .cal-slot[data-disc="freestyle"]{--slot-color:var(--d-freestyle);}
-  .cal-slot[data-disc="hockey"]{--slot-color:var(--d-hockey);}
+  .cal-slot[data-disc="patinage"]{ --disc:var(--d-patinage); }
+  .cal-slot[data-disc="baby"]{ --disc:var(--d-baby); }
+  .cal-slot[data-disc="freestyle"]{ --disc:var(--d-freestyle); }
+  .cal-slot[data-disc="hockey"]{ --disc:var(--d-hockey); }
+  .cal-slot[data-disc="roller-sport"]{ --disc:var(--d-roller-sport); }
 
+  /* L'heure de début domine, la fin reste lisible mais en retrait : on repère
+     un créneau à son heure de début, pas à sa plage complète. */
   .cal-time{
+    display:flex;
+    align-items:baseline;
+    gap:6px;
+    margin-bottom:8px;
     font-family:'JetBrains Mono', monospace;
-    font-size:11px;
-    letter-spacing:.5px;
-    color:var(--slot-color, var(--gold));
-    margin-bottom:6px;
   }
-  .cal-cat{
-    font-size:.84rem;
+  .cal-h{
+    font-size:.95rem;
     font-weight:700;
-    color:var(--ink);
-    line-height:1.35;
-    margin-bottom:4px;
+    color:var(--disc);
+    letter-spacing:.5px;
   }
-  .cal-meta{
+  .cal-h-fin{
     font-size:.72rem;
     color:var(--ink-dim);
+  }
+  .cal-h-fin::before{ content:'→ '; }
+  .cal-cat{
+    font-size:.86rem;
+    font-weight:700;
+    line-height:1.35;
+    color:var(--ink);
+  }
+  .cal-meta{
+    margin-top:4px;
+    font-size:.74rem;
     line-height:1.45;
-  }
-  .cal-note{
-    margin-top:34px;
-    padding-left:16px;
-    border-left:2px solid var(--gold-dim);
     color:var(--ink-dim);
-    font-size:.88rem;
-    line-height:1.75;
-    max-width:820px;
   }
+  .cal-vide{
+    padding:14px 12px;
+    font-size:.76rem;
+    line-height:1.5;
+    color:var(--ink-dim);
+    text-align:center;
+    border:1px dashed var(--line);
+    border-radius:12px;
+  }
+  .cal-vide[hidden]{ display:none; }
+
+  .cal-note{
+    margin-top:22px;
+    font-size:.84rem;
+    line-height:1.7;
+    color:var(--ink-dim);
+    max-width:80ch;
+  }
+
+  /* --- Écrans intermédiaires : la semaine sur deux rangées --- */
+  @media(max-width:1280px){
+    .cal-week{ grid-template-columns:repeat(4, minmax(0, 1fr)); gap:14px; }
+  }
+  @media(max-width:1100px){
+    .cal-week{ grid-template-columns:repeat(3, minmax(0, 1fr)); }
+  }
+
+  /* --- Téléphone : un jour à la fois --- */
+  @media(max-width:900px){
+    .cal-week{ grid-template-columns:1fr; }
+    .cal-panneau{ padding:16px; border-radius:16px; }
+    .cal-day-name{ font-size:1.05rem; }
+    .cal-slot{ padding:15px 15px 15px 18px; }
+    .cal-time{ margin-bottom:6px; }
+    .cal-h{ font-size:1.02rem; }
+    .cal-cat{ font-size:.92rem; }
+    .cal-filters{ gap:8px; }
+    .cal-filter{ padding:10px 14px; font-size:11px; }
+  }
+  @media(max-width:520px){
+    .cal-filter{ flex:1 1 auto; justify-content:center; }
+  }
+  @media(prefers-reduced-motion: reduce){
+    .cal-filter, .cal-slot, .cal-jour-onglet{ transition:none; }
+    .cal-filter:hover, .cal-slot:hover{ transform:none; }
+  }
+
 
   /* ---------- Hockey schedule ---------- */
   .hockey-grid{
