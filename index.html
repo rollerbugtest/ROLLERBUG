@@ -168,9 +168,24 @@
     </div>
 
     <!-- Flux Instagram automatique — Elfsight (connecté à @rollerbug_stmedard) -->
-    <div class="insta-embed glass" id="instagram-embed">
-      <script src="https://elfsightcdn.com/platform.js" async></script>
-      <div class="elfsight-app-a2776653-e12e-4fab-a8c2-1f52c875e0aa" data-elfsight-app-lazy></div>
+    <!-- Fil Instagram : contenu tiers (Elfsight). Rien n'est chargé tant que le
+         visiteur n'a pas accepté la catégorie « réseaux sociaux ». Le vrai
+         contenu dort dans le <template> ; js/cookies.js l'installe le moment venu. -->
+    <div class="insta-embed glass" id="instagram-embed" data-consentement="reseaux">
+      <div class="consent-encart">
+        <div class="consent-encart-ico" aria-hidden="true">📷</div>
+        <h3>Fil Instagram</h3>
+        <p>Ce contenu est fourni par Instagram via Elfsight. Son affichage dépose
+           des traceurs sur votre appareil, nous avons donc besoin de votre accord.</p>
+        <div class="consent-encart-actions">
+          <button type="button" class="btn btn-primary" data-consent-autoriser="reseaux">Autoriser et afficher</button>
+          <a href="https://www.instagram.com/rollerbug_stmedard/" target="_blank" rel="noopener" class="btn btn-ghost">Ouvrir Instagram</a>
+        </div>
+      </div>
+      <template>
+        <script src="https://elfsightcdn.com/platform.js" async></script>
+        <div class="elfsight-app-a2776653-e12e-4fab-a8c2-1f52c875e0aa" data-elfsight-app-lazy></div>
+      </template>
     </div>
 
     <div class="cta-row" style="margin-top:32px; justify-content:flex-start;">
@@ -743,6 +758,17 @@ Au programme des deux semaines : Parc Coccinelle, bowling, cinéma, trampoline p
       </div>
 
       <div class="legal-block">
+        <h3>Cookies et traceurs</h3>
+        <p>Aucune publicité, aucune mesure d'audience. Seuls sont utilisés :</p>
+        <p>— les stockages nécessaires au fonctionnement du site (écran d'accueil,
+           choix de cookies, session de votre compte) ;</p>
+        <p>— le fil Instagram intégré, qui ne se charge qu'avec votre accord.</p>
+        <p>Votre choix est conservé 13 mois au maximum.</p>
+        <p><button type="button" class="btn btn-ghost" data-cookie="regler"
+                   style="margin-top:14px;">Gérer mes cookies</button></p>
+      </div>
+
+      <div class="legal-block">
         <h3>Crédit images</h3>
         <p>Photos : <strong>RAISON Davy</strong></p>
         <p>Photos hockey : <strong>Charlotte Billaud</strong></p>
@@ -768,6 +794,7 @@ Au programme des deux semaines : Parc Coccinelle, bowling, cinéma, trampoline p
       <a href="https://fr-fr.facebook.com/RollerbugSaintMedard/" target="_blank" rel="noopener">FACEBOOK</a>
       <a href="#contact">CONTACT</a>
       <a href="#mentions-legales">MENTIONS LÉGALES</a>
+      <a href="#mentions-legales" data-cookie="regler">GÉRER MES COOKIES</a>
     </div>
   </footer>
 
@@ -806,6 +833,59 @@ Au programme des deux semaines : Parc Coccinelle, bowling, cinéma, trampoline p
   </div>
 </dialog>
 
+<!-- Consentement aux cookies. Refuser est aussi simple qu'accepter : deux
+     boutons de même poids, au même niveau (recommandation CNIL). -->
+<div class="cookie-bandeau" id="cookieBandeau" role="dialog" aria-live="polite"
+     aria-label="Gestion des cookies" hidden>
+  <div class="cookie-bandeau-texte">
+    <strong>Cookies et contenus tiers</strong>
+    <p>Ce site n'utilise aucun traceur publicitaire ni mesure d'audience. Seul le
+       fil Instagram intégré dépose des traceurs, et uniquement si vous l'acceptez.
+       <a href="#mentions-legales">En savoir plus</a></p>
+  </div>
+  <div class="cookie-bandeau-actions">
+    <button type="button" class="btn btn-ghost" data-cookie="regler">Personnaliser</button>
+    <button type="button" class="btn btn-ghost" data-cookie="rien">Tout refuser</button>
+    <button type="button" class="btn btn-primary" data-cookie="tout">Tout accepter</button>
+  </div>
+</div>
+
+<dialog id="cookiePanneau" class="cookie-dlg" aria-labelledby="cookieTitre">
+  <button type="button" class="compte-fermer" data-cookie="fermer" aria-label="Fermer">&times;</button>
+  <h3 id="cookieTitre">Vos choix</h3>
+  <p class="cookie-intro">Vous pouvez revenir sur ces réglages à tout moment depuis
+     « Gérer mes cookies », en bas de page.</p>
+
+  <div class="cookie-cat">
+    <div class="cookie-cat-entete">
+      <strong>Strictement nécessaires</strong>
+      <span class="cookie-toujours">Toujours actifs</span>
+    </div>
+    <p>Mémorisent que l'écran d'accueil a déjà été vu, conservent vos choix de
+       cookies, et maintiennent votre session si vous créez un compte. Sans eux
+       le site ne peut pas fonctionner : ils ne nécessitent pas votre accord.</p>
+  </div>
+
+  <div class="cookie-cat">
+    <div class="cookie-cat-entete">
+      <label for="cookieReseaux"><strong>Réseaux sociaux</strong></label>
+      <label class="cookie-switch">
+        <input type="checkbox" id="cookieReseaux">
+        <span aria-hidden="true"></span>
+        <span class="sr-only">Autoriser les contenus des réseaux sociaux</span>
+      </label>
+    </div>
+    <p>Affiche le fil Instagram du club directement sur le site. Fourni par
+       Elfsight et Instagram, qui déposent leurs propres traceurs. Refusé, le fil
+       est remplacé par un lien vers notre compte Instagram.</p>
+  </div>
+
+  <div class="cookie-dlg-actions">
+    <button type="button" class="btn btn-ghost" data-cookie="rien">Tout refuser</button>
+    <button type="button" class="btn btn-primary" data-cookie="valider">Enregistrer mes choix</button>
+  </div>
+</dialog>
+
 <script src="js/intro.js"></script>
 <script src="js/page-transition.js"></script>
 
@@ -819,6 +899,7 @@ Au programme des deux semaines : Parc Coccinelle, bowling, cinéma, trampoline p
 <script src="js/compte-ui.js"></script>
 
 <script src="js/stars.js"></script>
+<script src="js/cookies.js"></script>
 <script src="js/nav.js"></script>
 <script src="js/sous-menus.js"></script>
 <script src="js/calendrier.js"></script>
