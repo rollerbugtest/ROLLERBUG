@@ -1739,6 +1739,92 @@
   .coach-name{font-weight:700; font-size:.92rem; margin-bottom:4px;}
   .coach-role{color:var(--ink-dim); font-size:.82rem; line-height:1.5;}
 
+  /* ---------- Tarifs de la section hockey ----------
+     Deux grilles côte à côte, loisir et compétition, avec la tranche d'âge à
+     gauche et le prix à droite : on lit une ligne d'un seul coup d'œil. */
+  .hockey-tarifs{ margin-top:34px; }
+  .tarif-grilles{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
+  }
+  .tarif-carte{
+    --teinte:var(--gold);
+    padding:20px 20px 16px;
+    background:linear-gradient(155deg, var(--glass-bg-strong), var(--glass-bg));
+    border:1px solid var(--glass-border);
+    border-top:3px solid var(--teinte);
+    border-radius:14px;
+  }
+  /* Les deux couleurs du tableau du club : jaune pour le loisir, rouge pour
+     la compétition. */
+  .tarif-loisir{ --teinte:var(--gold); }
+  .tarif-competition{ --teinte:#e8705f; }
+  .tarif-titre{
+    font-family:'Anton',sans-serif;
+    font-size:1.05rem;
+    letter-spacing:1.4px;
+    text-transform:uppercase;
+    color:var(--teinte);
+    margin-bottom:14px;
+  }
+  .tarif-lignes{ list-style:none; }
+  .tarif-lignes li{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    gap:14px;
+    padding:9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  .tarif-lignes li:last-child{ border-bottom:none; }
+  .tarif-cat{
+    font-size:.86rem;
+    font-weight:600;
+    color:var(--ink);
+  }
+  .tarif-annees{
+    display:block;
+    margin-top:2px;
+    font-size:.72rem;
+    font-weight:400;
+    color:var(--ink-dim);
+  }
+  .tarif-prix{
+    font-family:'JetBrains Mono', monospace;
+    font-size:.95rem;
+    font-weight:700;
+    color:var(--teinte);
+    white-space:nowrap;
+  }
+  .tarif-sup{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:14px;
+    margin-top:14px;
+    padding:14px 20px;
+    font-size:.86rem;
+    font-weight:600;
+    color:var(--ink);
+    background:rgba(255,255,255,.04);
+    border:1px solid var(--glass-border);
+    border-radius:12px;
+  }
+  .tarif-sup strong{
+    font-family:'JetBrains Mono', monospace;
+    color:var(--gold);
+  }
+  .tarif-note{
+    margin-top:12px;
+    font-size:.78rem;
+    line-height:1.55;
+    color:var(--ink-dim);
+  }
+  @media(max-width:700px){
+    .tarif-grilles{ grid-template-columns:1fr; }
+  }
+
   /* ---------- Inscriptions ---------- */
   .insc-grid{
     margin-top:50px;

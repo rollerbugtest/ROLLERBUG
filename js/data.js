@@ -257,6 +257,30 @@
       set('teamList', html);
     }
 
+    // Grille tarifaire de la section hockey : deux colonnes loisir /
+    // compétition, par tranche d'âge, plus le cours supplémentaire.
+    if (bloc.tarifs && Array.isArray(bloc.tarifs.grilles)) {
+      var t = bloc.tarifs;
+      var grilles = t.grilles.map(function (g) {
+        return '<div class="tarif-carte tarif-' +
+          (/comp/i.test(g.titre) ? 'competition' : 'loisir') + '">' +
+          '<h4 class="tarif-titre">' + esc(g.titre) + '</h4>' +
+          '<ul class="tarif-lignes">' + g.lignes.map(function (l) {
+            return '<li><span class="tarif-cat">' + esc(l.label) +
+              (l.annees ? '<span class="tarif-annees">' + esc(l.annees) + '</span>' : '') +
+              '</span><span class="tarif-prix">' + esc(l.prix) + '</span></li>';
+          }).join('') + '</ul></div>';
+      }).join('');
+
+      var sup = t.supplement
+        ? '<p class="tarif-sup"><span>' + esc(t.supplement.label) + '</span>' +
+          '<strong>' + esc(t.supplement.prix) + '</strong></p>'
+        : '';
+      var note = t.note ? '<p class="tarif-note">' + esc(t.note) + '</p>' : '';
+
+      set('hockeyTarifs', '<div class="tarif-grilles">' + grilles + '</div>' + sup + note);
+    }
+
     if (Array.isArray(bloc.coaches) && bloc.coaches.length) {
       set('coachesGrid', bloc.coaches.map(function (c) {
         return '<div class="coach glass">' +
