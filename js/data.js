@@ -53,117 +53,37 @@
   function rendreActualites(news) {
     if (!Array.isArray(news) || !news.length) return;
     set('newsBand', news.map(function (item) {
+      var entete = function (fleche) {
+        return '<span class="news-entete">' +
+          '<span class="news-date">' + esc(item.dateLabel) + '</span>' +
+          (fleche ? '<span class="news-fleche" aria-hidden="true">' + fleche + '</span>' : '') +
+          '</span>';
+      };
+      var corps = '<h3 class="news-title">' + esc(item.title) + '</h3>' +
+        '<span class="news-place">' + esc(item.place || '') + '</span>';
+
+      // Plusieurs rencontres pour une même équipe : la carte n'est plus un
+      // lien unique, elle porte un bouton par rencontre.
+      if (Array.isArray(item.links) && item.links.length > 1) {
+        return '<article class="news-item news-item--multi">' + entete('') + corps +
+          '<span class="news-liens">' + item.links.map(function (l) {
+            return '<a class="news-lien" href="' + esc(l.url) + '" target="_blank" rel="noopener">' +
+              esc(l.label) + '<span aria-hidden="true">↗</span>' +
+              '<span class="sr-only"> (ouvre un nouvel onglet)</span></a>';
+          }).join('') + '</span></article>';
+      }
+
       // url absente  -> renvoie aux inscriptions ;
       // url en « # »  -> ancre interne de la page ;
       // url complète  -> site extérieur, ouvert dans un nouvel onglet.
-      var brut = item.url || '#inscriptions';
+      var brut = item.url || (item.links && item.links[0] && item.links[0].url) || '#inscriptions';
       var externe = brut.charAt(0) !== '#';
-      var href = esc(brut);
-      var cible = externe ? ' target="_blank" rel="noopener"' : '';
       return '<a class="news-item' + (externe ? ' news-item--externe' : '') +
-        '" href="' + href + '"' + cible + '>' +
-        '<span class="news-entete">' +
-          '<span class="news-date">' + esc(item.dateLabel) + '</span>' +
-          '<span class="news-fleche" aria-hidden="true">' + (externe ? '↗' : '→') + '</span>' +
-        '</span>' +
-        '<h3 class="news-title">' + esc(item.title) + '</h3>' +
-        '<span class="news-place">' + esc(item.place || '') + '</span>' +
+        '" href="' + esc(brut) + '"' + (externe ? ' target="_blank" rel="noopener"' : '') + '>' +
+        entete(externe ? '↗' : '→') + corps +
         (externe ? '<span class="sr-only"> (ouvre un nouvel onglet)</span>' : '') +
         '</a>';
     }).join(''));
-  }
-
-  function rendreClub(club) {
-    if (!club) return;
-
-    if (Array.isArray(club.history)) {
-      set('clubHistory', club.history.map(function (p) {
-        return '<p>' + esc(p) + '</p>';
-      }).join(''));
-    }
-
-    if (Array.isArray(club.stats)) {
-      // Les compteurs animés ont besoin de data-count : on ne le pose que
-      // sur les valeurs réellement numériques (« ~400 », « 1997 », « 150+ »).
-      var carte = function (stat, classe) {
-        var nombre = String(stat.value).match(/\d+/);
-        var attrs = '';
-        if (nombre) {
-          attrs = ' data-count="' + nombre[0] + '"';
-          var prefixe = String(stat.value).split(nombre[0])[0];
-          var suffixe = String(stat.value).split(nombre[0])[1];
-          if (prefixe) attrs += ' data-prefix="' + esc(prefixe) + '"';
-          if (suffixe) attrs += ' data-suffix="' + esc(suffixe) + '"';
-          if (nombre[0].length === 4) attrs += ' data-from="' + (parseInt(nombre[0], 10) - 17) + '"';
-        }
-        return '<div class="' + classe + '">' +
-          '<div class="num"' + attrs + '>' + esc(stat.value) + '</div>' +
-          '<div class="label">' + esc(stat.label) + '</div>' +
-          '</div>';
-      };
-      set('heroStats', club.stats.map(function (s) { return carte(s, 'hstat'); }).join(''));
-      set('clubStats', club.stats.map(function (s) { return carte(s, 'stat glass'); }).join(''));
-    }
-
-    if (Array.isArray(club.facilities)) {
-      set('infraFacilities', club.facilities.map(function (l) {
-        return '<li>' + esc(l) + '</li>';
-      }).join(''));
-    }
-
-    if (Array.isArray(club.yearRoundActivities)) {
-      set('infraActivities', club.yearRoundActivities.map(function (l) {
-        return '<li>' + esc(l) + '</li>';
-      }).join(''));
-    }
-
-    rendreContact(club);
-  }
-
-  function rendreContact(club) {
-    if (!club.address || !club.contact) return;
-
-    var html = '';
-    html += '<div class="ci"><h4>Adresse</h4><p>' +
-      esc(club.address.label) + '<br>' +
-      esc(club.address.street) + '<br>' +
-      esc(club.address.postalCode) + ' ' + esc(club.address.city) + '<br>' +
-      '(' + esc(club.address.venue) + ')</p></div>';
-
-    html += '<div class="ci"><h4>Email général</h4>' +
-      '<a href="mailto:' + esc(club.contact.email) + '">' + esc(club.contact.email) + '</a></div>';
-
-    html += '<div class="ci"><h4>Téléphone</h4>' +
-      '<a href="tel:' + esc(club.contact.phoneRaw) + '">' + esc(club.contact.phone) + '</a></div>';
-
-    var second = club.contact.secondary;
-    if (second) {
-      html += '<div class="ci"><h4>' + esc(second.label) + '</h4>' +
-        '<p>' + esc(second.name) + '</p>' +
-        '<a href="mailto:' + esc(second.email) + '">' + esc(second.email) + '</a><br>' +
-        '<a href="tel:' + esc(second.phoneRaw) + '">' + esc(second.phone) + '</a></div>';
-    }
-
-    if (Array.isArray(club.socials) && club.socials.length) {
-      html += '<div class="ci"><h4>Réseaux sociaux</h4><div class="social-row">' +
-        club.socials.map(function (s) {
-          return '<a href="' + esc(s.url) + '" target="_blank" rel="noopener" class="soc-btn">' +
-            esc(s.name) + '</a>';
-        }).join('') +
-        '</div></div>';
-    }
-
-    set('contactInfo', html);
-
-    // Formulaire de contact : destination pilotée par api/club.json.
-    var form = document.getElementById('contactForm');
-    if (form) {
-      var vers = club.contact.formTo || club.contact.email || '';
-      if (vers) {
-        form.setAttribute('data-endpoint', 'https://formsubmit.co/ajax/' + encodeURIComponent(vers).replace(/%40/g, '@'));
-        form.setAttribute('data-mailto', vers.indexOf('@') !== -1 ? vers : (club.contact.email || ''));
-      }
-    }
   }
 
   function rendreDisciplines(list) {

@@ -1,15 +1,15 @@
 {
-  "updatedAt": "2026-09-19",
+  "updatedAt": "2026-09-24",
   "data": [
     {
-      "id": "match-n1-bourges",
-      "title": "Nationale 1 à Bourges",
-      "date": "2026-09-19",
-      "dateLabel": "Sam. 19 sept. · 20h",
-      "summary": "Premier match de la saison pour les N1, en déplacement à Bourges.",
-      "content": "Pour leur premier match de la saison, nos Nationale 1 se déplacent à Bourges.\n\nCoup d'envoi le samedi 19 septembre 2026 à 20h.\n\nLe calendrier complet et les résultats sont publiés par la fédération sur Rolskanet.",
-      "place": "Déplacement · 1ᵉʳ match de la saison",
-      "url": "https://rolskanet.fr/sportif/synthese/rencontres/LH",
+      "id": "match-n1-domicile",
+      "title": "Nationale 1 à domicile",
+      "date": null,
+      "dateLabel": "Ce week-end",
+      "summary": "Les N1 reçoivent au stade Robert Monseau. Feuille de match en direct sur Rolskanet.",
+      "content": "Les Nationale 1 reçoivent au stade Robert Monseau ce week-end.\n\nLa feuille de match, le score en direct et le résultat sont publiés par la fédération sur Rolskanet.",
+      "place": "Stade Robert Monseau · à domicile",
+      "url": "https://rolskanet.fr/sportif/live/139272",
       "tags": [
         "Hockey",
         "Compétition",
@@ -17,32 +17,42 @@
       ]
     },
     {
-      "id": "match-n2-pessac",
-      "title": "Nationale 2 reçoit Pessac",
-      "date": "2026-09-20",
-      "dateLabel": "Dim. 20 sept. · 14h",
-      "summary": "Match amical à domicile face à Pessac. Venez les encourager !",
-      "content": "Notre Nationale 2 joue un match amical face à Pessac, à domicile.\n\nCoup d'envoi le dimanche 20 septembre 2026 à 14h, à l'Espace Roller (stade Robert Monseau).\n\nVenez nombreux les encourager !",
-      "place": "À domicile · match amical",
-      "url": "#hockey",
-      "tags": [
-        "Hockey",
-        "N2"
-      ]
-    },
-    {
-      "id": "match-n3-tarbes",
-      "title": "Nationale 3 à Tarbes",
-      "date": "2026-09-19",
-      "dateLabel": "Sam. 19 sept. · 20h",
-      "summary": "Les N3 se déplacent à Tarbes pour un match à 20h.",
-      "content": "Nos Nationale 3 se déplacent à Tarbes.\n\nCoup d'envoi le samedi 19 septembre 2026 à 20h.\n\nLe calendrier complet et les résultats sont publiés par la fédération sur Rolskanet.",
-      "place": "Déplacement",
-      "url": "https://rolskanet.fr/sportif/synthese/rencontres/LH",
+      "id": "match-n3-domicile",
+      "title": "Nationale 3 à domicile",
+      "date": null,
+      "dateLabel": "Ce week-end",
+      "summary": "Les N3 reçoivent au stade Robert Monseau. Feuille de match en direct sur Rolskanet.",
+      "content": "Les Nationale 3 reçoivent au stade Robert Monseau ce week-end.\n\nLa feuille de match, le score en direct et le résultat sont publiés par la fédération sur Rolskanet.",
+      "place": "Stade Robert Monseau · à domicile",
+      "url": "https://rolskanet.fr/sportif/live/139608",
       "tags": [
         "Hockey",
         "Compétition",
         "N3"
+      ]
+    },
+    {
+      "id": "match-u20-la-teste",
+      "title": "U20 à La Teste-de-Buch",
+      "date": null,
+      "dateLabel": "Ce week-end",
+      "summary": "Déplacement des U20 à La Teste-de-Buch, avec un plateau. Feuilles de match sur Rolskanet.",
+      "content": "Les U20 se déplacent à La Teste-de-Buch ce week-end, avec un plateau au programme.\n\nLes feuilles de match et les résultats sont publiés par la fédération sur Rolskanet.",
+      "place": "La Teste-de-Buch · déplacement",
+      "links": [
+        {
+          "label": "Le match",
+          "url": "https://rolskanet.fr/sportif/live/140222"
+        },
+        {
+          "label": "Le plateau",
+          "url": "https://rolskanet.fr/sportif/live/140224"
+        }
+      ],
+      "tags": [
+        "Hockey",
+        "Compétition",
+        "U20"
       ]
     }
   ]

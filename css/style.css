@@ -788,6 +788,11 @@
      revient sagement à trois par ligne. */
   .news-item:nth-child(4):nth-last-child(2),
   .news-item:nth-child(5):nth-last-child(1){ grid-column:span 3; }
+  /* Et quand il y en a exactement quatre : deux par ligne, à parts égales. */
+  .news-item:nth-child(1):nth-last-child(4),
+  .news-item:nth-child(2):nth-last-child(3),
+  .news-item:nth-child(3):nth-last-child(2),
+  .news-item:nth-child(4):nth-last-child(1){ grid-column:span 3; }
 
   .news-item{
     position:relative;
@@ -873,6 +878,41 @@
     transform:translate(3px, -3px);
   }
 
+  /* Carte à plusieurs rencontres : elle n'est plus cliquable d'un bloc, chaque
+     rencontre a son bouton. Pas de flèche dans l'en-tête, pour ne pas laisser
+     croire que la carte entière mène quelque part. */
+  .news-item--multi{ cursor:default; }
+  .news-item--multi:hover{ transform:none; }
+  .news-liens{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-top:14px;
+  }
+  .news-lien{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    padding:8px 14px;
+    font-size:.78rem;
+    font-weight:700;
+    letter-spacing:.4px;
+    color:var(--ink);
+    text-decoration:none;
+    background:rgba(255,255,255,.05);
+    border:1px solid var(--glass-border);
+    border-radius:999px;
+    transition:color .2s ease, border-color .2s ease, background .2s ease, transform .2s ease;
+  }
+  .news-lien:hover,
+  .news-lien:focus-visible{
+    color:var(--gold);
+    border-color:var(--gold);
+    background:rgba(247,198,0,.10);
+    transform:translateY(-2px);
+  }
+  .news-lien:focus-visible{ outline:2px solid var(--gold); outline-offset:2px; }
+
   .news-title{
     font-family:'Anton',sans-serif;
     font-size:1.2rem;
@@ -909,7 +949,42 @@
     .news-item:nth-child(4):nth-last-child(2),
     .news-item:nth-child(5):nth-last-child(1){ grid-column:span 1; }
     .news-item{ min-height:0; padding:20px; gap:10px; }
-    .news-title{ font-size:1.1rem; }
+    /* Carte à plusieurs rencontres : elle n'est plus cliquable d'un bloc, chaque
+     rencontre a son bouton. Pas de flèche dans l'en-tête, pour ne pas laisser
+     croire que la carte entière mène quelque part. */
+  .news-item--multi{ cursor:default; }
+  .news-item--multi:hover{ transform:none; }
+  .news-liens{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-top:14px;
+  }
+  .news-lien{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    padding:8px 14px;
+    font-size:.78rem;
+    font-weight:700;
+    letter-spacing:.4px;
+    color:var(--ink);
+    text-decoration:none;
+    background:rgba(255,255,255,.05);
+    border:1px solid var(--glass-border);
+    border-radius:999px;
+    transition:color .2s ease, border-color .2s ease, background .2s ease, transform .2s ease;
+  }
+  .news-lien:hover,
+  .news-lien:focus-visible{
+    color:var(--gold);
+    border-color:var(--gold);
+    background:rgba(247,198,0,.10);
+    transform:translateY(-2px);
+  }
+  .news-lien:focus-visible{ outline:2px solid var(--gold); outline-offset:2px; }
+
+  .news-title{ font-size:1.1rem; }
   }
   @media(prefers-reduced-motion: reduce){
     .news-item, .news-item::before, .news-fleche{ transition:none; }
