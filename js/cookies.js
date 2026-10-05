@@ -86,7 +86,98 @@
         neuf.text = vieux.text;
         vieux.parentNode.replaceChild(neuf, vieux);
       });
+
+      surveille(bloc);
     });
+  }
+
+  /* ---------- Filet de sécurité quand le service tiers ne répond pas ----------
+
+     Un widget extérieur peut très bien ne jamais s'afficher : bloqueur de
+     publicité, page ouverte en local (file://), widget non publié côté
+     fournisseur, panne. Sans ça le visiteur voit un cadre vide et flou, ce qui
+     ressemble à un bug du site. On remet alors une carte avec le lien direct.
+
+     Les textes viennent du HTML (data-repli-*), donc ce code marche pour
+     n'importe quel bloc tiers ajouté plus tard.                             */
+
+  var DELAI_REPLI = 8000;   // on laisse sa chance au service
+  var FENETRE_RETARD = 30000;  // puis on reste à l'écoute s'il arrive en retard
+
+  // Le bloc affiche-t-il vraiment quelque chose ? (le <template>, le <script>
+  // et notre propre carte de repli ne comptent pas)
+  function contenuAffiche(bloc) {
+    var enfants = bloc.children;
+    for (var i = 0; i < enfants.length; i++) {
+      var el = enfants[i];
+      if (el.tagName === 'TEMPLATE' || el.tagName === 'SCRIPT') continue;
+      if (el.hasAttribute('data-repli-carte')) continue;
+      if (el.offsetHeight > 24) return true;
+    }
+    return false;
+  }
+
+  function surveille(bloc) {
+    if (!bloc.getAttribute('data-repli-titre')) return;
+    var debut = Date.now();
+    var minuteur = setInterval(function () {
+      if (contenuAffiche(bloc)) { clearInterval(minuteur); return; }
+      if (Date.now() - debut < DELAI_REPLI) return;
+      clearInterval(minuteur);
+      afficheRepli(bloc);
+    }, 500);
+  }
+
+  function afficheRepli(bloc) {
+    if (bloc.querySelector('[data-repli-carte]') || contenuAffiche(bloc)) return;
+
+    var carte = document.createElement('div');
+    carte.className = 'consent-encart';
+    carte.setAttribute('data-repli-carte', '');
+
+    var ico = bloc.getAttribute('data-repli-ico');
+    if (ico) {
+      var i = document.createElement('div');
+      i.className = 'consent-encart-ico';
+      i.setAttribute('aria-hidden', 'true');
+      i.textContent = ico;
+      carte.appendChild(i);
+    }
+
+    var h = document.createElement('h3');
+    h.textContent = bloc.getAttribute('data-repli-titre');
+    carte.appendChild(h);
+
+    var texte = bloc.getAttribute('data-repli-texte');
+    if (texte) {
+      var p = document.createElement('p');
+      p.textContent = texte;
+      carte.appendChild(p);
+    }
+
+    var url = bloc.getAttribute('data-repli-lien');
+    if (url) {
+      var actions = document.createElement('div');
+      actions.className = 'consent-encart-actions';
+      var a = document.createElement('a');
+      a.className = 'btn btn-primary';
+      a.href = url;
+      a.target = '_blank';
+      a.rel = 'noopener';
+      a.textContent = bloc.getAttribute('data-repli-lien-libelle') || 'Ouvrir';
+      actions.appendChild(a);
+      carte.appendChild(actions);
+    }
+
+    bloc.insertBefore(carte, bloc.firstChild);
+
+    // Si le service finit par répondre, on efface le repli sans rien casser.
+    var retard = setInterval(function () {
+      if (!contenuAffiche(bloc)) return;
+      clearInterval(retard);
+      if (carte.parentNode) carte.parentNode.removeChild(carte);
+    }, 1000);
+    setTimeout(function () { clearInterval(retard); }, FENETRE_RETARD);
   }
 
   function replaceBlocs(categorie) {
