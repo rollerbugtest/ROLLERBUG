@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-18",
+  "updatedAt": "2026-10-05",
   "data": [
     {
       "id": "ev-disco-roller",
@@ -40,6 +40,26 @@
       "detailImageAlt": "Affiche des stages roller Toussaint 2026 : programme, dates et tarifs des deux semaines de stage.",
       "startsAt": "2026-10-19T09:30:00+02:00",
       "endsAt": "2026-10-30T17:00:00+01:00"
+    },
+    {
+      "id": "ev-octobre-rose",
+      "title": "Octobre Rose — Rose'n'Roll Jallenge",
+      "icon": "🎀",
+      "date": null,
+      "dateLabel": "Dimanche 4 octobre 2026 · 9h – 11h30",
+      "location": "Gare cycliste",
+      "address": "19 rue Gabriel Garbay, 33160 Saint-Médard-en-Jalles",
+      "description": "Rouler pour la lutte contre le cancer du sein : autant de tours que vous voulez sur un circuit sécurisé de 2,36 km. Carton à 5 € sur place, dons reversés à la Ligue contre le cancer.",
+      "category": "solidarite",
+      "longDescription": "Dimanche 4 octobre, de 9h à 11h30, venez rouler pour la lutte contre le cancer du sein.\n\nLe principe est simple : que ce soit en roller, en skateboard ou en trottinette (non électrique), venez rouler sur un circuit sécurisé de 2,36 km au départ de la gare cycliste, en effectuant autant de tours que vous le souhaitez pendant 2h30. Chacun démarre quand il veut, s'arrête quand il veut, roule comme il peut.\n\nTous les niveaux sont les bienvenus à partir de 6 ans ; les moins de 12 ans doivent être accompagnés d'un adulte. Casque obligatoire. Genouillères, coudières et protège-poignets sont vivement recommandés.\n\nL'inscription se fait sur place avec l'achat d'un carton à 5 €, comprenant les 5 premiers tours. Un groupe de coureurs peut partager un carton. À partir du 6ᵉ tour, les coureurs peuvent donner 1 € par tour et par participant.\n\nTous les dons seront reversés à la Ligue contre le cancer de Gironde.\n\nLocalisation : gare cycliste, 19 rue Gabriel Garbay, 33160 Saint-Médard-en-Jalles.",
+      "banner": "images/evenements/ev-octobre-rose.webp",
+      "pdfUrl": "",
+      "pdfLabel": "",
+      "bannerFit": "cover",
+      "detailImage": "images/evenements/ev-octobre-rose-affiche.webp",
+      "detailImageAlt": "Affiche Rose'n'Roll Jallenge — Octobre Rose, randonnée roller du dimanche 4 octobre 2026 de 9h à 11h30 à la gare cycliste, 19 rue Gabriel Garbay à Saint-Médard-en-Jalles : roller, skate ou trottinette non électrique, inscription sur place, tous niveaux à partir de 6 ans, casque obligatoire, dons reversés à la Ligue contre le cancer de Gironde.",
+      "startsAt": "2026-10-04T09:00:00+02:00",
+      "endsAt": "2026-10-04T11:30:00+02:00"
     }
   ]
 }

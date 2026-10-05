@@ -1,15 +1,15 @@
 {
-  "updatedAt": "2026-09-24",
+  "updatedAt": "2026-10-05",
   "data": [
     {
-      "id": "match-n1-domicile",
-      "title": "Nationale 1 à domicile",
+      "id": "match-n1",
+      "title": "Nationale 1",
       "date": null,
-      "dateLabel": "Ce week-end",
-      "summary": "Les N1 reçoivent au stade Robert Monseau. Feuille de match en direct sur Rolskanet.",
-      "content": "Les Nationale 1 reçoivent au stade Robert Monseau ce week-end.\n\nLa feuille de match, le score en direct et le résultat sont publiés par la fédération sur Rolskanet.",
-      "place": "Stade Robert Monseau · à domicile",
-      "url": "https://rolskanet.fr/sportif/live/139272",
+      "dateLabel": "Samedi 10 octobre",
+      "summary": "Rencontre de championnat des Nationale 1. Score en direct sur Rolskanet.",
+      "content": "Les Nationale 1 jouent le samedi 10 octobre.\n\nLa feuille de match, le score en direct et le résultat sont publiés par la fédération sur Rolskanet.",
+      "place": "Score en direct sur Rolskanet",
+      "url": "https://rolskanet.fr/sportif/live/139280",
       "tags": [
         "Hockey",
         "Compétition",
@@ -17,14 +17,29 @@
       ]
     },
     {
-      "id": "match-n3-domicile",
-      "title": "Nationale 3 à domicile",
+      "id": "match-n2",
+      "title": "Nationale 2",
       "date": null,
-      "dateLabel": "Ce week-end",
-      "summary": "Les N3 reçoivent au stade Robert Monseau. Feuille de match en direct sur Rolskanet.",
-      "content": "Les Nationale 3 reçoivent au stade Robert Monseau ce week-end.\n\nLa feuille de match, le score en direct et le résultat sont publiés par la fédération sur Rolskanet.",
-      "place": "Stade Robert Monseau · à domicile",
-      "url": "https://rolskanet.fr/sportif/live/139608",
+      "dateLabel": "Dimanche 11 octobre",
+      "summary": "Rencontre de championnat des Nationale 2. Score en direct sur Rolskanet.",
+      "content": "Les Nationale 2 jouent le dimanche 11 octobre.\n\nLa feuille de match, le score en direct et le résultat sont publiés par la fédération sur Rolskanet.",
+      "place": "Score en direct sur Rolskanet",
+      "url": "https://rolskanet.fr/sportif/live/139108",
+      "tags": [
+        "Hockey",
+        "Compétition",
+        "N2"
+      ]
+    },
+    {
+      "id": "match-n3",
+      "title": "Nationale 3",
+      "date": null,
+      "dateLabel": "Samedi 10 octobre",
+      "summary": "Rencontre de championnat des Nationale 3. Score en direct sur Rolskanet.",
+      "content": "Les Nationale 3 jouent le samedi 10 octobre.\n\nLa feuille de match, le score en direct et le résultat sont publiés par la fédération sur Rolskanet.",
+      "place": "Score en direct sur Rolskanet",
+      "url": "https://rolskanet.fr/sportif/live/139612",
       "tags": [
         "Hockey",
         "Compétition",
@@ -32,27 +47,27 @@
       ]
     },
     {
-      "id": "match-u20-la-teste",
-      "title": "U20 à La Teste-de-Buch",
+      "id": "match-prenat",
+      "title": "Pré-Nationale (N4)",
       "date": null,
       "dateLabel": "Ce week-end",
-      "summary": "Déplacement des U20 à La Teste-de-Buch, avec un plateau. Feuilles de match sur Rolskanet.",
-      "content": "Les U20 se déplacent à La Teste-de-Buch ce week-end, avec un plateau au programme.\n\nLes feuilles de match et les résultats sont publiés par la fédération sur Rolskanet.",
-      "place": "La Teste-de-Buch · déplacement",
+      "summary": "Plateau de la Pré-Nationale contre Angoulême et Limoges. Les deux feuilles de match sont sur Rolskanet.",
+      "content": "La Pré-Nationale (N4) dispute un plateau contre Angoulême et Limoges ce week-end.\n\nLa feuille de match, le score en direct et le résultat sont publiés par la fédération sur Rolskanet.",
+      "place": "Plateau contre Angoulême et Limoges",
       "links": [
         {
-          "label": "Le match",
-          "url": "https://rolskanet.fr/sportif/live/140222"
+          "label": "Rencontre 1",
+          "url": "https://rolskanet.fr/sportif/live/142862"
         },
         {
-          "label": "Le plateau",
-          "url": "https://rolskanet.fr/sportif/live/140224"
+          "label": "Rencontre 2",
+          "url": "https://rolskanet.fr/sportif/live/142864"
         }
       ],
       "tags": [
         "Hockey",
         "Compétition",
-        "U20"
+        "N4"
       ]
     }
   ]
