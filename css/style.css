@@ -793,6 +793,11 @@
   .news-item:nth-child(2):nth-last-child(3),
   .news-item:nth-child(3):nth-last-child(2),
   .news-item:nth-child(4):nth-last-child(1){ grid-column:span 3; }
+  /* Exactement deux : une moitié chacune, plutôt qu'un tiers de ligne vide. */
+  .news-item:nth-child(1):nth-last-child(2),
+  .news-item:nth-child(2):nth-last-child(1){ grid-column:span 3; }
+  /* Et une seule actualité occupe toute la largeur. */
+  .news-item:only-child{ grid-column:span 6; }
 
   .news-item{
     position:relative;
@@ -936,16 +941,32 @@
 
   @media(max-width:1080px){
     .news-band{ grid-template-columns:repeat(2, 1fr); gap:14px; }
+    /* Toutes les largeurs du bureau sont annulées ici, sinon une carte prévue
+       pour trois colonnes déborderait de la grille à deux colonnes. */
     .news-item,
+    .news-item:nth-child(1):nth-last-child(4),
+    .news-item:nth-child(2):nth-last-child(3),
+    .news-item:nth-child(3):nth-last-child(2),
+    .news-item:nth-child(4):nth-last-child(1),
+    .news-item:nth-child(1):nth-last-child(2),
+    .news-item:nth-child(2):nth-last-child(1),
     .news-item:nth-child(4):nth-last-child(2),
     .news-item:nth-child(5):nth-last-child(1){ grid-column:span 1; }
     /* Une carte seule en fin de ligne prend toute la largeur. */
     .news-item:last-child:nth-child(odd){ grid-column:span 2; }
+    .news-item:only-child{ grid-column:span 2; }
   }
   @media(max-width:640px){
     .news-band{ grid-template-columns:1fr; gap:12px; }
     .news-item,
     .news-item:last-child:nth-child(odd),
+    .news-item:only-child,
+    .news-item:nth-child(1):nth-last-child(4),
+    .news-item:nth-child(2):nth-last-child(3),
+    .news-item:nth-child(3):nth-last-child(2),
+    .news-item:nth-child(4):nth-last-child(1),
+    .news-item:nth-child(1):nth-last-child(2),
+    .news-item:nth-child(2):nth-last-child(1),
     .news-item:nth-child(4):nth-last-child(2),
     .news-item:nth-child(5):nth-last-child(1){ grid-column:span 1; }
     .news-item{ min-height:0; padding:20px; gap:10px; }

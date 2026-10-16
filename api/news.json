@@ -1,30 +1,15 @@
 {
-  "updatedAt": "2026-10-05",
+  "updatedAt": "2026-10-16",
   "data": [
     {
-      "id": "match-n1",
-      "title": "Nationale 1",
+      "id": "match-n2-pessac",
+      "title": "Nationale 2 à Pessac",
       "date": null,
-      "dateLabel": "Samedi 10 octobre",
-      "summary": "Rencontre de championnat des Nationale 1. Score en direct sur Rolskanet.",
-      "content": "Les Nationale 1 jouent le samedi 10 octobre.\n\nLa feuille de match, le score en direct et le résultat sont publiés par la fédération sur Rolskanet.",
-      "place": "Score en direct sur Rolskanet",
-      "url": "https://rolskanet.fr/sportif/live/139280",
-      "tags": [
-        "Hockey",
-        "Compétition",
-        "N1"
-      ]
-    },
-    {
-      "id": "match-n2",
-      "title": "Nationale 2",
-      "date": null,
-      "dateLabel": "Dimanche 11 octobre",
-      "summary": "Rencontre de championnat des Nationale 2. Score en direct sur Rolskanet.",
-      "content": "Les Nationale 2 jouent le dimanche 11 octobre.\n\nLa feuille de match, le score en direct et le résultat sont publiés par la fédération sur Rolskanet.",
-      "place": "Score en direct sur Rolskanet",
-      "url": "https://rolskanet.fr/sportif/live/139108",
+      "dateLabel": "Ce week-end · 19h30",
+      "summary": "Déplacement des N2 à Pessac contre les Maohis, coup d'envoi à 19h30. Score en direct sur Rolskanet.",
+      "content": "Les Nationale 2 se déplacent à Pessac pour affronter les Maohis. Coup d'envoi à 19h30.\n\nSalle Roger Vincent, 28 rue de la Fon de Madran 2, 33600 Pessac.\n\nLa feuille de match, le score en direct et le résultat sont publiés par la fédération sur Rolskanet.",
+      "place": "Salle Roger Vincent, Pessac · contre les Maohis",
+      "url": "https://rolskanet.fr/sportif/live/139113",
       "tags": [
         "Hockey",
         "Compétition",
@@ -32,42 +17,27 @@
       ]
     },
     {
-      "id": "match-n3",
-      "title": "Nationale 3",
-      "date": null,
-      "dateLabel": "Samedi 10 octobre",
-      "summary": "Rencontre de championnat des Nationale 3. Score en direct sur Rolskanet.",
-      "content": "Les Nationale 3 jouent le samedi 10 octobre.\n\nLa feuille de match, le score en direct et le résultat sont publiés par la fédération sur Rolskanet.",
-      "place": "Score en direct sur Rolskanet",
-      "url": "https://rolskanet.fr/sportif/live/139612",
-      "tags": [
-        "Hockey",
-        "Compétition",
-        "N3"
-      ]
-    },
-    {
-      "id": "match-prenat",
-      "title": "Pré-Nationale (N4)",
+      "id": "match-u20-pessac",
+      "title": "U20 — plateau à Pessac",
       "date": null,
       "dateLabel": "Ce week-end",
-      "summary": "Plateau de la Pré-Nationale contre Angoulême et Limoges. Les deux feuilles de match sont sur Rolskanet.",
-      "content": "La Pré-Nationale (N4) dispute un plateau contre Angoulême et Limoges ce week-end.\n\nLa feuille de match, le score en direct et le résultat sont publiés par la fédération sur Rolskanet.",
-      "place": "Plateau contre Angoulême et Limoges",
+      "summary": "Plateau des U20 à Pessac : 10h contre les Maohis, 12h30 contre les Lions de Bordeaux.",
+      "content": "Les U20 disputent un plateau à Pessac, salle Roger Vincent.\n\nPremière rencontre à 10h contre les Maohis (Pessac).\nSeconde rencontre à 12h30 contre les Lions de Bordeaux.\n\nSalle Roger Vincent, 28 rue de la Fon de Madran 2, 33600 Pessac.\n\nLa feuille de match, le score en direct et le résultat sont publiés par la fédération sur Rolskanet.",
+      "place": "Salle Roger Vincent, Pessac · deux rencontres",
       "links": [
         {
-          "label": "Rencontre 1",
-          "url": "https://rolskanet.fr/sportif/live/142862"
+          "label": "10h · Maohis",
+          "url": "https://rolskanet.fr/sportif/live/140217"
         },
         {
-          "label": "Rencontre 2",
-          "url": "https://rolskanet.fr/sportif/live/142864"
+          "label": "12h30 · Lions de Bordeaux",
+          "url": "https://rolskanet.fr/sportif/live/140218"
         }
       ],
       "tags": [
         "Hockey",
         "Compétition",
-        "N4"
+        "U20"
       ]
     }
   ]
