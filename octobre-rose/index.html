@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="fr" class="no-js">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Enchères solidaires Octobre Rose — Roller Bug Saint-Médard</title>
+<meta name="description" content="Vingt et un maillots de hockey aux couleurs d'Octobre Rose mis aux enchères par le Roller Bug Saint-Médard, au profit de la lutte contre le cancer du sein.">
+<link rel="icon" href="../images/logo.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/encheres.css">
+</head>
+<body>
+
+<header class="or-entete">
+  <div class="or-entete-inner">
+    <a class="or-retour" href="../index.html">← Retour au site</a>
+    <a class="or-marque" href="../index.html">ROLLERBUG</a>
+  </div>
+</header>
+
+<main class="or-page">
+
+  <h1 class="or-titre-page">Enchères solidaires<br>Octobre Rose.</h1>
+  <p class="or-chapo">
+    Vingt et un maillots de hockey aux couleurs d'Octobre Rose, portés par
+    l'équipe et floqués au nom de chaque joueur, sont mis aux enchères au
+    profit de la lutte contre le cancer du sein. Chaque maillot est une pièce
+    unique. Les offres se font sans créer de compte.
+  </p>
+
+  <!-- Statut de l'opération, écrit par js/encheres-catalogue.js. Le contenu
+       ci-dessous reste affiché si le JavaScript ne répond pas. -->
+  <p id="orStatut" style="margin-top:20px;">
+    <span class="or-badge">Catalogue en ligne — l'ouverture des enchères sera annoncée très prochainement.</span>
+  </p>
+
+  <div class="or-filtres">
+    <div class="or-champ">
+      <label for="orRecherche">Rechercher un maillot</label>
+      <input type="search" id="orRecherche" placeholder="Numéro ou nom du joueur" autocomplete="off">
+    </div>
+    <div class="or-champ" style="flex:0 1 230px;">
+      <label for="orTri">Trier par</label>
+      <select id="orTri">
+        <option value="numero">Numéro croissant</option>
+        <option value="nom">Nom du joueur</option>
+        <option value="offre-desc">Enchère la plus élevée</option>
+        <option value="offre-asc">Enchère la moins élevée</option>
+      </select>
+    </div>
+    <span class="or-compte" id="orCompte">21 maillots</span>
+  </div>
+
+  <!-- Contenu de secours : les 21 cartes écrites en dur, comme partout
+       ailleurs sur le site. Elles s'affichent telles quelles sans JavaScript,
+       et js/encheres-catalogue.js les remplace par les montants à jour.
+       À régénérer avec les données — ne pas modifier une carte à la main. -->
+  <div class="or-grille" id="orGrille">
+      <a class="or-maillot" href="maillot.html?n=7"><div class="or-maillot-visuel" style="background-image:url(&quot;../images/octobre-rose/maillot-exemple.webp&quot;);" role="img" aria-label="Modèle du maillot Octobre Rose du Roller Bug"><span class="or-maillot-attente">Photo d’illustration</span></div><div class="or-maillot-corps"><span class="or-maillot-poste">Défenseur</span><h3 class="or-maillot-nom">RODZIEWICZ</h3><span class="or-maillot-meta">N° 7 · Taille L</span><div class="or-maillot-prix"><span class="or-maillot-prix-libelle">Mise à prix</span><span class="or-maillot-prix-valeur">30 €</span></div><span class="or-maillot-action">Voir le maillot</span></div></a>
+      <a class="or-maillot" href="maillot.html?n=8"><div class="or-maillot-visuel" style="background-image:url(&quot;../images/octobre-rose/maillot-exemple.webp&quot;);" role="img" aria-label="Modèle du maillot Octobre Rose du Roller Bug"><span class="or-maillot-attente">Photo d’illustration</span></div><div class="or-maillot-corps"><span class="or-maillot-poste">Défenseur</span><h3 class="or-maillot-nom">ROBLIN ZEMPE</h3><span class="or-maillot-meta">N° 8 · Taille M</span><div class="or-maillot-prix"><span class="or-maillot-prix-libelle">Mise à prix</span><span class="or-maillot-prix-valeur">30 €</span></div><span class="or-maillot-action">Voir le maillot</span></div></a>
+      <a class="or-maillot" href="maillot.html?n=9"><div class="or-maillot-visuel" style="background-image:url(&quot;../images/octobre-rose/maillot-exemple.webp&quot;);" role="img" aria-label="Modèle du maillot Octobre Rose du Roller Bug"><span class="or-maillot-attente">Photo d’illustration</span></div><div class="or-maillot-corps"><span class="or-maillot-poste">Défenseur</span><h3 class="or-maillot-nom">GRASSET</h3><span class="or-maillot-meta">N° 9 · Taille L</span><div class="or-maillot-prix"><span class="or-maillot-prix-libelle">Mise à prix</span><span class="or-maillot-prix-valeur">30 €</span></div><span class="or-maillot-action">Voir le maillot</span></div></a>
+      <a class="or-maillot" href="maillot.html?n=10"><div class="or-maillot-visuel" style="background-image:url(&quot;../images/octobre-rose/maillot-exemple.webp&quot;);" role="img" aria-label="Modèle du maillot Octobre Rose du Roller Bug"><span class="or-maillot-attente">Photo d’illustration</span></div><div class="or-maillot-corps"><span class="or-maillot-poste">Défenseur</span><h3 class="or-maillot-nom">PHILIPPO</h3><span class="or-maillot-meta">N° 10 · Taille M</span><div class="or-maillot-prix"><span class="or-maillot-prix-libelle">Mise à prix</span><span class="or-maillot-prix-valeur">30 €</span></div><span class="or-maillot-action">Voir le maillot</span></div></a>
+      <a class="or-maillot" href="maillot.html?n=12"><div class="or-maillot-visuel" style="background-image:url(&quot;../images/octobre-rose/maillot-exemple.webp&quot;);" role="img" aria-label="Modèle du maillot Octobre Rose du Roller Bug"><span class="or-maillot-attente">Photo d’illustration</span></div><div class="or-maillot-corps"><span class="or-maillot-poste">Attaquant</span><h3 class="or-maillot-nom">MAHUTEAUX</h3><span class="or-maillot-meta">N° 12 · Taille M</span><div class="or-maillot-prix"><span class="or-maillot-prix-libelle">Mise à prix</span><span class="or-maillot-prix-valeur">30 €</span></div><span class="or-maillot-action">Voir le maillot</span></div></a>
+      <a class="or-maillot" href="maillot.html?n=14"><div class="or-maillot-visuel" style="background-image:url(&quot;../images/octobre-rose/maillot-exemple.webp&quot;);" role="img" aria-label="Modèle du maillot Octobre Rose du Roller Bug"><span class="or-maillot-attente">Photo d’illustration</span></div><div class="or-maillot-corps"><span class="or-maillot-poste">Attaquant</span><h3 class="or-maillot-nom">LAMBERT</h3><span class="or-maillot-meta">N° 14 · Taille L</span><div class="or-maillot-prix"><span class="or-maillot-prix-libelle">Mise à prix</span><span class="or-maillot-prix-valeur">30 €</span></div><span class="or-maillot-action">Voir le maillot</span></div></a>
+      <a class="or-maillot" href="maillot.html?n=16"><div class="or-maillot-visuel" style="background-image:url(&quot;../images/octobre-rose/maillot-exemple.webp&quot;);" role="img" aria-label="Modèle du maillot Octobre Rose du Roller Bug"><span class="or-maillot-attente">Photo d’illustration</span></div><div class="or-maillot-corps"><span class="or-maillot-poste">Défenseur</span><h3 class="or-maillot-nom">TRIMOUILLE</h3><span class="or-maillot-meta">N° 16 · Taille L</span><div class="or-maillot-prix"><span class="or-maillot-prix-libelle">Mise à prix</span><span class="or-maillot-prix-valeur">30 €</span></div><span class="or-maillot-action">Voir le maillot</span></div></a>
+      <a class="or-maillot" href="maillot.html?n=19"><div class="or-maillot-visuel" style="background-image:url(&quot;../images/octobre-rose/maillot-exemple.webp&quot;);" role="img" aria-label="Modèle du maillot Octobre Rose du Roller Bug"><span class="or-maillot-attente">Photo d’illustration</span></div><div class="or-maillot-corps"><span class="or-maillot-poste">Attaquant</span><h3 class="or-maillot-nom">PEROT</h3><span class="or-maillot-meta">N° 19 · Taille M</span><div class="or-maillot-prix"><span class="or-maillot-prix-libelle">Mise à prix</span><span class="or-maillot-prix-valeur">30 €</span></div><span class="or-maillot-action">Voir le maillot</span></div></a>
+      <a class="or-maillot" href="maillot.html?n=20"><div class="or-maillot-visuel" style="background-image:url(&quot;../images/octobre-rose/maillot-exemple.webp&quot;);" role="img" aria-label="Modèle du maillot Octobre Rose du Roller Bug"><span class="or-maillot-attente">Photo d’illustration</span></div><div class="or-maillot-corps"><span class="or-maillot-poste">Attaquant</span><h3 class="or-maillot-nom">MASSON</h3><span class="or-maillot-meta">N° 20 · Taille M</span><div class="or-maillot-prix"><span class="or-maillot-prix-libelle">Mise à prix</span><span class="or-maillot-prix-valeur">30 €</span></div><span class="or-maillot-action">Voir le maillot</span></div></a>
+      <a class="or-maillot" href="maillot.html?n=22"><div class="or-maillot-visuel" style="background-image:url(&quot;../images/octobre-rose/maillot-exemple.webp&quot;);" role="img" aria-label="Modèle du maillot Octobre Rose du Roller Bug"><span class="or-maillot-attente">Photo d’illustration</span></div><div class="or-maillot-corps"><span class="or-maillot-poste">Attaquant</span><h3 class="or-maillot-nom">GERARDIN</h3><span class="or-maillot-meta">N° 22 · Taille L</span><div class="or-maillot-prix"><span class="or-maillot-prix-libelle">Mise à prix</span><span class="or-maillot-prix-valeur">30 €</span></div><span class="or-maillot-action">Voir le maillot</span></div></a>
+      <a class="or-maillot" href="maillot.html?n=24"><div class="or-maillot-visuel" style="background-image:url(&quot;../images/octobre-rose/maillot-exemple.webp&quot;);" role="img" aria-label="Modèle du maillot Octobre Rose du Roller Bug"><span class="or-maillot-attente">Photo d’illustration</span></div><div class="or-maillot-corps"><span class="or-maillot-poste">Attaquant</span><h3 class="or-maillot-nom">DURY</h3><span class="or-maillot-meta">N° 24 · Taille L</span><div class="or-maillot-prix"><span class="or-maillot-prix-libelle">Mise à prix</span><span class="or-maillot-prix-valeur">30 €</span></div><span class="or-maillot-action">Voir le maillot</span></div></a>
+      <a class="or-maillot" href="maillot.html?n=26"><div class="or-maillot-visuel" style="background-image:url(&quot;../images/octobre-rose/maillot-exemple.webp&quot;);" role="img" aria-label="Modèle du maillot Octobre Rose du Roller Bug"><span class="or-maillot-attente">Photo d’illustration</span></div><div class="or-maillot-corps"><span class="or-maillot-poste">Gardien</span><h3 class="or-maillot-nom">CHAMON</h3><span class="or-maillot-meta">N° 26 · Taille 3XL</span><div class="or-maillot-prix"><span class="or-maillot-prix-libelle">Mise à prix</span><span class="or-maillot-prix-valeur">30 €</span></div><span class="or-maillot-action">Voir le maillot</span></div></a>
+      <a class="or-maillot" href="maillot.html?n=29"><div class="or-maillot-visuel" style="background-image:url(&quot;../images/octobre-rose/maillot-exemple.webp&quot;);" role="img" aria-label="Modèle du maillot Octobre Rose du Roller Bug"><span class="or-maillot-attente">Photo d’illustration</span></div><div class="or-maillot-corps"><span class="or-maillot-poste">Gardien</span><h3 class="or-maillot-nom">MOLINA</h3><span class="or-maillot-meta">N° 29 · Taille 3XL</span><div class="or-maillot-prix"><span class="or-maillot-prix-libelle">Mise à prix</span><span class="or-maillot-prix-valeur">30 €</span></div><span class="or-maillot-action">Voir le maillot</span></div></a>
+      <a class="or-maillot" href="maillot.html?n=32"><div class="or-maillot-visuel" style="background-image:url(&quot;../images/octobre-rose/maillot-exemple.webp&quot;);" role="img" aria-label="Modèle du maillot Octobre Rose du Roller Bug"><span class="or-maillot-attente">Photo d’illustration</span></div><div class="or-maillot-corps"><span class="or-maillot-poste">Attaquant</span><h3 class="or-maillot-nom">FAURITE</h3><span class="or-maillot-meta">N° 32 · Taille M</span><div class="or-maillot-prix"><span class="or-maillot-prix-libelle">Mise à prix</span><span class="or-maillot-prix-valeur">30 €</span></div><span class="or-maillot-action">Voir le maillot</span></div></a>
+      <a class="or-maillot" href="maillot.html?n=56"><div class="or-maillot-visuel" style="background-image:url(&quot;../images/octobre-rose/maillot-exemple.webp&quot;);" role="img" aria-label="Modèle du maillot Octobre Rose du Roller Bug"><span class="or-maillot-attente">Photo d’illustration</span></div><div class="or-maillot-corps"><span class="or-maillot-poste">Attaquant</span><h3 class="or-maillot-nom">KOTZUBA</h3><span class="or-maillot-meta">N° 56 · Taille M</span><div class="or-maillot-prix"><span class="or-maillot-prix-libelle">Mise à prix</span><span class="or-maillot-prix-valeur">30 €</span></div><span class="or-maillot-action">Voir le maillot</span></div></a>
+      <a class="or-maillot" href="maillot.html?n=72"><div class="or-maillot-visuel" style="background-image:url(&quot;../images/octobre-rose/maillot-exemple.webp&quot;);" role="img" aria-label="Modèle du maillot Octobre Rose du Roller Bug"><span class="or-maillot-attente">Photo d’illustration</span></div><div class="or-maillot-corps"><span class="or-maillot-poste">Attaquant</span><h3 class="or-maillot-nom">BRUCHE</h3><span class="or-maillot-meta">N° 72 · Taille L</span><div class="or-maillot-prix"><span class="or-maillot-prix-libelle">Mise à prix</span><span class="or-maillot-prix-valeur">30 €</span></div><span class="or-maillot-action">Voir le maillot</span></div></a>
+      <a class="or-maillot" href="maillot.html?n=83"><div class="or-maillot-visuel" style="background-image:url(&quot;../images/octobre-rose/maillot-exemple.webp&quot;);" role="img" aria-label="Modèle du maillot Octobre Rose du Roller Bug"><span class="or-maillot-attente">Photo d’illustration</span></div><div class="or-maillot-corps"><span class="or-maillot-poste">Défenseur</span><h3 class="or-maillot-nom">NEAUD</h3><span class="or-maillot-meta">N° 83 · Taille M</span><div class="or-maillot-prix"><span class="or-maillot-prix-libelle">Mise à prix</span><span class="or-maillot-prix-valeur">30 €</span></div><span class="or-maillot-action">Voir le maillot</span></div></a>
+      <a class="or-maillot" href="maillot.html?n=88"><div class="or-maillot-visuel" style="background-image:url(&quot;../images/octobre-rose/maillot-exemple.webp&quot;);" role="img" aria-label="Modèle du maillot Octobre Rose du Roller Bug"><span class="or-maillot-attente">Photo d’illustration</span></div><div class="or-maillot-corps"><span class="or-maillot-poste">Gardien</span><h3 class="or-maillot-nom">BEDNAR</h3><span class="or-maillot-meta">N° 88 · Taille 3XL</span><div class="or-maillot-prix"><span class="or-maillot-prix-libelle">Mise à prix</span><span class="or-maillot-prix-valeur">30 €</span></div><span class="or-maillot-action">Voir le maillot</span></div></a>
+      <a class="or-maillot" href="maillot.html?n=91"><div class="or-maillot-visuel" style="background-image:url(&quot;../images/octobre-rose/maillot-exemple.webp&quot;);" role="img" aria-label="Modèle du maillot Octobre Rose du Roller Bug"><span class="or-maillot-attente">Photo d’illustration</span></div><div class="or-maillot-corps"><span class="or-maillot-poste">Défenseur</span><h3 class="or-maillot-nom">AUTON</h3><span class="or-maillot-meta">N° 91 · Taille XL</span><div class="or-maillot-prix"><span class="or-maillot-prix-libelle">Mise à prix</span><span class="or-maillot-prix-valeur">30 €</span></div><span class="or-maillot-action">Voir le maillot</span></div></a>
+      <a class="or-maillot" href="maillot.html?n=95"><div class="or-maillot-visuel" style="background-image:url(&quot;../images/octobre-rose/maillot-exemple.webp&quot;);" role="img" aria-label="Modèle du maillot Octobre Rose du Roller Bug"><span class="or-maillot-attente">Photo d’illustration</span></div><div class="or-maillot-corps"><span class="or-maillot-poste">Attaquant</span><h3 class="or-maillot-nom">MORENO</h3><span class="or-maillot-meta">N° 95 · Taille M</span><div class="or-maillot-prix"><span class="or-maillot-prix-libelle">Mise à prix</span><span class="or-maillot-prix-valeur">30 €</span></div><span class="or-maillot-action">Voir le maillot</span></div></a>
+      <a class="or-maillot" href="maillot.html?n=97"><div class="or-maillot-visuel" style="background-image:url(&quot;../images/octobre-rose/maillot-exemple.webp&quot;);" role="img" aria-label="Modèle du maillot Octobre Rose du Roller Bug"><span class="or-maillot-attente">Photo d’illustration</span></div><div class="or-maillot-corps"><span class="or-maillot-poste">Défenseur</span><h3 class="or-maillot-nom">SABLEAU-FICHTER</h3><span class="or-maillot-meta">N° 97 · Taille L</span><div class="or-maillot-prix"><span class="or-maillot-prix-libelle">Mise à prix</span><span class="or-maillot-prix-valeur">30 €</span></div><span class="or-maillot-action">Voir le maillot</span></div></a>
+    </div>
+
+  <p class="or-vide" id="orVide" hidden>
+    Aucun maillot ne correspond à cette recherche.
+  </p>
+
+  <noscript>
+    <p class="or-vide">
+      Le catalogue des maillots a besoin de JavaScript pour s'afficher.
+      Vous pouvez nous écrire à <strong>rollerbugcontact@gmail.com</strong>
+      pour connaître les maillots disponibles.
+    </p>
+  </noscript>
+
+  <div class="or-note">
+    <strong>Comment ça marche.</strong> Chaque maillot a sa page : vous y
+    verrez la meilleure offre du moment et pourrez proposer la vôtre. La mise
+    à prix est de 30 € et chaque nouvelle offre doit dépasser la précédente
+    d'au moins 5 €. Aucune création de compte n'est nécessaire : vos
+    coordonnées servent uniquement à vous recontacter si vous remportez un
+    maillot, ne sont jamais affichées publiquement, et le montant des offres
+    est la seule information visible par les autres visiteurs.
+  </div>
+
+</main>
+
+<script>document.documentElement.className = 'js';</script>
+<script src="../js/octobre-rose-donnees.js"></script>
+<script src="../js/encheres-donnees.js"></script>
+<script src="../js/encheres-catalogue.js"></script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="fr" class="no-js">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Maillot — Enchères solidaires Octobre Rose</title>
+<meta name="description" content="Fiche d'un maillot de hockey Octobre Rose mis aux enchères par le Roller Bug Saint-Médard au profit de la lutte contre le cancer du sein.">
+<link rel="icon" href="../images/logo.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/encheres.css">
+</head>
+<body>
+
+<header class="or-entete">
+  <div class="or-entete-inner">
+    <a class="or-retour" href="index.html">← Tous les maillots</a>
+    <a class="or-marque" href="../index.html">ROLLERBUG</a>
+  </div>
+</header>
+
+<main class="or-page">
+  <!-- Une seule page pour les 21 maillots : js/encheres-maillot.js lit le
+       numéro dans l'URL (?n=88) et remplit ce bloc. -->
+  <div id="orFiche">
+    <p class="or-vide" style="margin-top:50px;">Chargement du maillot…</p>
+  </div>
+
+  <noscript>
+    <p class="or-vide">
+      Cette page a besoin de JavaScript pour afficher le maillot.
+      Vous pouvez nous écrire à <strong>rollerbugcontact@gmail.com</strong>.
+    </p>
+  </noscript>
+
+  <div class="or-note">
+    <strong>Vos coordonnées.</strong> Le nom, l'adresse e-mail et le numéro de
+    téléphone demandés au moment d'enchérir servent uniquement à vous
+    recontacter si vous remportez le maillot. Ils ne sont jamais affichés sur
+    le site : les autres visiteurs ne voient que le montant des offres.
+  </div>
+</main>
+
+<script>document.documentElement.className = 'js';</script>
+<script src="../js/octobre-rose-donnees.js"></script>
+<script src="../js/encheres-donnees.js"></script>
+<script src="../js/encheres-maillot.js"></script>
+</body>
+</html>

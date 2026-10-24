@@ -19,3 +19,16 @@ desktop.ini
 
 # Notices internes déposées dans les dossiers de médias
 **/LISEZ-MOI.txt
+
+# Mode démonstration des enchères : essai local uniquement. Il simule le
+# serveur et fabrique de fausses offres — il ne doit jamais partir en ligne.
+js/encheres-demo.js
+
+# Suites de tests : utiles sur l'ordinateur, inutiles sur le site.
+supabase/tests-encheres.sh
+api/_lib/tests-routes.mjs
+
+# Ancien emplacement du jumeau de données. Vercel construit une fonction
+# serveur pour tout .js placé dans api/ : ce script de navigateur y aurait
+# cassé le déploiement. Il vit maintenant dans js/.
+api/octobre-rose-donnees.js

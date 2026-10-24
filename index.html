@@ -9,6 +9,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
+<!-- Opération Octobre Rose (temporaire) : tout est isolé dans ce fichier,
+     css/encheres.css, js/encheres-*.js et api/octobre-rose*.json. -->
+<link rel="stylesheet" href="css/encheres.css">
 <script>
   /* Deux niveaux, posés avant le premier rendu :
        .js          -> JavaScript actif : les fondus d'apparition peuvent jouer.
@@ -131,6 +134,34 @@
       <span class="gold">★ ROLLER HOCKEY</span><span>SAINT-MÉDARD-EN-JALLES</span><span class="gold">★ ROLLER BUG</span><span>PASSION &amp; VITESSE</span><span class="gold">★ ESPRIT D'ÉQUIPE</span><span>FREESTYLE &amp; COMPÉTITION</span><span class="gold">★ ~400 LICENCIÉS</span>
     </div>
   </div>
+
+  <!-- =================== Enchères solidaires — Octobre Rose ===================
+       Bandeau événementiel, placé juste au-dessus des actualités. Le contenu
+       ci-dessous est le repli : il s'affiche tel quel si le JavaScript ou
+       api/octobre-rose.json ne répondent pas, et js/encheres-bandeau.js le
+       remplace par l'état réel (préparation / avant / en cours / terminé).
+       À la fin de l'opération, supprimer ce bloc, le <link> de encheres.css
+       et les deux <script> encheres-* en bas de page. -->
+  <section class="or-bandeau" id="bandeauOctobreRose" aria-labelledby="orTitre">
+    <div class="or-carte" data-etat="preparation">
+      <div class="or-visuel" style="background-image:url(&quot;images/octobre-rose/maillot-exemple.webp&quot;);" role="img" aria-label="Le maillot Octobre Rose du Roller Bug"></div>
+      <div class="or-corps">
+        <span class="or-surtitre">Opération solidaire</span>
+        <h2 class="or-titre" id="orTitre">Enchères solidaires — Octobre Rose</h2>
+        <p class="or-soustitre">Vingt et un maillots de hockey aux couleurs d'Octobre Rose sont mis aux enchères au profit de la lutte contre le cancer du sein. Chaque maillot a sa page : vous y verrez la meilleure offre du moment et pourrez enchérir, sans créer de compte. Le catalogue des maillots arrive. L'ouverture des enchères sera annoncée ici et sur nos réseaux.</p>
+        <div class="or-infos">
+          <div class="or-info"><span class="or-info-libelle">Maillots</span><span class="or-info-valeur">21 pièces uniques</span></div>
+          <div class="or-info"><span class="or-info-libelle">Mise à prix</span><span class="or-info-valeur">30 €</span></div>
+          <div class="or-info"><span class="or-info-libelle">Palier</span><span class="or-info-valeur">+ 5 €</span></div>
+        </div>
+        <div class="or-compteur" id="orCompteur"><span class="or-badge">Ouverture prochainement</span></div>
+        <div class="or-actions">
+          <a class="btn-rose" href="octobre-rose/index.html">Découvrir les maillots</a>
+          <a class="btn-rose-fantome" href="#contact">Nous contacter</a>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <section id="actualites">
     <div class="section-tag">Suivez-nous</div>
@@ -974,6 +1005,8 @@
 <script src="js/auth.js"></script>
 <script src="js/data.js"></script>
 <script src="js/evenements.js"></script>
+<script src="js/encheres-donnees.js"></script>
+<script src="js/encheres-bandeau.js"></script>
 <script src="js/contact.js"></script>
 <script src="js/compte-ui.js"></script>
 

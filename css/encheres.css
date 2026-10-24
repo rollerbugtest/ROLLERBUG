@@ -1,0 +1,671 @@
+/* ===========================================================================
+   Enchères solidaires — Octobre Rose 2026
+
+   Tout ce qui est propre à l'opération est regroupé dans ce fichier, dans
+   js/encheres-bandeau.js et dans api/octobre-rose.json. À la fin de
+   l'opération, retirer ces trois éléments et les quelques lignes de
+   <section class="or-bandeau"> d'index.html suffit : le site retrouve son
+   état d'origine, sans toucher à style.css.
+
+   Les variables du site (--gold, --ink, --glass-border…) viennent de
+   style.css, chargé avant celui-ci.
+   ========================================================================= */
+
+:root{
+  --rose:#e9539b;
+  --rose-clair:#ff8ec0;
+  --rose-sombre:#c61e6e;
+  --rose-glow:rgba(233,83,155,.45);
+  --rose-bord:rgba(255,142,192,.28);
+  /* Fond du bandeau. Posé SOUS l'image du ruban : si le fichier manque,
+     c'est ce dégradé qu'on voit, jamais un rectangle vide. */
+  --rose-degrade:linear-gradient(135deg, #2b0d1d 0%, #140a12 55%, #230c19 100%);
+}
+
+/* ------------------------------------------------------------- le bandeau */
+
+.or-bandeau{
+  max-width:1200px;
+  margin:72px auto 0;
+  padding:0 24px;
+}
+
+.or-carte{
+  position:relative;
+  overflow:hidden;
+  display:grid;
+  grid-template-columns:minmax(0, 220px) minmax(0, 1fr);
+  gap:34px;
+  align-items:center;
+  padding:38px 40px;
+  border-radius:22px;
+  border:1px solid var(--rose-bord);
+  background:var(--rose-degrade);
+}
+
+/* Halo rose diffus, purement décoratif. */
+.or-carte::before{
+  content:'';
+  position:absolute;
+  left:-60px; top:-80px;
+  width:420px; height:420px;
+  border-radius:50%;
+  background:radial-gradient(circle, var(--rose-glow) 0%, transparent 70%);
+  opacity:.5;
+  pointer-events:none;
+}
+
+.or-visuel{
+  position:relative;
+  width:100%;
+  aspect-ratio:1 / 1;
+  border-radius:16px;
+  background-image:var(--rose-degrade);
+  background-size:cover;
+  background-position:center;
+  border:1px solid var(--rose-bord);
+}
+
+.or-corps{ position:relative; }
+
+.or-surtitre{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  font-family:'JetBrains Mono', monospace;
+  font-size:.72rem;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  color:var(--rose-clair);
+}
+
+.or-titre{
+  font-family:'Anton', sans-serif;
+  font-size:clamp(1.8rem, 4vw, 2.9rem);
+  line-height:1.05;
+  letter-spacing:.5px;
+  margin:12px 0 0;
+  color:var(--ink);
+}
+
+.or-soustitre{
+  margin-top:14px;
+  max-width:62ch;
+  color:var(--ink-dim);
+  font-size:.95rem;
+  line-height:1.65;
+}
+
+.or-infos{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px 28px;
+  margin-top:22px;
+}
+
+.or-info{
+  display:flex;
+  flex-direction:column;
+  gap:3px;
+}
+
+.or-info-libelle{
+  font-family:'JetBrains Mono', monospace;
+  font-size:.66rem;
+  letter-spacing:1.6px;
+  text-transform:uppercase;
+  color:var(--ink-dim);
+}
+
+.or-info-valeur{
+  font-family:'JetBrains Mono', monospace;
+  font-size:.96rem;
+  color:var(--rose-clair);
+}
+
+/* --------------------------------------------------- le compte à rebours */
+
+.or-compteur{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:baseline;
+  gap:6px 12px;
+  margin-top:24px;
+  padding-top:18px;
+  border-top:1px solid var(--rose-bord);
+}
+
+.or-compteur-libelle{
+  font-family:'JetBrains Mono', monospace;
+  font-size:.68rem;
+  letter-spacing:1.6px;
+  text-transform:uppercase;
+  color:var(--ink-dim);
+}
+
+.or-compteur-valeur{
+  font-family:'JetBrains Mono', monospace;
+  font-size:1.18rem;
+  color:var(--rose-clair);
+}
+
+/* Trois états, pour que le statut se lise autrement que par la couleur. */
+.or-carte[data-etat="termine"] .or-compteur-valeur{ color:var(--ink-dim); }
+.or-carte[data-etat="encours"] .or-compteur-valeur{ color:#6fe0a8; }
+
+.or-badge{
+  display:inline-block;
+  padding:4px 11px;
+  border-radius:999px;
+  border:1px solid var(--rose-bord);
+  background:rgba(233,83,155,.12);
+  font-family:'JetBrains Mono', monospace;
+  font-size:.64rem;
+  letter-spacing:1.6px;
+  text-transform:uppercase;
+  color:var(--rose-clair);
+}
+
+/* ------------------------------------------------------------- le bouton */
+
+.or-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+  margin-top:26px;
+}
+
+.btn-rose{
+  display:inline-block;
+  padding:13px 26px;
+  border-radius:10px;
+  border:1px solid transparent;
+  background:var(--rose);
+  color:#fff;
+  font-family:'JetBrains Mono', monospace;
+  font-size:.78rem;
+  letter-spacing:1.4px;
+  text-transform:uppercase;
+  text-decoration:none;
+  transition:background .25s ease, transform .25s ease;
+}
+.btn-rose:hover{ background:var(--rose-sombre); transform:translateY(-2px); }
+.btn-rose:focus-visible{ outline:2px solid var(--rose-clair); outline-offset:3px; }
+
+.btn-rose-fantome{
+  display:inline-block;
+  padding:13px 26px;
+  border-radius:10px;
+  border:1px solid var(--rose-bord);
+  background:transparent;
+  color:var(--rose-clair);
+  font-family:'JetBrains Mono', monospace;
+  font-size:.78rem;
+  letter-spacing:1.4px;
+  text-transform:uppercase;
+  text-decoration:none;
+  transition:border-color .25s ease, color .25s ease;
+}
+.btn-rose-fantome:hover{ border-color:var(--rose-clair); color:#fff; }
+.btn-rose-fantome:focus-visible{ outline:2px solid var(--rose-clair); outline-offset:3px; }
+
+/* Un bouton désactivé reste lisible et annonce pourquoi il ne fait rien. */
+.btn-rose[aria-disabled="true"]{
+  background:rgba(233,83,155,.18);
+  color:var(--ink-dim);
+  cursor:not-allowed;
+  pointer-events:none;
+}
+
+/* ---------------------------------------------------------------- mobile */
+
+@media(max-width:900px){
+  .or-bandeau{ margin-top:56px; padding:0 16px; }
+  .or-carte{
+    grid-template-columns:1fr;
+    gap:24px;
+    padding:28px 22px;
+  }
+  .or-visuel{
+    max-width:220px;
+    margin:0 auto;
+  }
+  .or-corps{ text-align:center; }
+  .or-soustitre{ margin-left:auto; margin-right:auto; }
+  .or-infos,
+  .or-compteur,
+  .or-actions{ justify-content:center; }
+  .or-compteur{ flex-direction:column; align-items:center; gap:4px; }
+}
+
+@media(max-width:420px){
+  .or-carte{ padding:24px 18px; }
+  .or-actions .btn-rose,
+  .or-actions .btn-rose-fantome{ width:100%; text-align:center; }
+}
+
+/* Mouvement réduit : on garde l'information, on retire le déplacement. */
+@media(prefers-reduced-motion:reduce){
+  .btn-rose:hover{ transform:none; }
+}
+
+/* ===========================================================================
+   Pages de l'opération : catalogue et fiche d'un maillot
+   ========================================================================= */
+
+.or-page{
+  max-width:1200px;
+  margin:0 auto;
+  padding:0 24px 90px;
+}
+
+/* --------------------------------------------------------- en-tête page */
+
+.or-entete{
+  position:sticky; top:0; z-index:40;
+  background:rgba(5,5,5,.86);
+  -webkit-backdrop-filter:var(--glass-blur);
+  backdrop-filter:var(--glass-blur);
+  border-bottom:1px solid var(--line);
+}
+.or-entete-inner{
+  max-width:1200px;
+  margin:0 auto;
+  padding:16px 24px;
+  display:flex; align-items:center; justify-content:space-between; gap:16px;
+}
+.or-retour{
+  display:inline-flex; align-items:center; gap:8px;
+  color:var(--ink-dim); text-decoration:none;
+  font-family:'JetBrains Mono', monospace;
+  font-size:.74rem; letter-spacing:1.4px; text-transform:uppercase;
+  transition:color .2s ease;
+}
+.or-retour:hover{ color:var(--gold); }
+.or-marque{
+  font-family:'Anton', sans-serif;
+  font-size:1.05rem; letter-spacing:1.6px;
+  color:var(--ink); text-decoration:none;
+}
+
+.or-titre-page{
+  font-family:'Anton', sans-serif;
+  font-size:clamp(2rem, 5vw, 3.2rem);
+  line-height:1.05;
+  margin:52px 0 0;
+}
+.or-chapo{
+  margin-top:16px;
+  max-width:70ch;
+  color:var(--ink-dim);
+  line-height:1.7;
+}
+
+/* ------------------------------------------------------------- filtres */
+
+.or-filtres{
+  display:flex; flex-wrap:wrap; gap:12px; align-items:center;
+  margin-top:34px;
+  padding:16px;
+  border:1px solid var(--rose-bord);
+  border-radius:14px;
+  background:rgba(233,83,155,.05);
+}
+.or-champ{
+  flex:1 1 240px;
+  display:flex; flex-direction:column; gap:6px;
+}
+.or-champ label{
+  font-family:'JetBrains Mono', monospace;
+  font-size:.64rem; letter-spacing:1.6px; text-transform:uppercase;
+  color:var(--ink-dim);
+}
+.or-champ input,
+.or-champ select{
+  width:100%;
+  padding:11px 13px;
+  border-radius:9px;
+  border:1px solid var(--glass-border);
+  background:rgba(255,255,255,.04);
+  color:var(--ink);
+  font-family:'Inter', sans-serif;
+  font-size:.92rem;
+}
+.or-champ input:focus-visible,
+.or-champ select:focus-visible{
+  outline:2px solid var(--rose-clair);
+  outline-offset:2px;
+}
+.or-champ select option{ background:var(--night-1); color:var(--ink); }
+.or-compte{
+  font-family:'JetBrains Mono', monospace;
+  font-size:.74rem;
+  color:var(--rose-clair);
+  white-space:nowrap;
+}
+
+/* ------------------------------------------------------------- grille */
+
+.or-grille{
+  display:grid;
+  grid-template-columns:repeat(auto-fill, minmax(238px, 1fr));
+  gap:18px;
+  margin-top:28px;
+}
+
+.or-maillot{
+  display:flex; flex-direction:column;
+  border:1px solid var(--glass-border);
+  border-radius:16px;
+  overflow:hidden;
+  background:var(--glass-bg);
+  color:inherit; text-decoration:none;
+  transition:border-color .25s ease, transform .25s ease;
+}
+.or-maillot:hover{ border-color:var(--rose-bord); transform:translateY(-3px); }
+.or-maillot:focus-visible{ outline:2px solid var(--rose-clair); outline-offset:3px; }
+
+.or-maillot-visuel{
+  position:relative;
+  aspect-ratio:1 / 1;
+  display:flex; align-items:center; justify-content:center;
+  background-image:var(--rose-degrade);
+  background-size:cover; background-position:center;
+  border-bottom:1px solid var(--glass-border);
+}
+/* Photo absente : on montre le numéro, pas une image trompeuse. */
+.or-maillot-numero{
+  font-family:'Anton', sans-serif;
+  font-size:3.1rem;
+  letter-spacing:1px;
+  color:var(--rose-clair);
+  opacity:.9;
+}
+.or-maillot-attente{
+  position:absolute; left:10px; bottom:10px;
+  font-family:'JetBrains Mono', monospace;
+  font-size:.58rem; letter-spacing:1.2px; text-transform:uppercase;
+  color:var(--ink-dim);
+}
+
+.or-maillot-corps{
+  display:flex; flex-direction:column; gap:6px;
+  padding:16px 16px 18px;
+  flex:1;
+}
+.or-maillot-poste{
+  font-family:'JetBrains Mono', monospace;
+  font-size:.6rem; letter-spacing:1.6px; text-transform:uppercase;
+  color:var(--rose-clair);
+}
+.or-maillot-nom{
+  font-family:'Anton', sans-serif;
+  font-size:1.18rem; letter-spacing:.4px;
+  line-height:1.2;
+}
+.or-maillot-meta{
+  font-family:'JetBrains Mono', monospace;
+  font-size:.74rem;
+  color:var(--ink-dim);
+}
+.or-maillot-prix{
+  margin-top:auto; padding-top:12px;
+  display:flex; align-items:baseline; justify-content:space-between; gap:8px;
+  border-top:1px solid var(--line);
+}
+.or-maillot-prix-libelle{
+  font-family:'JetBrains Mono', monospace;
+  font-size:.6rem; letter-spacing:1.4px; text-transform:uppercase;
+  color:var(--ink-dim);
+}
+.or-maillot-prix-valeur{
+  font-family:'JetBrains Mono', monospace;
+  font-size:1.02rem;
+  color:var(--rose-clair);
+}
+.or-maillot-action{
+  margin-top:14px;
+  display:block; text-align:center;
+  padding:11px 14px;
+  border-radius:9px;
+  border:1px solid var(--rose-bord);
+  color:var(--rose-clair);
+  font-family:'JetBrains Mono', monospace;
+  font-size:.7rem; letter-spacing:1.4px; text-transform:uppercase;
+}
+.or-maillot:hover .or-maillot-action{ background:var(--rose); color:#fff; border-color:var(--rose); }
+
+.or-vide{
+  margin-top:28px;
+  padding:34px;
+  text-align:center;
+  border:1px dashed var(--glass-border);
+  border-radius:14px;
+  color:var(--ink-dim);
+}
+
+.or-note{
+  margin-top:40px;
+  padding:20px 22px;
+  border-radius:14px;
+  border:1px solid var(--glass-border);
+  background:var(--glass-bg);
+  color:var(--ink-dim);
+  font-size:.86rem;
+  line-height:1.7;
+}
+.or-note strong{ color:var(--ink); }
+
+@media(max-width:640px){
+  .or-page{ padding:0 16px 70px; }
+  .or-entete-inner{ padding:14px 16px; }
+  .or-titre-page{ margin-top:34px; }
+  .or-grille{ grid-template-columns:repeat(auto-fill, minmax(150px, 1fr)); gap:12px; }
+  .or-maillot-numero{ font-size:2.3rem; }
+  .or-maillot-corps{ padding:13px 13px 15px; }
+}
+
+/* ------------------------------------------------- fiche d'un maillot --- */
+
+.or-fiche{
+  display:grid;
+  grid-template-columns:minmax(0, 1fr) minmax(0, 1fr);
+  gap:40px;
+  margin-top:34px;
+  align-items:start;
+}
+.or-fiche-visuel{
+  position:relative;
+  aspect-ratio:1 / 1;
+  display:flex; align-items:center; justify-content:center;
+  border-radius:18px;
+  border:1px solid var(--rose-bord);
+  background-image:var(--rose-degrade);
+  background-size:cover; background-position:center;
+}
+.or-fiche-numero{
+  font-family:'Anton', sans-serif;
+  font-size:clamp(4rem, 14vw, 8rem);
+  color:var(--rose-clair);
+  opacity:.9;
+}
+.or-fiche-attente{
+  position:absolute; left:16px; bottom:14px;
+  font-family:'JetBrains Mono', monospace;
+  font-size:.64rem; letter-spacing:1.4px; text-transform:uppercase;
+  color:var(--ink-dim);
+}
+.or-fiche-poste{
+  font-family:'JetBrains Mono', monospace;
+  font-size:.68rem; letter-spacing:1.8px; text-transform:uppercase;
+  color:var(--rose-clair);
+}
+.or-fiche-nom{
+  font-family:'Anton', sans-serif;
+  font-size:clamp(2rem, 5vw, 3rem);
+  line-height:1.05;
+  margin:10px 0 0;
+}
+.or-fiche-meta{
+  margin-top:10px;
+  font-family:'JetBrains Mono', monospace;
+  font-size:.9rem;
+  color:var(--ink-dim);
+}
+.or-fiche-description{
+  margin-top:18px;
+  color:var(--ink-dim);
+  line-height:1.7;
+}
+.or-fiche-offre{
+  margin-top:26px;
+  padding:20px 22px;
+  border-radius:14px;
+  border:1px solid var(--rose-bord);
+  background:rgba(233,83,155,.07);
+}
+.or-fiche-offre-libelle{
+  font-family:'JetBrains Mono', monospace;
+  font-size:.64rem; letter-spacing:1.6px; text-transform:uppercase;
+  color:var(--ink-dim);
+}
+.or-fiche-offre-valeur{
+  display:block; margin-top:4px;
+  font-family:'Anton', sans-serif;
+  font-size:2.3rem; letter-spacing:1px;
+  color:var(--rose-clair);
+}
+.or-fiche-minimum{
+  margin-top:10px;
+  font-family:'JetBrains Mono', monospace;
+  font-size:.82rem;
+  color:var(--ink-dim);
+}
+.or-fiche-introuvable{
+  margin-top:50px;
+  padding:40px;
+  text-align:center;
+  border:1px dashed var(--glass-border);
+  border-radius:16px;
+  color:var(--ink-dim);
+}
+
+@media(max-width:860px){
+  .or-fiche{ grid-template-columns:1fr; gap:26px; }
+}
+
+/* Le modèle recto-verso, sous la fiche. */
+.or-modele{
+  margin-top:40px;
+  padding:22px;
+  border-radius:16px;
+  border:1px solid var(--glass-border);
+  background:var(--glass-bg);
+}
+.or-modele img{
+  display:block;
+  width:100%;
+  height:auto;
+  border-radius:10px;
+}
+.or-modele figcaption{
+  margin-top:14px;
+  color:var(--ink-dim);
+  font-size:.84rem;
+  line-height:1.65;
+}
+/* La mention « photo d'illustration » doit rester lisible par-dessus le rose. */
+.or-maillot-attente,
+.or-fiche-attente{
+  padding:3px 8px;
+  border-radius:999px;
+  background:rgba(5,5,5,.6);
+  -webkit-backdrop-filter:blur(6px);
+  backdrop-filter:blur(6px);
+}
+
+/* Les visuels du maillot sont transparents : le dégradé rose doit donc rester
+   visible derrière, sans être recouvert par la mise à l'échelle « cover ». */
+.or-maillot-visuel,
+.or-fiche-visuel{ background-size:contain; background-repeat:no-repeat; }
+
+/* ------------------------------------------------------ formulaire d'offre */
+
+.or-form{
+  margin-top:22px;
+  padding-top:20px;
+  border-top:1px solid var(--rose-bord);
+}
+.or-form[hidden]{ display:none !important; }
+
+.or-form-lignes{
+  display:grid;
+  grid-template-columns:repeat(2, minmax(0, 1fr));
+  gap:14px;
+}
+.or-form-champ{ display:flex; flex-direction:column; gap:6px; }
+.or-form-champ--large{ grid-column:1 / -1; }
+.or-form-champ label{
+  font-family:'JetBrains Mono', monospace;
+  font-size:.64rem; letter-spacing:1.4px; text-transform:uppercase;
+  color:var(--ink-dim);
+}
+.or-form-champ input{
+  width:100%;
+  padding:11px 13px;
+  border-radius:9px;
+  border:1px solid var(--glass-border);
+  background:rgba(255,255,255,.04);
+  color:var(--ink);
+  font-family:'Inter', sans-serif;
+  font-size:.95rem;
+}
+.or-form-champ input:focus-visible{ outline:2px solid var(--rose-clair); outline-offset:2px; }
+.or-form-champ input[aria-invalid="true"]{ border-color:#ff7a7a; }
+.or-form-aide{
+  font-family:'JetBrains Mono', monospace;
+  font-size:.68rem;
+  color:var(--ink-dim);
+}
+
+.or-form-case{
+  grid-column:1 / -1;
+  display:flex; align-items:flex-start; gap:10px;
+  font-size:.85rem; line-height:1.6; color:var(--ink-dim);
+}
+.or-form-case input{ margin-top:3px; width:17px; height:17px; accent-color:var(--rose); }
+
+/* Le code à six chiffres : grand, espacé, lisible à voix haute. */
+.or-code{
+  width:100%; max-width:260px;
+  padding:14px;
+  text-align:center;
+  font-family:'JetBrains Mono', monospace;
+  font-size:1.7rem; letter-spacing:10px;
+}
+
+.or-message{
+  margin-top:16px;
+  padding:13px 15px;
+  border-radius:10px;
+  font-size:.9rem; line-height:1.6;
+  border:1px solid var(--glass-border);
+  background:var(--glass-bg);
+}
+.or-message--erreur{ border-color:#ff7a7a55; background:rgba(255,122,122,.08); color:#ffc9c9; }
+.or-message--ok{ border-color:#6fe0a855; background:rgba(111,224,168,.08); color:#b6f2d4; }
+.or-message[hidden]{ display:none !important; }
+
+.btn-rose[disabled]{ opacity:.55; cursor:progress; pointer-events:none; }
+
+@media(max-width:520px){
+  .or-form-lignes{ grid-template-columns:1fr; }
+  .or-code{ letter-spacing:7px; font-size:1.4rem; }
+}
+
+/* L'attribut hidden ne suffit pas sur un conteneur en display:flex : la règle
+   de mise en page l'emporte et l'élément reste visible. On le dit donc
+   explicitement, partout où un bloc flex peut être masqué. */
+.or-actions[hidden],
+.or-infos[hidden],
+.or-compteur[hidden]{ display:none !important; }
