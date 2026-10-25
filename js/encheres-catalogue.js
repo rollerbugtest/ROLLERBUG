@@ -95,14 +95,18 @@
       return String(m.numero).indexOf(q) === 0 || normalise(m.nom).indexOf(q) !== -1;
     });
 
-    var tri = champTri ? champTri.value : 'numero';
+    // Par défaut : ordre alphabétique des joueurs, comme demandé par le
+    // bureau. Le tri par numéro reste disponible dans la liste déroulante.
+    var tri = champTri ? champTri.value : 'nom';
     liste.sort(function (a, b) {
       var va = meilleure(a) === null ? a.prixDepart : meilleure(a);
       var vb = meilleure(b) === null ? b.prixDepart : meilleure(b);
       if (tri === 'offre-desc') return vb - va || a.numero - b.numero;
       if (tri === 'offre-asc')  return va - vb || a.numero - b.numero;
-      if (tri === 'nom')        return a.nom.localeCompare(b.nom, 'fr');
-      return a.numero - b.numero;
+      if (tri === 'numero')     return a.numero - b.numero;
+      // « fr » pour que les accents et les noms composés se rangent
+      // comme dans un annuaire français.
+      return a.nom.localeCompare(b.nom, 'fr') || a.numero - b.numero;
     });
 
     grille.innerHTML = liste.map(carte).join('');
