@@ -179,3 +179,105 @@ select to_char(quand at time zone 'Europe/Paris', 'DD/MM HH24"h"MI:SS') as horod
 --    set modalites_reglement = 'Règlement par chèque à l''ordre de … ou en '
 --        'espèces, à la remise du maillot à l''Espace Roller, …'
 --  where id = 1;
+
+
+-- ---------------------------------------------------------------------------
+--  J. EFFACER LES COORDONNÉES DES PARTICIPANTS QUI N'ONT RIEN REMPORTÉ
+--
+--     L'article 12 du règlement promet que ces coordonnées sont effacées dès
+--     la clôture. Une promesse sans bouton ne se tient pas : voici le bouton.
+--
+--     Les montants, les dates et le déroulé des enchères sont conservés —
+--     c'est la mémoire de l'opération, et elle ne contient alors plus rien
+--     de personnel. Seuls le prénom, le nom, l'adresse e-mail, le téléphone
+--     et l'adresse IP disparaissent. C'EST DÉFINITIF.
+--
+--     Comme pour la remise à zéro : par défaut ce bloc n'efface rien et se
+--     contente d'annoncer ce qu'il ferait.
+-- ---------------------------------------------------------------------------
+-- do $$
+-- declare
+--   -- ⚠⚠⚠  LA SEULE LIGNE À MODIFIER  ⚠⚠⚠
+--   v_confirmation text := 'NON';
+--   v_a_effacer integer;
+--   v_gagnants  integer;
+-- begin
+--   select count(*) into v_a_effacer
+--     from public.or_encheres e
+--    where e.email <> 'efface@exemple.invalid'
+--      and e.id not in (select distinct on (x.maillot_id) x.id
+--                         from public.or_encheres x
+--                        where x.statut = 'confirmee'
+--                        order by x.maillot_id, x.montant desc, x.confirmee_le asc);
+--   select count(*) into v_gagnants from public.or_gagnants();
+--
+--   if v_confirmation is distinct from 'OUI, EFFACER' then
+--     raise exception E'RIEN N''A ÉTÉ EFFACÉ (comportement par défaut).\n'
+--       '  coordonnées qui seraient effacées : %\n'
+--       '  gagnants préservés                : %\n'
+--       'Pour effacer réellement, remplacer NON par OUI, EFFACER.',
+--       v_a_effacer, v_gagnants;
+--   end if;
+--
+--   update public.or_encheres e
+--      set prenom = '—', nom = 'effacé', email = 'efface@exemple.invalid',
+--          telephone = '000000', ip = null
+--    where e.email <> 'efface@exemple.invalid'
+--      and e.id not in (select distinct on (x.maillot_id) x.id
+--                         from public.or_encheres x
+--                        where x.statut = 'confirmee'
+--                        order by x.maillot_id, x.montant desc, x.confirmee_le asc);
+--
+--   -- Les e-mails déjà envoyés gardaient l'adresse du destinataire.
+--   update public.or_notifications n
+--      set destinataire = 'efface@exemple.invalid'
+--    where n.destinataire <> 'efface@exemple.invalid'
+--      and n.destinataire <> (select p.email_notification
+--                               from public.or_parametres p where p.id = 1)
+--      and not exists (select 1 from public.or_encheres e
+--                       where lower(e.email) = lower(n.destinataire)
+--                         and e.email <> 'efface@exemple.invalid');
+--
+--   raise notice 'Coordonnées de % participants effacées. Les % gagnants sont conservés.',
+--     v_a_effacer, v_gagnants;
+-- end $$;
+
+
+-- ---------------------------------------------------------------------------
+--  K. EFFACER LES COORDONNÉES DES GAGNANTS
+--
+--     À passer UNE FOIS TOUS LES MAILLOTS RÉGLÉS ET REMIS, pas avant :
+--     après ça, plus personne ne peut être recontacté. C'est la dernière
+--     étape de l'opération, et elle aussi est définitive.
+-- ---------------------------------------------------------------------------
+-- do $$
+-- declare
+--   v_confirmation text := 'NON';   -- 'OUI, EFFACER' pour exécuter
+--   v_nb integer;
+-- begin
+--   select count(*) into v_nb from public.or_encheres
+--    where email <> 'efface@exemple.invalid';
+--
+--   if v_confirmation is distinct from 'OUI, EFFACER' then
+--     raise exception E'RIEN N''A ÉTÉ EFFACÉ.\n'
+--       '  coordonnées encore présentes : %\n'
+--       'À ne lancer qu''une fois les 21 maillots remis.', v_nb;
+--   end if;
+--
+--   update public.or_encheres
+--      set prenom = '—', nom = 'effacé', email = 'efface@exemple.invalid',
+--          telephone = '000000', ip = null
+--    where email <> 'efface@exemple.invalid';
+--
+--   update public.or_notifications n
+--      set destinataire = 'efface@exemple.invalid'
+--    where n.destinataire <> 'efface@exemple.invalid'
+--      and n.destinataire <> (select p.email_notification
+--                               from public.or_parametres p where p.id = 1);
+--
+--   raise notice '% coordonnées effacées. L''opération ne conserve plus que des montants.', v_nb;
+-- end $$;
+
+-- Contrôle après J ou K : doit afficher 0 coordonnée restante côté participants.
+-- select count(*) as coordonnees_restantes
+--   from public.or_encheres where email <> 'efface@exemple.invalid';
