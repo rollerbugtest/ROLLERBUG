@@ -32,7 +32,44 @@
       '</div>';
   }
 
+  // Le bandeau peut être alimenté par trois sources : la route serveur, qui
+  // lit la base ; le fichier JSON de secours ; le jumeau JavaScript. Or la
+  // base ne stocke QUE ce qui peut bouger en cours d'opération — dates,
+  // montants, interrupteur. Ni le lien du catalogue, ni le visuel, ni les
+  // textes de présentation n'y figurent.
+  //
+  // Sans ces valeurs par défaut, le bouton « Découvrir les maillots » se
+  // retrouvait avec un href vide dès que la base répondait — et un href vide
+  // recharge la page au lieu d'aller au catalogue. Le défaut ne pouvait pas
+  // se voir tant que le site tournait sur le fichier JSON, qui, lui, porte
+  // ces champs.
+  var DEFAUTS = {
+    lienCatalogue:    'octobre-rose/index.html',
+    libelleCatalogue: 'Découvrir les maillots',
+    visuel:           'images/octobre-rose/maillot-exemple.webp',
+    visuelAlt:        'Le maillot Octobre Rose du Roller Bug',
+    lienSecondaire:   '#contact',
+    libelleSecondaire:'Nous contacter',
+    surtitre:         'Opération solidaire',
+    titre:            'Enchères solidaires — Octobre Rose',
+    sousTitre:        'Vingt et un maillots de hockey aux couleurs d’Octobre Rose, ' +
+                      'portés par l’équipe, sont mis aux enchères au profit de la ' +
+                      'lutte contre le cancer du sein.'
+  };
+
+  function avecDefauts(p) {
+    var r = {}, k;
+    for (k in p) {
+      if (Object.prototype.hasOwnProperty.call(p, k)) r[k] = p[k];
+    }
+    for (k in DEFAUTS) {
+      if (r[k] === undefined || r[k] === null || r[k] === '') r[k] = DEFAUTS[k];
+    }
+    return r;
+  }
+
   function rendre(p) {
+    p = avecDefauts(p);
     var e = OR.etat(p);
     if (e === 'inactif') { zone.hidden = true; return; }
     zone.hidden = false;
