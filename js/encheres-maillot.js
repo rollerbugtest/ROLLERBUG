@@ -64,7 +64,8 @@
         '</div>' +
         '<label class="or-form-case">' +
           '<input type="checkbox" id="orReglement" required>' +
-          '<span>J’accepte le règlement des enchères. Mes coordonnées servent ' +
+          '<span>J’accepte le <a href="reglement.html" target="_blank" ' +
+          'rel="noopener">règlement des enchères</a>. Mes coordonnées servent ' +
           'uniquement au club pour me recontacter si je remporte ce maillot ; ' +
           'elles ne sont jamais affichées sur le site.</span>' +
         '</label>' +
@@ -74,21 +75,8 @@
       '</div>' +
       '<div class="or-message" id="orMessage" hidden role="status" aria-live="polite"></div>' +
       '</form>' +
-
-      // Deuxième temps : le code reçu par e-mail. Tant qu'il n'est pas saisi,
-      // l'offre n'existe pas pour les autres visiteurs.
-      '<form class="or-form" id="orFormCode" hidden novalidate>' +
-        '<p class="or-fiche-minimum" id="orCodeIntro"></p>' +
-        '<div class="or-form-champ">' +
-          '<label for="orCode">Code à six chiffres</label>' +
-          '<input class="or-code" type="text" id="orCode" inputmode="numeric" ' +
-            'autocomplete="one-time-code" maxlength="6" pattern="[0-9]{6}" required>' +
-        '</div>' +
-        '<div class="or-actions">' +
-          '<button type="submit" class="btn-rose" id="orValider">Valider mon offre</button>' +
-        '</div>' +
-        '<div class="or-message" id="orMessageCode" hidden role="status" aria-live="polite"></div>' +
-      '</form>' +
+      // Il n'y a plus de second temps : sur décision du bureau, l'offre est
+      // valide dès l'envoi, sans code à saisir.
       '<div class="or-message" id="orMessageFinal" hidden role="status" aria-live="polite"></div>';
   }
 
@@ -221,7 +209,6 @@
   function brancheFormulaire(m) {
     var ouvrir = document.getElementById('orOuvrirForm');
     var form = document.getElementById('orForm');
-    var formCode = document.getElementById('orFormCode');
     if (!ouvrir || !form) return;
 
     ouvrir.addEventListener('click', function () {
@@ -263,39 +250,13 @@
         }
         offreEnCours = r.corps.id;
         form.hidden = true;
-        formCode.hidden = false;
-        document.getElementById('orCodeIntro').textContent =
-          'Un code à six chiffres vient d’être envoyé à ' + donnees.email +
-          '. Votre offre ne sera enregistrée qu’une fois ce code saisi.';
-        document.getElementById('orCode').focus();
+        confirmationReussie = r.corps.message || 'Votre offre est enregistrée.';
+        affiche('orMessageFinal', confirmationReussie, 'ok');
+        // Le montant affiché doit refléter l'offre à l'instant même. Le
+        // formulaire étant refermé, le re-rendu complet est sans danger, et
+        // il réaffiche le message grâce à confirmationReussie.
+        OR.vider(); charge();
       });
-    });
-
-    formCode.addEventListener('submit', function (ev) {
-      ev.preventDefault();
-      var bouton = document.getElementById('orValider');
-      var code = val('orCode').replace(/\s/g, '');
-      if (!/^\d{6}$/.test(code)) {
-        return affiche('orMessageCode', 'Le code comporte six chiffres.', 'erreur');
-      }
-      occupe(bouton, true);
-      affiche('orMessageCode', '', null);
-      appelServeur('api/encheres/confirmer', { id: offreEnCours, code: code })
-        .then(function (r) {
-          occupe(bouton, false, 'Valider mon offre');
-          if (!r.ok) {
-            affiche('orMessageCode', r.corps.message || 'Code refusé.', 'erreur');
-            if (r.corps.minimum) majMinimum(r.corps.minimum);
-            return;
-          }
-          formCode.hidden = true;
-          confirmationReussie = r.corps.message || 'Votre offre est enregistrée.';
-          affiche('orMessageFinal', confirmationReussie, 'ok');
-          // Le montant affiché doit refléter l'offre à l'instant même. Le
-          // formulaire étant refermé, le re-rendu complet est sans danger,
-          // et il réaffiche le message grâce à confirmationReussie.
-          OR.vider(); charge();
-        });
     });
   }
 
@@ -337,8 +298,7 @@
   // contente de rafraîchir les montants affichés.
   function formOuvert() {
     var f = document.getElementById('orForm');
-    var c = document.getElementById('orFormCode');
-    return (f && !f.hidden) || (c && !c.hidden);
+    return Boolean(f && !f.hidden);
   }
 
   function rafraichirMontants(m) {

@@ -1,75 +1,49 @@
 /* ============================================================================
    POST /api/encheres/offrir — dépôt d'une offre.
 
-   L'offre naît EN ATTENTE : elle ne change pas le montant public et ne peut
-   pas gagner. Un code à six chiffres part par e-mail ; seule sa saisie la
-   rend valide. C'est ce qui empêche d'enchérir avec l'adresse de quelqu'un
-   d'autre, ou avec une adresse inventée.
+   Depuis la décision du bureau de supprimer le code de vérification, l'offre
+   est valide dès sa réception : plus d'étape intermédiaire, plus d'e-mail de
+   code, plus de confirmation à l'enchérisseur. Un seul message part, et
+   seulement s'il y a quelqu'un à prévenir — l'alerte à la personne qui vient
+   d'être dépassée. C'est ce qui permet de tenir dans les cent e-mails par
+   jour du forfait gratuit.
 
-   Le code n'est jamais enregistré en clair : la base ne reçoit que son
-   empreinte, comme pour un mot de passe.
+   ⚠ Conséquence assumée : plus rien ne prouve que l'adresse saisie appartient
+   à la personne qui enchérit. Les garde-fous vivent dans la base — limite par
+   adresse, limite par appareil, plafond d'alertes par destinataire — et non
+   ici : une protection posée dans la page serait contournée en trois clics.
    ========================================================================== */
-import { randomInt, createHash } from 'node:crypto';
 import { rpc } from '../_lib/base.js';
 import { route, json, corpsJson } from '../_lib/reponse.js';
 import { offre as valider, adresseIp } from '../_lib/validation.js';
-import { envoyer, gabaritVerification } from '../_lib/courriel.js';
-
-const SEL = process.env.ENCHERES_SEL || '';
-
-function codeAleatoire() {
-  // randomInt s'appuie sur le générateur du système : contrairement à
-  // Math.random(), sa suite n'est pas prévisible.
-  return String(randomInt(0, 1000000)).padStart(6, '0');
-}
-
-function empreinte(code) {
-  return createHash('sha256').update(code + SEL).digest('hex');
-}
+import { envoyerFile } from './envoyer.js';
 
 export default route(['POST'], async (req, res) => {
   const donnees = valider(await corpsJson(req));
-  const code = codeAleatoire();
 
-  const retour = await rpc('or_deposer_offre', {
+  const retour = await rpc('or_offrir_direct', {
     p_numero: donnees.numero,
     p_prenom: donnees.prenom,
     p_nom: donnees.nom,
     p_email: donnees.email,
     p_telephone: donnees.telephone,
     p_montant: donnees.montant,
-    p_empreinte: empreinte(code),
     p_reglement: true,
     p_ip: adresseIp(req)
   });
 
-  const ligne = Array.isArray(retour) ? retour[0] : retour;
+  const ligne = (Array.isArray(retour) ? retour[0] : retour) || {};
 
-  // On a besoin du nom du joueur pour l'e-mail ; il n'est pas dans la
-  // réponse du dépôt, on le relit dans le catalogue public.
-  const catalogue = await rpc('or_catalogue');
-  const maillot = (catalogue || []).find((m) => m.numero === donnees.numero) || {};
-
-  const message = gabaritVerification({
-    prenom: donnees.prenom,
-    code,
-    numero: donnees.numero,
-    joueur: maillot.nom || '',
-    montant: donnees.montant
-  });
-  const envoi = await envoyer({ a: donnees.email, ...message });
-
-  // Un échec d'envoi ne doit pas faire perdre l'offre : elle existe, elle est
-  // en attente, et le visiteur peut demander un nouveau code.
-  if (!envoi.envoye) console.error('[encheres] e-mail de code non parti :', envoi.raison);
+  // L'alerte à la personne dépassée part tout de suite. Un échec d'envoi ne
+  // doit pas faire perdre l'offre : elle est acquise, le message reste en
+  // file et la tâche quotidienne le reprendra.
+  try { await envoyerFile(10); }
+  catch (err) { console.error('[encheres] file d’e-mails :', err); }
 
   json(res, 201, {
     id: ligne.enchere_id,
+    montant: ligne.montant_retenu,
     minimum: ligne.minimum,
-    // Jamais le code, évidemment : il ne voyage que par e-mail.
-    courrielEnvoye: envoi.envoye,
-    message: envoi.envoye
-      ? "Un code à six chiffres vient de vous être envoyé par e-mail."
-      : "Votre offre est enregistrée, mais l'e-mail n'a pas pu partir. Contactez le club."
+    message: 'Votre offre est enregistrée. Merci !'
   });
 });

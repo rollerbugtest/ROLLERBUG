@@ -86,6 +86,49 @@
     }).join(''));
   }
 
+  /* ---------- Le club ---------- */
+
+  // Cette fonction était appelée plus bas sans jamais avoir été écrite : la
+  // section du club échouait donc à chaque chargement, l'erreur étant
+  // attrapée et seulement signalée en console. Rien ne se voyait, puisque le
+  // HTML de secours d'index.html restait en place — mais api/club.json
+  // n'alimentait réellement rien.
+  //
+  // Deux blocs restent volontairement écrits dans la page :
+  //
+  //   #clubHistory — le texte d'index.html met en valeur quelques mots
+  //     (« Patrick Phan », « 400 licenciés »…). club.json est lu tel quel par
+  //     l'application mobile : y glisser des marqueurs de gras afficherait
+  //     ces marqueurs dans l'application. Tant que les deux supports
+  //     partagent le fichier, le texte y reste brut et la mise en valeur
+  //     appartient à la page.
+  //
+  //   #clubStats — les compteurs portent des attributs data-count /
+  //     data-prefix / data-suffix dont animations.js a besoin, et que la
+  //     liste « stats » du fichier ne transporte pas. Les reprendre d'ici
+  //     ferait perdre l'animation et changerait les chiffres affichés.
+  function rendreClub(club) {
+    if (!club) return;
+    liste('infraFacilities', club.facilities);
+    liste('infraActivities', club.yearRoundActivities);
+
+    var legal = club.legal;
+    if (legal && Array.isArray(legal.hosting) && legal.hosting.length) {
+      // Première ligne = le nom de l'hébergeur, en gras comme dans la page.
+      set('legalHosting', legal.hosting.map(function (ligne, i) {
+        return '<p>' + (i === 0 ? '<strong>' + esc(ligne) + '</strong>'
+                                : esc(ligne)) + '</p>';
+      }).join(''));
+    }
+  }
+
+  function liste(id, valeurs) {
+    if (!Array.isArray(valeurs) || !valeurs.length) return;
+    set(id, valeurs.map(function (v) {
+      return '<li>' + esc(v) + '</li>';
+    }).join(''));
+  }
+
   function rendreDisciplines(list) {
     if (!Array.isArray(list) || !list.length) return;
     set('discGrid', list.map(function (d) {

@@ -51,6 +51,7 @@ const { default: maillots }   = await import('/home/claude/rb/api/encheres/maill
 const { default: offrir }     = await import('/home/claude/rb/api/encheres/offrir.js');
 const { default: confirmer }  = await import('/home/claude/rb/api/encheres/confirmer.js');
 const { default: envoyer }    = await import('/home/claude/rb/api/encheres/envoyer.js');
+const { default: cloturer }   = await import('/home/claude/rb/api/encheres/cloturer.js');
 
 const reset = () => { rpcAppels = []; courriels = []; resendEchoue = false; rpcReponses = {}; };
 
@@ -82,7 +83,7 @@ const BONNE = { numero: 88, prenom: 'Jean', nom: 'Test', email: 'jean@exemple.fr
                 telephone: '06 12 84 64 19', montant: 35, reglement: true };
 const refus = async (modif, attendu) => {
   reset();
-  rpcReponses.or_deposer_offre = [{ enchere_id: 'x', minimum: 30 }];
+  rpcReponses.or_offrir_direct = [{ enchere_id: 'x', montant_retenu: 35, minimum: 40 }];
   const r = fausseReponse();
   await offrir(req('POST', { ...BONNE, ...modif }), r);
   return [r.code, r.corps.erreur, attendu];
@@ -94,23 +95,43 @@ verifie('montant négatif refusé', 'CHAMP_INVALIDE', (await refus({ montant: -5
 verifie('règlement non coché refusé', 'REGLEMENT_NON_ACCEPTE', (await refus({ reglement: false }))[1]);
 verifie('refus = code 400', 400, (await refus({ email: 'pasbon' }))[0]);
 
-console.log('── Dépôt d’une offre ───────────────────────────────────────────');
+console.log('── Dépôt d’une offre (sans code de vérification) ───────────────');
 reset();
-rpcReponses.or_deposer_offre = [{ enchere_id: '11111111-2222-3333-4444-555555555555', minimum: 35 }];
-rpcReponses.or_catalogue = [{ numero: 88, nom: 'BEDNAR' }];
+rpcReponses.or_offrir_direct = [
+  { enchere_id: '11111111-2222-3333-4444-555555555555', montant_retenu: 35, minimum: 40 }];
 res = fausseReponse();
 await offrir(req('POST', BONNE, { 'x-forwarded-for': '203.0.113.9, 10.0.0.1' }), res);
 verifie('offre créée', 201, res.code);
 verifie('identifiant rendu', '11111111-2222-3333-4444-555555555555', res.corps.id);
-verifie('le code ne revient PAS au navigateur', false,
-  /\b\d{6}\b/.test(JSON.stringify(res.corps)));
-const depot = rpcAppels.find((a) => a.fonction === 'or_deposer_offre');
-verifie('le code n’est pas envoyé en clair à la base', 64, depot.corps.p_empreinte.length);
+verifie('montant retenu rendu', 35, res.corps.montant);
+verifie('minimum suivant rendu', 40, res.corps.minimum);
+const depot = rpcAppels.find((a) => a.fonction === 'or_offrir_direct');
+verifie('c’est bien l’offre directe qui est appelée', true, Boolean(depot));
+verifie('plus aucune empreinte de code envoyée', undefined, depot.corps.p_empreinte);
 verifie('IP du visiteur transmise', '203.0.113.9', depot.corps.p_ip);
-verifie('un e-mail de code parti', 1, courriels.length);
-const code = (courriels[0].texte.match(/\b(\d{6})\b/) || [])[1];
-verifie('l’e-mail contient bien un code à 6 chiffres', true, Boolean(code));
-verifie('l’e-mail va à l’enchérisseur', 'jean@exemple.fr', courriels[0].a);
+verifie('aucun e-mail à l’enchérisseur', 0, courriels.length);
+verifie('aucun code à six chiffres dans la réponse', false,
+  /\b\d{6}\b/.test(JSON.stringify(res.corps)));
+verifie('l’ancienne route de dépôt n’est plus appelée', false,
+  rpcAppels.some((a) => a.fonction === 'or_deposer_offre'));
+verifie('la file d’e-mails est bien vidée au passage', true,
+  rpcAppels.some((a) => a.fonction === 'or_notifications_a_envoyer'));
+
+// Quand quelqu'un est dépassé, son alerte part immédiatement — et c'est le
+// seul e-mail de toute l'opération en dehors de la clôture.
+reset();
+rpcReponses.or_offrir_direct = [
+  { enchere_id: '22222222-3333-4444-5555-666666666666', montant_retenu: 40, minimum: 45 }];
+rpcReponses.or_notifications_a_envoyer = [
+  { id: 4, genre: 'surenchere', destinataire: 'depasse@ex.fr', numero: 88,
+    joueur: 'BEDNAR', meilleure_offre: 40, minimum: 45 }];
+rpcReponses.or_notification_envoyee = null;
+res = fausseReponse();
+await offrir(req('POST', BONNE), res);
+verifie('un seul e-mail parti', 1, courriels.length);
+verifie('il va à la personne dépassée', 'depasse@ex.fr', courriels[0].a);
+verifie('il annonce le nouveau minimum', true, courriels[0].texte.includes('45 €'));
+verifie('l’offre aboutit quand même', 201, res.code);
 
 console.log('── Les secrets ne fuient jamais ────────────────────────────────');
 const toutCeQuiSort = JSON.stringify(res.corps) + JSON.stringify(courriels);
@@ -123,7 +144,7 @@ verifie('la clé part bien vers Supabase', true,
 console.log('── Erreurs de la base traduites ────────────────────────────────');
 const erreurBase = async (message) => {
   reset();
-  rpcReponses.or_deposer_offre = async () => ({ ok: false, status: 400,
+  rpcReponses.or_offrir_direct = async () => ({ ok: false, status: 400,
     text: async () => JSON.stringify({ message }) });
   const r = fausseReponse();
   await offrir(req('POST', BONNE), r);
@@ -201,6 +222,71 @@ reset();
 res = fausseReponse();
 await envoyer(req('GET', null, {}), res);
 verifie('file protégée sans le secret', 401, res.code);
+
+console.log('── Clôture ─────────────────────────────────────────────────────');
+reset();
+res = fausseReponse();
+await cloturer(req('GET', null, {}), res);
+verifie('clôture protégée sans le secret', 401, res.code);
+
+// Avant l'heure, la route ne doit surtout rien clôturer : une clôture
+// prématurée enverrait vingt et un e-mails de gagnant pour rien.
+reset();
+rpcReponses.or_etat = 'encours';
+rpcReponses.or_notifications_a_envoyer = [];
+res = fausseReponse();
+await cloturer(req('GET', null, { authorization: 'Bearer secret-cron' }), res);
+verifie('enchères en cours : aucune clôture', 0,
+  rpcAppels.filter((a) => a.fonction === 'or_cloturer').length);
+verifie('mais la file est tout de même vidée', 1,
+  rpcAppels.filter((a) => a.fonction === 'or_notifications_a_envoyer').length);
+verifie('réponse honnête sur l’état', 'encours', res.corps.etat);
+
+// Après l'heure : les gagnants sont mis en file et les e-mails partent.
+reset();
+rpcReponses.or_etat = 'termine';
+rpcReponses.or_cloturer = 21;
+rpcReponses.or_notifications_a_envoyer = [
+  { id: 7, genre: 'gagnant', destinataire: 'c@ex.fr', prenom: 'Chloé', montant: 55,
+    numero: 88, joueur: 'BEDNAR', taille: '3XL', modalites: 'À retirer au club.' }];
+rpcReponses.or_notification_envoyee = null;
+res = fausseReponse();
+await cloturer(req('POST', null, { authorization: 'Bearer secret-cron' }), res);
+verifie('clôture appelée une seule fois', 1,
+  rpcAppels.filter((a) => a.fonction === 'or_cloturer').length);
+verifie('vingt et un gagnants mis en file', 21, res.corps.gagnantsNotifies);
+verifie('le gagnant reçoit bien son e-mail', 1, courriels.length);
+
+// La base refuse de clôturer si l'heure n'est pas tout à fait passée. Ce
+// n'est pas une panne : la tâche doit repartir sans bruit le lendemain.
+reset();
+rpcReponses.or_etat = 'termine';
+rpcReponses.or_cloturer = () => ({
+  ok: false, status: 409,
+  text: async () => JSON.stringify({ message: 'ENCHERES_NON_TERMINEES' })
+});
+rpcReponses.or_notifications_a_envoyer = [];
+res = fausseReponse();
+await cloturer(req('GET', null, { authorization: 'Bearer secret-cron' }), res);
+verifie('refus de la base : pas une erreur 500', 200, res.code);
+verifie('et la file est quand même traitée', 1,
+  rpcAppels.filter((a) => a.fonction === 'or_notifications_a_envoyer').length);
+
+// Les journaux Vercel sont lisibles par qui a accès au projet : rien de
+// personnel ne doit figurer dans la réponse de la tâche.
+reset();
+rpcReponses.or_etat = 'termine';
+rpcReponses.or_cloturer = 2;
+rpcReponses.or_notifications_a_envoyer = [
+  { id: 8, genre: 'gagnant', destinataire: 'secrete@ex.fr', prenom: 'Zoé', montant: 60,
+    numero: 26, joueur: 'CHAMON', taille: '3XL', modalites: '' }];
+rpcReponses.or_notification_envoyee = null;
+res = fausseReponse();
+await cloturer(req('GET', null, { authorization: 'Bearer secret-cron' }), res);
+verifie('aucune adresse e-mail dans la réponse', false,
+  JSON.stringify(res.corps).includes('secrete@ex.fr'));
+verifie('aucune clé dans la réponse', false,
+  JSON.stringify(res.corps).includes('CLE-SECRETE-A-NE-JAMAIS-DIVULGUER'));
 
 console.log('\n═══  ' + OK + ' réussis, ' + KO + ' échoués  ═══');
 process.exit(KO ? 1 : 0);

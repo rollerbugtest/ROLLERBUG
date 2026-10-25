@@ -669,3 +669,103 @@
 .or-actions[hidden],
 .or-infos[hidden],
 .or-compteur[hidden]{ display:none !important; }
+
+/* ------------------------------------------------- règlement des enchères */
+
+.or-rgl-maj{
+  margin-top:14px;
+  font-family:'JetBrains Mono', monospace;
+  font-size:.7rem;
+  letter-spacing:1.2px;
+  text-transform:uppercase;
+  color:var(--ink-dim);
+}
+
+.or-rgl-sommaire{
+  margin-top:34px;
+  padding:22px 26px;
+  border-radius:14px;
+  border:1px solid var(--rose-bord);
+  background:rgba(233,83,155,.06);
+}
+/* Deux colonnes en grille plutôt qu'en « columns » : le multicolonnage
+   laissait la hauteur du <ol> à zéro et les articles débordaient du cadre.
+   La numérotation est donc reprise au compteur, puisque display:grid fait
+   disparaître les puces natives. */
+.or-rgl-sommaire ol{
+  margin:0;
+  padding:0;
+  list-style:none;
+  counter-reset:rgl;
+  display:grid;
+  grid-template-columns:repeat(2, minmax(0, 1fr));
+  /* Remplissage en colonne : 1 à 7 à gauche, 8 à 14 à droite. En
+     remplissage par ligne, la colonne de gauche n'aurait donné que les
+     numéros impairs — illisible pour un sommaire. */
+  grid-template-rows:repeat(7, auto);
+  grid-auto-flow:column;
+  column-gap:36px;
+  row-gap:2px;
+  font-size:.9rem;
+}
+.or-rgl-sommaire li{
+  counter-increment:rgl;
+  line-height:1.9;
+}
+.or-rgl-sommaire li::before{
+  content:counter(rgl) ". ";
+  color:var(--rose-clair);
+  font-family:'JetBrains Mono', monospace;
+  font-size:.78rem;
+}
+.or-rgl-sommaire a{ color:var(--ink-dim); text-decoration:none; }
+.or-rgl-sommaire a:hover{ color:var(--rose-clair); text-decoration:underline; }
+
+.or-rgl{ margin-top:42px; max-width:76ch; }
+
+.or-rgl article{
+  padding-top:30px;
+  /* Une ancre cliquée depuis le sommaire ne doit pas passer sous l'en-tête
+     collante : on réserve sa hauteur. */
+  scroll-margin-top:90px;
+}
+.or-rgl article + article{
+  margin-top:8px;
+  border-top:1px solid var(--glass-border);
+}
+.or-rgl h2{
+  font-family:'Anton', sans-serif;
+  font-size:1.22rem;
+  letter-spacing:.4px;
+  margin:0 0 14px;
+  color:var(--rose-clair);
+}
+.or-rgl p{
+  margin:0 0 13px;
+  color:var(--ink-dim);
+  line-height:1.8;
+  font-size:.95rem;
+}
+.or-rgl strong{ color:var(--ink); }
+.or-rgl a{ color:var(--rose-clair); }
+
+/* Les points que seul le bureau peut trancher. Volontairement voyants :
+   tant qu'il en reste un, la page ne doit pas être annoncée. */
+.or-rgl-vide{
+  display:inline-block;
+  padding:3px 9px;
+  border-radius:7px;
+  border:1px dashed var(--rose-clair);
+  background:rgba(233,83,155,.14);
+  color:var(--rose-clair);
+  font-size:.86rem;
+  line-height:1.6;
+}
+
+@media(max-width:700px){
+  .or-rgl-sommaire ol{
+    grid-template-columns:1fr;
+    grid-template-rows:none;
+    grid-auto-flow:row;
+  }
+}

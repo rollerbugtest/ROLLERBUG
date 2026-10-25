@@ -18,7 +18,7 @@ window.OR_PARAMETRES = {
   "titre": "Enchères solidaires — Octobre Rose",
   "sousTitre": "Vingt et un maillots de hockey aux couleurs d'Octobre Rose sont mis aux enchères au profit de la lutte contre le cancer du sein. Chaque maillot a sa page : vous y verrez la meilleure offre du moment et pourrez enchérir, sans créer de compte.",
   "messagePreparation": "Le catalogue des maillots arrive. L'ouverture des enchères sera annoncée ici et sur nos réseaux.",
-  "ouverture": "2026-10-25T00:00:00+02:00",
+  "ouverture": "2026-10-25T16:00:00+01:00",
   "cloture": "2026-10-30T00:00:00+01:00",
   "fuseau": "Europe/Paris",
   "miseAPrix": 30,
