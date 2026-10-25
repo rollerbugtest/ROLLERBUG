@@ -110,7 +110,7 @@
     var cible = Date.parse(e === 'avant' ? parametres.ouverture : parametres.cloture);
     el.innerHTML = '<span class="or-compteur-libelle">' +
       (e === 'avant' ? 'Ouverture dans' : 'Clôture dans') + '</span>' +
-      '<span class="or-compteur-valeur">' + OR.tempsRestant(cible - Date.now()) + '</span>';
+      '<span class="or-compteur-valeur">' + OR.tempsRestant(cible - OR.maintenant()) + '</span>';
   }
 
   function lanceHorloge() { if (!horloge) horloge = setInterval(majCompteur, 1000); }

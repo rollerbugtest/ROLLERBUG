@@ -26,6 +26,30 @@
 
   var cache = {};
 
+  // Écart entre l'horloge du visiteur et celle du serveur, en millisecondes.
+  //
+  // On ne peut pas se fier à Date.now() : un ordinateur dont l'heure est
+  // fausse — c'est plus fréquent qu'on ne croit, et le changement d'heure en
+  // rajoute — afficherait un compte à rebours faux, et surtout croirait les
+  // enchères encore fermées alors qu'elles sont ouvertes. Le formulaire
+  // n'apparaîtrait jamais pour cette personne.
+  //
+  // La route /api/encheres/parametres renvoie « serveurMaintenant » pour
+  // cela. On mesure l'écart une fois, et toutes les dates s'y réfèrent.
+  // C'est la base qui fait foi, pas l'horloge du salon.
+  var decalage = 0;
+
+  function noteDecalage(p) {
+    if (p && p.serveurMaintenant) {
+      var t = Date.parse(p.serveurMaintenant);
+      if (!isNaN(t)) decalage = t - Date.now();
+    }
+    return p;
+  }
+
+  // L'heure courante, corrigée. À utiliser partout à la place de Date.now().
+  function maintenant() { return Date.now() + decalage; }
+
   function viaReseau(url) {
     return fetch(url, { cache: 'no-cache' }).then(function (r) {
       if (!r.ok) throw new Error(url + ' : HTTP ' + r.status);
@@ -75,7 +99,7 @@
   function etat(p, maintenant) {
     if (!p || !p.actif) return 'inactif';
     if (!p.encheresActivees) return 'preparation';
-    var t = maintenant == null ? Date.now() : maintenant;
+    var t = maintenant == null ? (Date.now() + decalage) : maintenant;
     var ouverture = Date.parse(p.ouverture);
     var cloture = Date.parse(p.cloture);
     if (isNaN(ouverture) || isNaN(cloture)) return 'preparation';
@@ -131,13 +155,15 @@
     },
     parametres: function () {
       return charge('parametres', 'api/encheres/parametres',
-                    'api/octobre-rose.json', 'OR_PARAMETRES');
+                    'api/octobre-rose.json', 'OR_PARAMETRES')
+             .then(noteDecalage);
     },
     maillots: function () {
       return charge('maillots', 'api/encheres/maillots',
                     'api/octobre-rose-maillots.json', 'OR_MAILLOTS');
     },
     etat: etat,
+    maintenant: maintenant,
     tempsRestant: tempsRestant,
     euros: euros,
     dateParis: dateParis,
